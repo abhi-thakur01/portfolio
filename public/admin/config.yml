@@ -2,7 +2,7 @@ backend:
   name: github
   repo: abhi-thakur01/portfolio
   branch: main
-  base_url: https://api.netlify.com
+  base_url: https://portfolio-pi-ten-mcav0eumtl.vercel.app
   auth_endpoint: auth
 
 local_backend: false
