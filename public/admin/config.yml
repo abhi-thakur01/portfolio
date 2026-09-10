@@ -8,10 +8,7 @@ backend:
 local_backend: false
 
 media_folder: public/uploads
-public_folder: /uploads
-
-# When on GitHub Pages use /portfolio/uploads — on Vercel use /uploads
-# After moving to Vercel, change public_folder to "/uploads" if needed
+public_folder: /portfolio/uploads
 
 collections:
   - name: settings
@@ -71,6 +68,17 @@ collections:
             name: addresses
             widget: list
             field: { label: Domain, name: address, widget: string }
+
+      - name: faqs
+        label: FAQs
+        file: content/faqs.json
+        fields:
+          - label: FAQs
+            name: faqs
+            widget: list
+            fields:
+              - { label: Question, name: q, widget: string }
+              - { label: Answer, name: a, widget: text }
 
   - name: projects
     label: Projects / Work
@@ -132,14 +140,3 @@ collections:
         name: deliverables
         widget: list
         field: { label: Item, name: item, widget: string }
-
-  - name: faqs
-    label: FAQs
-    file: content/faqs.json
-    fields:
-      - label: FAQs
-        name: faqs
-        widget: list
-        fields:
-          - { label: Question, name: q, widget: string }
-          - { label: Answer, name: a, widget: text }
