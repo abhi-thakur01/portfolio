@@ -7,9 +7,8 @@ import { defineConfig } from "vite";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// GitHub Pages: base = "/portfolio/"
-// Vercel (root domain): set VITE_BASE=/ or leave empty → "/"
-const base = process.env.VITE_BASE || "/portfolio/";
+// Vercel/root domains use "/". GitHub Pages can override with VITE_BASE=/portfolio/.
+const base = process.env.VITE_BASE || "/";
 
 export default defineConfig({
   base,
