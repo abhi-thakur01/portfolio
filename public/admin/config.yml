@@ -12,7 +12,7 @@ public_folder: /uploads
 
 collections:
   - name: settings
-    label: Site Settings
+    label: "1. Site Settings"
     files:
       - name: personal
         label: Personal Info & Contact
@@ -20,7 +20,7 @@ collections:
         fields:
           - { label: Full Name, name: name, widget: string }
           - { label: Short Name, name: shortName, widget: string }
-          - { label: Monogram (e.g. AT), name: monogram, widget: string }
+          - { label: Monogram, name: monogram, widget: string }
           - { label: Role Title, name: roleTitle, widget: string }
           - { label: Tagline, name: tagline, widget: text }
           - { label: Primary Email, name: primaryEmail, widget: string }
@@ -28,7 +28,7 @@ collections:
           - { label: Phone, name: phone, widget: string }
           - { label: Location, name: location, widget: string }
           - { label: Timezone, name: timezone, widget: string }
-          - { label: Availability Text, name: availability, widget: string }
+          - { label: Availability, name: availability, widget: string }
           - { label: Years Experience, name: experienceYears, widget: string }
           - { label: Projects Delivered, name: projectsDelivered, widget: string }
           - { label: Tools Mastered, name: toolsMastered, widget: string }
@@ -51,11 +51,41 @@ collections:
               - { label: Name, name: name, widget: string }
               - { label: Status, name: status, widget: string }
 
+      - name: nav
+        label: Navigation Links
+        file: content/nav.json
+        fields:
+          - label: Nav Links
+            name: links
+            widget: list
+            fields:
+              - { label: Href, name: href, widget: string }
+              - { label: Label, name: label, widget: string }
+
+      - name: hero
+        label: Hero Section Text
+        file: content/hero.json
+        fields:
+          - { label: Status Pill, name: statusPill, widget: string }
+          - { label: Greeting, name: greeting, widget: string }
+          - { label: Bio Before Highlight, name: bioBefore, widget: string }
+          - { label: Bio Highlight Word, name: bioHighlight, widget: string }
+          - { label: Bio After Highlight, name: bioAfter, widget: text }
+          - { label: Bio Tools Line, name: bioTools, widget: string }
+          - { label: Bio Ending, name: bioEnd, widget: string }
+          - { label: Primary Button, name: ctaPrimary, widget: string }
+          - { label: Secondary Button, name: ctaSecondary, widget: string }
+          - { label: Tertiary Button, name: ctaTertiary, widget: string }
+          - { label: Metric 1 Label, name: metric1Label, widget: string }
+          - { label: Metric 2 Label, name: metric2Label, widget: string }
+          - { label: Metric 3 Label, name: metric3Label, widget: string }
+          - { label: Metric 4 Label, name: metric4Label, widget: string }
+
       - name: roles
         label: Typewriter Roles
         file: content/roles.json
         fields:
-          - label: Roles (rotating text in hero)
+          - label: Roles
             name: roles
             widget: list
             field: { label: Role, name: role, widget: string }
@@ -64,7 +94,7 @@ collections:
         label: Demo Addresses
         file: content/addresses.json
         fields:
-          - label: Addresses shown in hero browser mockup
+          - label: Addresses
             name: addresses
             widget: list
             field: { label: Domain, name: address, widget: string }
@@ -80,18 +110,99 @@ collections:
               - { label: Question, name: q, widget: string }
               - { label: Answer, name: a, widget: text }
 
+  - name: about
+    label: "2. About Section"
+    files:
+      - name: about
+        label: About Traits
+        file: content/about.json
+        fields:
+          - label: Traits
+            name: traits
+            widget: list
+            fields:
+              - { label: Icon Name, name: icon, widget: string, hint: "Target, Smartphone, Zap, Search, Palette, Globe" }
+              - { label: Label, name: label, widget: string }
+              - { label: Description, name: desc, widget: text }
+
+  - name: skills
+    label: "3. Skills Section"
+    files:
+      - name: skills
+        label: Skills, Tags & Tools
+        file: content/skills.json
+        fields:
+          - label: Skill Bars
+            name: skillBars
+            widget: list
+            fields:
+              - { label: Label, name: label, widget: string }
+              - { label: Percent, name: pct, widget: number }
+              - { label: Category, name: category, widget: string }
+              - { label: Description, name: desc, widget: text }
+          - label: Tag Cloud
+            name: tagCloud
+            widget: list
+            field: { label: Tag, name: tag, widget: string }
+          - label: Tools Row 1
+            name: toolsRow1
+            widget: list
+            field: { label: Tool, name: tool, widget: string }
+          - label: Tools Row 2
+            name: toolsRow2
+            widget: list
+            field: { label: Tool, name: tool, widget: string }
+
+  - name: process
+    label: "4. Process Section"
+    files:
+      - name: process
+        label: Process Steps
+        file: content/process.json
+        fields:
+          - label: Steps
+            name: steps
+            widget: list
+            fields:
+              - { label: Phase, name: phase, widget: string }
+              - { label: Title, name: title, widget: string }
+              - { label: Subtitle, name: sub, widget: string }
+              - { label: Duration, name: duration, widget: string }
+              - { label: Description, name: desc, widget: text }
+              - label: Tags
+                name: tags
+                widget: list
+                field: { label: Tag, name: tag, widget: string }
+              - { label: Deliverable, name: deliverable, widget: string }
+
+  - name: seo
+    label: "5. SEO Section"
+    files:
+      - name: seo
+        label: SEO Features
+        file: content/seo.json
+        fields:
+          - label: Features
+            name: features
+            widget: list
+            fields:
+              - { label: Icon Name, name: icon, widget: string }
+              - { label: Title, name: title, widget: string }
+              - { label: Description, name: desc, widget: text }
+              - { label: Badge, name: badge, widget: string }
+
   - name: projects
-    label: Projects / Work
+    label: "6. Projects / Work"
     folder: content/projects
     create: true
     slug: "{{slug}}"
     extension: json
     format: json
     fields:
-      - { label: Project ID, name: id, widget: string, hint: "unique-id like revived-kansas" }
+      - { label: Project ID, name: id, widget: string }
       - { label: Title, name: title, widget: string }
       - { label: Display URL, name: url, widget: string }
-      - { label: Link (https://...), name: href, widget: string }
+      - { label: Link, name: href, widget: string }
       - { label: Platform, name: platform, widget: string }
       - label: Category
         name: category
@@ -120,7 +231,7 @@ collections:
         field: { label: Feature, name: feature, widget: string }
 
   - name: services
-    label: Services
+    label: "7. Services"
     folder: content/services
     create: true
     slug: "{{slug}}"
@@ -129,7 +240,7 @@ collections:
     fields:
       - { label: ID, name: id, widget: string }
       - { label: Title, name: title, widget: string }
-      - { label: Icon Name, name: icon, widget: string, hint: "Globe, Smartphone, LayoutGrid, RefreshCw, PenTool" }
+      - { label: Icon Name, name: icon, widget: string }
       - { label: Starting Price, name: startingPrice, widget: string }
       - { label: Description, name: desc, widget: text }
       - label: Tags
