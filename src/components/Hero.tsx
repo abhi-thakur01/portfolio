@@ -132,8 +132,8 @@ export const Hero: React.FC<HeroProps> = () => {
               <div className="bg-[#18182d] px-4 py-3 border-b border-white/10 flex items-center gap-3">
                 <div className="flex items-center gap-1.5">
                   <span className="w-3 h-3 rounded-full bg-red-500/80" />
-                  <span className="w-3 h-3 rounded-full bg-yellow-500/80" />
                   <span className="w-3 h-3 rounded-full bg-green-500/80" />
+                  <span className="w-3 h-3 rounded-full bg-yellow-500/80" />
                 </div>
                 <div className="flex-1 flex items-center gap-2 bg-[#0b0b14] border border-white/10 rounded-lg px-3 py-1 text-[11px] font-mono text-gray-300 overflow-hidden">
                   <Lock className="w-3 h-3 text-[#f0d060] shrink-0" />
@@ -193,7 +193,7 @@ export const Hero: React.FC<HeroProps> = () => {
                       <div className="text-[9px] text-gray-400">Responsive</div>
                     </div>
                     <div className="p-2.5 rounded-lg bg-white/[0.03] border border-white/5 text-center">
-                      <div className="text-[10px] font-mono text-white"><1.2s</div>
+                      <div className="text-[10px] font-mono text-white">{"<1.2s"}</div>
                       <div className="text-[9px] text-gray-400">Load Time</div>
                     </div>
                     <div className="p-2.5 rounded-lg bg-white/[0.03] border border-white/5 text-center">
