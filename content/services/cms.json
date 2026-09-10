@@ -1,0 +1,14 @@
+{
+  "id": "cms",
+  "icon": "LayoutGrid",
+  "title": "CMS Website Building",
+  "startingPrice": "$279",
+  "desc": "Professional sites built on GoHighLevel, Square Online, Wix, Squarespace, Webflow, and other leading platforms — matched to your business needs.",
+  "tags": ["GoHighLevel", "Square Online", "Webflow", "Wix / Squarespace"],
+  "deliverables": [
+    "No-code platform setup & DNS connection",
+    "Custom branded styling & font integration",
+    "E-commerce or booking pipeline integration",
+    "1-on-1 video walkthrough for client handover"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "gohighlevel-funnels",
+  "title": "High-Converting CMS Funnels",
+  "url": "abhishekthakur.in/demos",
+  "href": "#contact",
+  "platform": "GoHighLevel & Elementor",
+  "category": "Featured",
+  "desc": "Custom landing pages and sales funnels engineered on GoHighLevel and WordPress Elementor with multi-step lead capture and crisp visual hierarchy.",
+  "image": "",
+  "highlights": ["High Conversion Rates", "Multi-Step Forms", "Fast CDN Delivery"],
+  "tags": ["GoHighLevel", "Elementor Pro", "Landing Page", "Lead Capture"],
+  "metrics": { "label": "Avg Conversion", "value": "+34%" },
+  "previewColor": "from-orange-500/20 via-amber-500/10 to-transparent",
+  "features": [
+    "Multi-step lead qualification forms",
+    "Automated webhook integrations",
+    "Lightning fast mobile viewport rendering",
+    "A/B test ready hero layouts"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "revived-kansas",
+  "title": "Revived Kansas",
+  "url": "revivedkansas.info",
+  "href": "https://www.revivedkansas.info/",
+  "platform": "Square Online",
+  "category": "Client Work",
+  "desc": "A clean, responsive business site built on Square Online, with the layout tuned for mobile users so the experience holds up on any device. Delivered as client work at Gigsoft Pro.",
+  "image": "",
+  "highlights": ["Square Online Storefront", "Mobile-Optimized UX", "Fast Load Speed"],
+  "tags": ["Square Online", "Responsive Design", "Mobile Optimised", "Client Project"],
+  "metrics": { "label": "Mobile Score", "value": "98/100" },
+  "previewColor": "from-amber-500/20 via-yellow-500/10 to-transparent",
+  "features": [
+    "Custom product showcase grid with fluid filters",
+    "Seamless mobile checkout experience via Square",
+    "Adaptive typography calibrated for readability",
+    "Zero layout shift (CLS < 0.02)"
+  ]
+}

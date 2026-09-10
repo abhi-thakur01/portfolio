@@ -1,0 +1,14 @@
+{
+  "id": "responsive",
+  "icon": "Smartphone",
+  "title": "Responsive Web Design",
+  "startingPrice": "$249",
+  "desc": "Mobile-first websites that hold up beautifully across every screen size and browser — clean, fast, and easy to use on iPhone, Android, tablets, and 4K desktops.",
+  "tags": ["Mobile-First", "Cross-Browser", "Pixel-Perfect", "Tailwind/CSS"],
+  "deliverables": [
+    "Fluid grid layouts with flexible typography",
+    "Touch-friendly tap targets and sticky nav",
+    "Zero horizontal scrolling or broken elements",
+    "Cross-browser tested (Chrome, Safari, Firefox)"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "id": "maintenance",
+  "icon": "RefreshCw",
+  "title": "Website Maintenance & Fixes",
+  "startingPrice": "$149",
+  "desc": "Ongoing updates, responsive bug fixes, speed tune-ups, and layout refreshes so your website stays secure, fast, and modern.",
+  "tags": ["Updates", "Bug Fixes", "Performance Tuning", "Backups"],
+  "deliverables": [
+    "Plugin & core system updates without downtime",
+    "Fix broken layouts or mobile display bugs",
+    "Image optimization & script cleanup",
+    "Monthly health check & speed verification"
+  ]
+}

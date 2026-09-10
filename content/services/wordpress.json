@@ -1,0 +1,14 @@
+{
+  "id": "wordpress",
+  "icon": "Globe",
+  "title": "WordPress Development",
+  "startingPrice": "$299",
+  "desc": "Custom WordPress websites built with Elementor Pro or Beaver Builder — responsive, modern layouts with ongoing maintenance, plugin security, and client handoff.",
+  "tags": ["WordPress", "Elementor", "Beaver Builder", "WooCommerce"],
+  "deliverables": [
+    "Custom layout design from scratch",
+    "Full mobile & tablet responsiveness",
+    "Easy CMS visual editor setup for clients",
+    "Speed caching & security hardening"
+  ]
+}

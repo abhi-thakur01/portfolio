@@ -1,0 +1,145 @@
+backend:
+  name: github
+  repo: abhi-thakur01/portfolio
+  branch: main
+  base_url: https://api.netlify.com
+  auth_endpoint: auth
+
+local_backend: false
+
+media_folder: public/uploads
+public_folder: /uploads
+
+# When on GitHub Pages use /portfolio/uploads — on Vercel use /uploads
+# After moving to Vercel, change public_folder to "/uploads" if needed
+
+collections:
+  - name: settings
+    label: Site Settings
+    files:
+      - name: personal
+        label: Personal Info & Contact
+        file: content/personal.json
+        fields:
+          - { label: Full Name, name: name, widget: string }
+          - { label: Short Name, name: shortName, widget: string }
+          - { label: Monogram (e.g. AT), name: monogram, widget: string }
+          - { label: Role Title, name: roleTitle, widget: string }
+          - { label: Tagline, name: tagline, widget: text }
+          - { label: Primary Email, name: primaryEmail, widget: string }
+          - { label: Contact Email, name: contactEmail, widget: string }
+          - { label: Phone, name: phone, widget: string }
+          - { label: Location, name: location, widget: string }
+          - { label: Timezone, name: timezone, widget: string }
+          - { label: Availability Text, name: availability, widget: string }
+          - { label: Years Experience, name: experienceYears, widget: string }
+          - { label: Projects Delivered, name: projectsDelivered, widget: string }
+          - { label: Tools Mastered, name: toolsMastered, widget: string }
+          - { label: Client Satisfaction, name: clientSatisfaction, widget: string }
+          - { label: GitHub URL, name: githubUrl, widget: string }
+          - label: Agency
+            name: agency
+            widget: object
+            fields:
+              - { label: Role, name: role, widget: string }
+              - { label: Company, name: company, widget: string }
+              - { label: Period, name: period, widget: string }
+              - { label: Description, name: desc, widget: text }
+          - label: Education
+            name: education
+            widget: list
+            fields:
+              - { label: Degree, name: degree, widget: string }
+              - { label: Period, name: period, widget: string }
+              - { label: Name, name: name, widget: string }
+              - { label: Status, name: status, widget: string }
+
+      - name: roles
+        label: Typewriter Roles
+        file: content/roles.json
+        fields:
+          - label: Roles (rotating text in hero)
+            name: roles
+            widget: list
+            field: { label: Role, name: role, widget: string }
+
+      - name: addresses
+        label: Demo Addresses
+        file: content/addresses.json
+        fields:
+          - label: Addresses shown in hero browser mockup
+            name: addresses
+            widget: list
+            field: { label: Domain, name: address, widget: string }
+
+  - name: projects
+    label: Projects / Work
+    folder: content/projects
+    create: true
+    slug: "{{slug}}"
+    extension: json
+    format: json
+    fields:
+      - { label: Project ID, name: id, widget: string, hint: "unique-id like revived-kansas" }
+      - { label: Title, name: title, widget: string }
+      - { label: Display URL, name: url, widget: string }
+      - { label: Link (https://...), name: href, widget: string }
+      - { label: Platform, name: platform, widget: string }
+      - label: Category
+        name: category
+        widget: select
+        options: ["Client Work", "Featured", "Case Study"]
+      - { label: Description, name: desc, widget: text }
+      - { label: Cover Image, name: image, widget: image, required: false }
+      - label: Highlights
+        name: highlights
+        widget: list
+        field: { label: Highlight, name: item, widget: string }
+      - label: Tags
+        name: tags
+        widget: list
+        field: { label: Tag, name: tag, widget: string }
+      - label: Metric
+        name: metrics
+        widget: object
+        fields:
+          - { label: Label, name: label, widget: string }
+          - { label: Value, name: value, widget: string }
+      - { label: Preview Color Class, name: previewColor, widget: string, required: false }
+      - label: Features
+        name: features
+        widget: list
+        field: { label: Feature, name: feature, widget: string }
+
+  - name: services
+    label: Services
+    folder: content/services
+    create: true
+    slug: "{{slug}}"
+    extension: json
+    format: json
+    fields:
+      - { label: ID, name: id, widget: string }
+      - { label: Title, name: title, widget: string }
+      - { label: Icon Name, name: icon, widget: string, hint: "Globe, Smartphone, LayoutGrid, RefreshCw, PenTool" }
+      - { label: Starting Price, name: startingPrice, widget: string }
+      - { label: Description, name: desc, widget: text }
+      - label: Tags
+        name: tags
+        widget: list
+        field: { label: Tag, name: tag, widget: string }
+      - label: Deliverables
+        name: deliverables
+        widget: list
+        field: { label: Item, name: item, widget: string }
+
+  - name: faqs
+    label: FAQs
+    file: content/faqs.json
+    fields:
+      - label: FAQs
+        name: faqs
+        widget: list
+        fields:
+          - { label: Question, name: q, widget: string }
+          - { label: Answer, name: a, widget: text }

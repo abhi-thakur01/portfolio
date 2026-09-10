@@ -1,0 +1,14 @@
+{
+  "id": "design-to-code",
+  "icon": "PenTool",
+  "title": "Figma to Live Website",
+  "startingPrice": "$299",
+  "desc": "Turning Figma mockups, wireframes, or rough brand ideas into pixel-perfect, fully functional responsive web pages with clean code or visual builders.",
+  "tags": ["HTML5", "CSS3 / Bootstrap", "Figma to Code", "Interactive UI"],
+  "deliverables": [
+    "Exact match to Figma spacing and typography",
+    "Custom interactive hover effects and animations",
+    "Clean semantic code structure",
+    "Form validation and webhook connections"
+  ]
+}

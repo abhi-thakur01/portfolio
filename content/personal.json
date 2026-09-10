@@ -1,0 +1,38 @@
+{
+  "name": "Abhishek Thakur",
+  "shortName": "Abhishek",
+  "monogram": "AT",
+  "roleTitle": "Junior Web Designer & WordPress / CMS Specialist",
+  "tagline": "Building high-converting, mobile-perfect websites that blend visual polish with reliable CMS engineering.",
+  "primaryEmail": "thakurabhi8925@gmail.com",
+  "contactEmail": "hello@abhishekthakur.in",
+  "phone": "+91 82192 88267",
+  "location": "India — Available Worldwide (Remote)",
+  "timezone": "IST (UTC+5:30)",
+  "availability": "Available for Freelance & Full-time Roles",
+  "experienceYears": "1+",
+  "projectsDelivered": "12+",
+  "toolsMastered": "10+",
+  "clientSatisfaction": "100%",
+  "githubUrl": "https://github.com/abhi-thakur01",
+  "agency": {
+    "role": "Junior Web Designer",
+    "company": "Gigsoft Pro",
+    "period": "2025 – Present",
+    "desc": "Building responsive sites for international clients across WordPress, GoHighLevel, and Square Online — custom layouts in Elementor and Beaver Builder, mobile responsiveness, cross-browser testing, and ongoing maintenance."
+  },
+  "education": [
+    {
+      "degree": "BCA",
+      "period": "2020 – 2023",
+      "name": "Bachelor of Computer Applications",
+      "status": "Completed"
+    },
+    {
+      "degree": "MCA",
+      "period": "2023 – 2025",
+      "name": "Master of Computer Applications",
+      "status": "Pursuing"
+    }
+  ]
+}

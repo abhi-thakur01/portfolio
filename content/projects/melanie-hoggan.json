@@ -1,0 +1,20 @@
+{
+  "id": "melanie-hoggan",
+  "title": "Melanie Hoggan",
+  "url": "melaniehoggan.com",
+  "href": "https://melaniehoggan.com/",
+  "platform": "WordPress",
+  "category": "Client Work",
+  "desc": "A fully responsive WordPress site built with Beaver Builder, with custom sections and layouts aimed at better engagement — a polished result for an international client.",
+  "image": "",
+  "highlights": ["WordPress & Beaver Builder", "Bespoke Section Designs", "High Conversion CTAs"],
+  "tags": ["WordPress", "Beaver Builder", "Custom Layouts", "International Client"],
+  "metrics": { "label": "Client Rating", "value": "5.0 ★" },
+  "previewColor": "from-yellow-500/20 via-amber-600/10 to-transparent",
+  "features": [
+    "Custom Beaver Builder modular section library",
+    "Streamlined contact capture with instant validation",
+    "Cross-browser testing across Safari, Chrome, and iOS",
+    "SEO-ready permalink & schema structure"
+  ]
+}
