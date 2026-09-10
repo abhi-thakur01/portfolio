@@ -1,0 +1,28 @@
+{
+  "features": [
+    {
+      "icon": "Zap",
+      "title": "Core Web Vitals Compliant",
+      "desc": "LCP, FID, and CLS tuned to exceed Google's strict performance benchmarks, directly boosting your organic rankings and lowering ad bounce rates.",
+      "badge": "95+ Lighthouse"
+    },
+    {
+      "icon": "Smartphone",
+      "title": "Mobile-First Indexing Ready",
+      "desc": "Every site is architected for mobile screens first, matching Google's mobile crawler algorithms and providing a smooth smartphone UX.",
+      "badge": "100% Responsive"
+    },
+    {
+      "icon": "Search",
+      "title": "Semantic HTML5 & Structured Schema",
+      "desc": "Clean hierarchy (H1-H6), alt tags, OpenGraph previews, and structured JSON-LD schema so search engines index your pages accurately.",
+      "badge": "Rich Snippets"
+    },
+    {
+      "icon": "Target",
+      "title": "Conversion-Focused UX Architecture",
+      "desc": "Clear visual hierarchy, strategic call-to-action buttons, trust signals, and rapid form submissions engineered to turn visitors into paying clients.",
+      "badge": "+35% Inquiries"
+    }
+  ]
+}

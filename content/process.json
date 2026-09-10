@@ -1,0 +1,58 @@
+{
+  "steps": [
+    {
+      "phase": "01",
+      "title": "Discovery & Strategy",
+      "sub": "Understanding your vision",
+      "duration": "Day 1–2",
+      "desc": "A close look at your brand, business goals, audience, and competitors — so the project scope and roadmap are crystal clear before a single pixel is placed.",
+      "tags": ["Brand Research", "Competitor Audit", "Goal Definition", "Site Architecture"],
+      "deliverable": "Project Brief & Sitemap"
+    },
+    {
+      "phase": "02",
+      "title": "Wireframing & Flow",
+      "sub": "Mapping user journeys",
+      "duration": "Day 2–4",
+      "desc": "Strategy becomes structured wireframes that map the user journey, CTA placements, and content hierarchy so everyone is aligned before visual styling.",
+      "tags": ["Low-Fi Wireframes", "UX Hierarchy", "Conversion Strategy", "Content Flow"],
+      "deliverable": "Clickable Wireframe Layout"
+    },
+    {
+      "phase": "03",
+      "title": "Visual Design",
+      "sub": "Crafting the aesthetic",
+      "duration": "Day 4–6",
+      "desc": "Pixel-perfect visual design with attention to modern typography, warm gold accents, spacious grid layouts, and consistent brand identity.",
+      "tags": ["Typography System", "Color Theory", "Custom UI Elements", "Interactive States"],
+      "deliverable": "High-Fidelity UI Design"
+    },
+    {
+      "phase": "04",
+      "title": "Development & Build",
+      "sub": "Bringing designs to life",
+      "duration": "Day 6–9",
+      "desc": "Built cleanly with Elementor Pro, Beaver Builder, GoHighLevel, Square Online, or custom HTML/CSS — speed, responsiveness, and clean structure from day one.",
+      "tags": ["WordPress / Elementor", "GoHighLevel / Square", "Custom CSS", "Clean HTML5"],
+      "deliverable": "Fully Functional Live Staging Site"
+    },
+    {
+      "phase": "05",
+      "title": "Testing & Speed Pass",
+      "sub": "Polishing every detail",
+      "duration": "Day 9–10",
+      "desc": "Cross-browser testing on mobile/tablet/desktop, Core Web Vitals checks, SEO meta audits, and form testing — verified before going live.",
+      "tags": ["Core Web Vitals", "Cross-Browser Audit", "SEO Meta Check", "Form QA"],
+      "deliverable": "Lighthouse Speed 90+ Score"
+    },
+    {
+      "phase": "06",
+      "title": "Launch & Support",
+      "sub": "Go live & grow",
+      "duration": "Day 11+",
+      "desc": "A smooth domain launch followed by live monitoring, a screen recording walkthrough of the CMS for you, and 30 days of post-launch warranty support.",
+      "tags": ["Domain DNS Setup", "CMS Handover Video", "30-Day Free Support", "Live Launch"],
+      "deliverable": "Live Website & Admin Access"
+    }
+  ]
+}

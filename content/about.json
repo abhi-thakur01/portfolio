@@ -1,0 +1,10 @@
+{
+  "traits": [
+    { "icon": "Target", "label": "Conversion-Focused", "desc": "Strategic CTA placement and user flow to drive real inquiries." },
+    { "icon": "Smartphone", "label": "Mobile-First Design", "desc": "Tuned for thumbs, fast loading on 4G/5G mobile devices." },
+    { "icon": "Zap", "label": "Fast & Optimized", "desc": "Under 1.5s load times for optimal search ranking and low bounce rates." },
+    { "icon": "Search", "label": "SEO-Friendly Builds", "desc": "Semantic tags, schema markup, and meta structure built-in." },
+    { "icon": "Palette", "label": "Clean UI/UX", "desc": "Modern typography, consistent spacing, and intuitive hierarchy." },
+    { "icon": "Globe", "label": "No-Code & CMS Mastery", "desc": "Easy for clients to edit without breaking the layout." }
+  ]
+}
