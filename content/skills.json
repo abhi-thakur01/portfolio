@@ -1,23 +1,26 @@
 {
-  "skillBars": [
-    { "label": "WordPress & Elementor", "pct": 92, "category": "cms", "desc": "Custom theme customization, dynamic templates, ACF & popups" },
-    { "label": "WordPress & Beaver Builder", "pct": 88, "category": "cms", "desc": "Lightweight modular layouts, custom modules, high performance" },
-    { "label": "Mobile-First Responsive Design", "pct": 96, "category": "frontend", "desc": "Pixel-perfect breakpoints across smartphones, tablets & 4K displays" },
-    { "label": "HTML5 / CSS3 / Tailwind / Bootstrap", "pct": 89, "category": "frontend", "desc": "Semantic clean markup, modern utility styling, smooth CSS animations" },
-    { "label": "GoHighLevel & Square Online", "pct": 84, "category": "cms", "desc": "Sales funnels, e-commerce storefronts, booking pipelines" },
-    { "label": "JavaScript & DOM Interactions", "pct": 68, "category": "frontend", "desc": "Interactive UI widgets, tab filtering, sliders & form handlers" },
-    { "label": "Core Web Vitals & Page Speed", "pct": 90, "category": "performance", "desc": "Image compression, caching setups, LCP/CLS score tuning" },
-    { "label": "Cross-Browser Compatibility", "pct": 92, "category": "performance", "desc": "Flawless rendering on Chrome, Safari, Firefox & Edge" }
+  "skillIcons": [
+    { "name": "HTML5", "color": "#E34F26" },
+    { "name": "CSS3", "color": "#1572B6" },
+    { "name": "JavaScript", "color": "#F7DF1E" },
+    { "name": "WordPress", "color": "#21759B" },
+    { "name": "Elementor", "color": "#92003B" },
+    { "name": "Beaver Builder", "color": "#1B4E8C" },
+    { "name": "Tailwind CSS", "color": "#06B6D4" },
+    { "name": "GoHighLevel", "color": "#FF6B35" },
+    { "name": "Square Online", "color": "#006AFF" },
+    { "name": "Figma", "color": "#F24E1E" }
   ],
-  "tagCloud": [
-    "HTML5", "CSS3", "JavaScript", "Tailwind CSS", "Bootstrap", "WordPress",
-    "Elementor Pro", "Beaver Builder", "GoHighLevel", "Square Online", "Webflow",
-    "Wix Studio", "Squarespace", "Framer", "Figma to Web", "SEO Schema", "Core Web Vitals"
-  ],
-  "toolsRow1": [
-    "WordPress", "Webflow", "Framer", "Wix", "Squarespace", "Kajabi", "GoHighLevel", "Square Online"
-  ],
-  "toolsRow2": [
-    "Elementor Pro", "Beaver Builder", "Bootstrap 5", "Tailwind CSS", "Figma", "VS Code", "PageSpeed Insights", "Google Analytics"
+  "otherTools": [
+    "Bootstrap",
+    "Webflow",
+    "Wix",
+    "Squarespace",
+    "Git",
+    "GitHub",
+    "VS Code",
+    "PageSpeed Insights",
+    "SEO Schema",
+    "Core Web Vitals"
   ]
 }

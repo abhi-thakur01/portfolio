@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="16" fill="#0d0d17"/>
-  <rect x="2" y="2" width="60" height="60" rx="14" fill="none" stroke="#c9a227" stroke-opacity="0.4" stroke-width="2"/>
-  <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" font-family="Syne, sans-serif" font-weight="800" font-size="28" fill="#f0d060">AT</text>
+  <rect width="64" height="64" rx="16" fill="#0a0e1a"/>
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="none" stroke="#3b82f6" stroke-opacity="0.5" stroke-width="2"/>
+  <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-weight="800" font-size="26" fill="#60a5fa">AT</text>
 </svg>

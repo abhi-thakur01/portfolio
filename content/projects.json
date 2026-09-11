@@ -1,0 +1,31 @@
+{
+  "items": [
+    {
+      "id": "melanie-hoggan",
+      "title": "Melanie Hoggan",
+      "description": "A fully responsive WordPress site built with Beaver Builder, with custom sections and layouts aimed at better engagement — a polished result for an international client.",
+      "tags": ["WordPress", "Beaver Builder", "Custom Layouts"],
+      "category": "WordPress",
+      "image": "",
+      "link": "https://melaniehoggan.com/"
+    },
+    {
+      "id": "revived-kansas",
+      "title": "Revived Kansas",
+      "description": "A clean, responsive business site built on Square Online, with the layout tuned for mobile users. Delivered as client work at Gigsoft Pro.",
+      "tags": ["Square Online", "Responsive Design", "Mobile Optimised"],
+      "category": "Other",
+      "image": "",
+      "link": "https://www.revivedkansas.info/"
+    },
+    {
+      "id": "gohighlevel-funnels",
+      "title": "High-Converting CMS Funnels",
+      "description": "Custom landing pages and sales funnels on GoHighLevel and WordPress Elementor with multi-step lead capture and crisp visual hierarchy.",
+      "tags": ["GoHighLevel", "Elementor Pro", "Landing Page"],
+      "category": "WordPress",
+      "image": "",
+      "link": "#contact"
+    }
+  ]
+}

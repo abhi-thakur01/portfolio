@@ -1,53 +1,16 @@
 {
-  "sectionLabel": "",
-  "heading": "Designing with Purpose,",
-  "headingHighlight": "Building with Passion.",
+  "heading": "A little about me",
   "paragraphs": [
     "I'm Abhishek Thakur, a Junior Web Designer with 1+ year of hands-on experience building responsive, user-friendly websites. I pair a solid academic foundation in computer applications (BCA completed, MCA in progress) with real-world agency project delivery.",
     "I work predominantly with WordPress (Elementor & Beaver Builder), GoHighLevel, and Square Online — building custom layouts, tuning mobile responsiveness, and shipping cross-browser sites for international clients at Gigsoft Pro.",
     "My focus is on clean, fast, well-built websites that turn a visual mockup into a high-converting digital experience that actually works on real devices."
   ],
-  "statusPill": "Open for Client Projects",
-  "responseTime": "Within 24 Hours",
-  "responseNote": "Email & WhatsApp",
-  "languages": [
-    {
-      "label": "English — Professional"
-    },
-    {
-      "label": "Hindi — Native"
-    }
+  "whatIDo": [
+    "Build Responsive Websites",
+    "WordPress, Elementor & Beaver Builder",
+    "GoHighLevel & Square Online",
+    "Write Clean & Maintainable Code",
+    "Keep Learning & Growing"
   ],
-  "traits": [
-    {
-      "icon": "Target",
-      "label": "Conversion-Focused",
-      "desc": "Strategic CTA placement and user flow to drive real inquiries."
-    },
-    {
-      "icon": "Smartphone",
-      "label": "Mobile-First Design",
-      "desc": "Tuned for thumbs, fast loading on 4G/5G mobile devices."
-    },
-    {
-      "icon": "Zap",
-      "label": "Fast & Optimized",
-      "desc": "Under 1.5s load times for optimal search ranking and low bounce rates."
-    },
-    {
-      "icon": "Search",
-      "label": "SEO-Friendly Builds",
-      "desc": "Semantic tags, schema markup, and meta structure built-in."
-    },
-    {
-      "icon": "Palette",
-      "label": "Clean UI/UX",
-      "desc": "Modern typography, consistent spacing, and intuitive hierarchy."
-    },
-    {
-      "icon": "Globe",
-      "label": "No-Code & CMS Mastery",
-      "desc": "Easy for clients to edit without breaking the layout."
-    }
-  ]
+  "interests": ["Web Development", "UI/UX", "WordPress", "CMS Tools", "Technology", "Travel"]
 }
