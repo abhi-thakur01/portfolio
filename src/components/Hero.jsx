@@ -3,7 +3,6 @@ import { personal } from "../data/content";
 
 export function Hero() {
   const stats = personal.stats || [];
-  const sideText = personal.photoSideText || [];
 
   return (
     <section id="home" className="relative pt-24 pb-8 overflow-hidden">
@@ -47,7 +46,7 @@ export function Hero() {
               {[
                 { href: personal.github, icon: Github, label: "GitHub", show: !!personal.github },
                 { href: personal.linkedin, icon: Linkedin, label: "LinkedIn", show: !!personal.linkedin },
-                { href: personal.twitter || "#", icon: Twitter, label: "Twitter", show: true },
+                { href: personal.twitter || "#", icon: Twitter, label: "Twitter", show: !!personal.twitter },
                 { href: `mailto:${personal.email}`, icon: Mail, label: "Email", show: !!personal.email },
               ]
                 .filter((s) => s.show)
@@ -90,22 +89,6 @@ export function Hero() {
                   )}
                 </div>
               </div>
-
-              {sideText.length > 0 && (
-                <div className="absolute -right-2 sm:-right-6 top-1/4 hidden sm:block pointer-events-none select-none">
-                  <p
-                    className="text-blue-400/70 text-sm sm:text-base leading-snug italic"
-                    style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
-                  >
-                    {sideText.map((line, i) => (
-                      <span key={i}>
-                        {line}
-                        {i < sideText.length - 1 && <br />}
-                      </span>
-                    ))}
-                  </p>
-                </div>
-              )}
             </div>
           </div>
         </div>
