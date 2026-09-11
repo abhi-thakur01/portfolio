@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio CMS</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,sans-serif;background:#08080f;color:#f4f1e8}button,input,select,textarea{font:inherit}button{cursor:pointer}.wrap{max-width:1100px;margin:auto;padding:32px 20px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}.brand{font-size:22px;font-weight:800}.gold{color:#f0d060}.card{background:#121222;border:1px solid #292941;border-radius:16px;padding:20px;margin-bottom:18px}.login{text-align:center;max-width:520px;margin:12vh auto}.btn{border:0;border-radius:10px;padding:11px 16px;font-weight:700;background:linear-gradient(90deg,#c9a227,#f0d060);color:#08080f}.btn.secondary{background:#202033;color:#eee;border:1px solid #393952}.grid{display:grid;grid-template-columns:230px 1fr;gap:18px}.files button{display:block;width:100%;text-align:left;background:transparent;color:#bbb;border:0;border-radius:8px;padding:10px;margin:2px 0}.files button.active,.files button:hover{background:#202033;color:#f0d060}.editor textarea{width:100%;min-height:560px;background:#090910;color:#eae7df;border:1px solid #33334b;border-radius:10px;padding:16px;font-family:ui-monospace,SFMono-Regular,monospace;font-size:13px;line-height:1.55;resize:vertical}.actions{display:flex;gap:10px;align-items:center;margin-top:12px}.status{color:#aaa;font-size:13px}.error{color:#ff8b8b}.success{color:#7ee2a8}@media(max-width:750px){.grid{grid-template-columns:1fr}.files{display:flex;gap:6px;overflow:auto}.files button{min-width:max-content}}
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+    const files = [
+      ['hero','content/hero.json'],['personal','content/personal.json'],['nav','content/nav.json'],['roles','content/roles.json'],
+      ['addresses','content/addresses.json'],['skills','content/skills.json'],['about','content/about.json'],['process','content/process.json'],
+      ['seo','content/seo.json'],['faqs','content/faqs.json']
+    ];
+    let active = files[0][1], sha = '', data = {};
+    const app = document.getElementById('app');
+    async function load(path=active){
+      active=path;
+      document.querySelectorAll('.files button').forEach(b=>b.classList.toggle('active',b.dataset.path===path));
+      const editor=document.getElementById('editor');
+      if(!editor) return;
+      document.getElementById('status').textContent='Loading…';
+      const r=await fetch('/api/admin/content?path='+encodeURIComponent(path));
+      const d=await r.json();
+      if(!r.ok){document.getElementById('status').className='status error';document.getElementById('status').textContent=d.error||'Unable to load';return;}
+      sha=d.sha;data=JSON.parse(d.content);editor.value=JSON.stringify(data,null,2);document.getElementById('status').className='status';document.getElementById('status').textContent='Loaded '+path;
+    }
+    async function save(){
+      const status=document.getElementById('status');
+      try{JSON.parse(document.getElementById('editor').value);}catch(e){status.className='status error';status.textContent='Invalid JSON: '+e.message;return;}
+      status.className='status';status.textContent='Publishing…';
+      const r=await fetch('/api/admin/content?path='+encodeURIComponent(active),{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({content:document.getElementById('editor').value,sha})});
+      const d=await r.json();
+      if(!r.ok){status.className='status error';status.textContent=d.error||'Publish failed';return;}
+      status.className='status success';status.textContent='Published successfully. Vercel will rebuild from GitHub.';await load(active);
+    }
+    function render(){
+      app.innerHTML=`<div class="wrap"><div class="top"><div class="brand">Portfolio <span class="gold">CMS</span></div><a class="btn secondary" href="/">View Portfolio</a></div><div class="card"><strong>Content Manager</strong><div class="status">Edit JSON content and publish it directly to GitHub.</div></div><div class="grid"><div class="card files">${files.map(([n,p])=>`<button data-path="${p}" onclick="load('${p}')">${n}</button>`).join('')}</div><div class="card editor"><div class="status" id="status">Ready</div><textarea id="editor" spellcheck="false"></textarea><div class="actions"><button class="btn" onclick="save()">Publish Changes</button><button class="btn secondary" onclick="load(active)">Reload</button></div></div></div></div>`;load();
+    }
+    async function check(){
+      const r=await fetch('/api/admin/content?path='+encodeURIComponent(active));
+      if(r.status===401){app.innerHTML=`<div class="wrap"><div class="card login"><h1>Portfolio <span class="gold">CMS</span></h1><p class="status">Sign in with your authorized GitHub account to manage portfolio content.</p><a class="btn" href="/api/admin/login">Login with GitHub</a></div></div>`;return;}
+      render();
+    }
+    check();
+  </script>
+</body>
+</html>
