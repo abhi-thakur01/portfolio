@@ -9,8 +9,19 @@
   "availability": "Available for Freelance & Full-time Roles",
   "github": "https://github.com/abhi-thakur01",
   "linkedin": "https://linkedin.com/in/abhi-thakur01",
+  "twitter": "",
   "resumeUrl": "#",
   "photo": "",
+  "greeting": "Hi, I'm",
+  "photoSideText": ["Build", "Create", "Improve"],
+  "ctaPrimary": "View My Projects",
+  "ctaSecondary": "Download Resume",
+  "stats": [
+    { "value": "1+", "label": "Years Experience" },
+    { "value": "12+", "label": "Projects Completed" },
+    { "value": "100%", "label": "Client Satisfaction" },
+    { "value": "10+", "label": "Technologies" }
+  ],
   "agency": {
     "role": "Junior Web Designer",
     "company": "Gigsoft Pro",
