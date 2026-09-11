@@ -1,4 +1,5 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "vite",
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
@@ -43,11 +44,11 @@
     },
     {
       "source": "/admin",
-      "destination": "/admin/index.html"
+      "destination": "/admin/index"
     },
     {
       "source": "/admin/",
-      "destination": "/admin/index.html"
+      "destination": "/admin/index"
     },
     {
       "source": "/(.*)",
