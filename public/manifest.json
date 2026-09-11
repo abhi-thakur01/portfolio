@@ -1,0 +1,18 @@
+{
+  "name": "Abhishek Thakur — Web Designer & CMS Specialist",
+  "short_name": "Abhishek Portfolio",
+  "description": "Junior Web Designer & WordPress / CMS Specialist - Building high-converting, mobile-perfect websites",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#08080f",
+  "theme_color": "#08080f",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["portfolio", "business", "design"]
+}

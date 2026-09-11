@@ -8,7 +8,7 @@ interface ServicesProps {
 
 export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
   return (
-    <section id="services" className="py-24 relative bg-[#090912]">
+    <section id="services" className="py-24 relative content-visibility-auto bg-[#090912]">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         
         {/* Section Header */}

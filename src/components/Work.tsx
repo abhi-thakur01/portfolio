@@ -4,7 +4,7 @@ import { PROJECTS, PERSONAL_INFO } from "../data/portfolioData";
 
 export const Work: React.FC = () => {
   return (
-    <section id="work" className="py-24 relative bg-[#090912]">
+    <section id="work" className="py-24 relative content-visibility-auto bg-[#090912]">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         
         {/* Section Header */}

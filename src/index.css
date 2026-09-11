@@ -20,19 +20,33 @@
     --mono: 'JetBrains Mono', monospace;
   }
 
+  html {
+    scrollbar-gutter: stable;
+  }
+
   body {
     font-family: var(--body);
     background-color: var(--ink);
     color: var(--text);
     overflow-x: hidden;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   h1, h2, h3, .font-display {
     font-family: var(--disp);
+    text-wrap: balance;
   }
 
   code, pre, .font-mono {
     font-family: var(--mono);
+  }
+
+  /* Performance: content-visibility for below-fold sections */
+  .content-visibility-auto {
+    content-visibility: auto;
+    contain-intrinsic-size: 0 800px;
   }
 }
 
@@ -95,40 +109,39 @@
   -webkit-text-fill-color: transparent;
 }
 
-/* Shimmer animation */
+/* Shimmer animation - GPU accelerated */
 @keyframes shimmer {
   0% { transform: translateX(-100%); }
   100% { transform: translateX(100%); }
 }
-
 .animate-shimmer {
   animation: shimmer 2.5s infinite;
+  will-change: transform;
 }
 
-/* Marquee infinite animation */
+/* Marquee infinite animation - GPU accelerated with translate3d */
 @keyframes marqueeLeft {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
 }
-
 @keyframes marqueeRight {
-  from { transform: translateX(-50%); }
-  to { transform: translateX(0); }
+  from { transform: translate3d(-50%, 0, 0); }
+  to { transform: translate3d(0, 0, 0); }
 }
-
 .marquee-left {
   display: flex;
   width: max-content;
-  animation: marqueeLeft 32s linear infinite;
+  animation: marqueeLeft 36s linear infinite;
+  will-change: transform;
 }
-.marquee-left:hover, .marquee-right:hover {
-  animation-play-state: paused;
-}
-
 .marquee-right {
   display: flex;
   width: max-content;
-  animation: marqueeRight 32s linear infinite;
+  animation: marqueeRight 36s linear infinite;
+  will-change: transform;
+}
+.marquee-left:hover, .marquee-right:hover {
+  animation-play-state: paused;
 }
 
 /* Floating glow blob */
@@ -137,4 +150,25 @@
   border-radius: 50%;
   filter: blur(80px);
   pointer-events: none;
+  will-change: transform;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-left,
+  .marquee-right,
+  .animate-shimmer {
+    animation: none !important;
+  }
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus visible for a11y */
+*:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
 }
