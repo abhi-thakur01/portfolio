@@ -20,8 +20,12 @@ export function Contact() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    if (!form.name.trim() || !form.email.trim() || form.message.trim().length < 10) {
-      setError("Please fill all fields (message min 10 characters).");
+    if (!form.name.trim()) {
+      setError("Name is required.");
+      return;
+    }
+    if (!form.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) {
+      setError("Valid email is required.");
       return;
     }
     setLoading(true);
@@ -42,7 +46,7 @@ export function Contact() {
         body: JSON.stringify({
           name: form.name.trim(),
           email: form.email.trim(),
-          message: form.message.trim(),
+          message: form.message.trim() || "(No message)",
           _subject: `Portfolio message from ${form.name.trim()}`,
           _template: "table",
           _captcha: "false",
@@ -126,34 +130,36 @@ export function Contact() {
                     <input name="website" value={form.website} onChange={onChange} tabIndex={-1} autoComplete="off" />
                   </div>
                   <div>
-                    <label className="block text-xs text-gray-400 mb-1.5">Name</label>
+                    <label className="block text-xs text-gray-400 mb-1.5">Name <span className="text-blue-400">*</span></label>
                     <input
                       name="name"
                       value={form.name}
                       onChange={onChange}
                       placeholder="Your name"
+                      required
                       className="w-full px-4 py-3 rounded-lg bg-[#0a0e1a] border border-white/10 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs text-gray-400 mb-1.5">Email</label>
+                    <label className="block text-xs text-gray-400 mb-1.5">Email <span className="text-blue-400">*</span></label>
                     <input
                       name="email"
                       type="email"
                       value={form.email}
                       onChange={onChange}
                       placeholder="Your email"
+                      required
                       className="w-full px-4 py-3 rounded-lg bg-[#0a0e1a] border border-white/10 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs text-gray-400 mb-1.5">Message</label>
+                    <label className="block text-xs text-gray-400 mb-1.5">Message <span className="text-gray-600">(optional)</span></label>
                     <textarea
                       name="message"
                       rows={5}
                       value={form.message}
                       onChange={onChange}
-                      placeholder="Your message..."
+                      placeholder="Your message (optional)"
                       className="w-full px-4 py-3 rounded-lg bg-[#0a0e1a] border border-white/10 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors resize-none"
                     />
                   </div>
