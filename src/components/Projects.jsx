@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef } from "react";
 import { ExternalLink, FolderGit2, ChevronLeft, ChevronRight } from "lucide-react";
 import { projects } from "../data/content";
 import { Reveal } from "./Reveal";
@@ -48,7 +48,7 @@ export function Projects() {
   };
 
   return (
-    <section id="projects" className="py-14 sm:py-20 bg-[#0d1220]/50 overflow-hidden">
+    <section id="projects" className="py-14 sm:py-20 bg-[#0d1220]/50">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <Reveal from="up">
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-6 sm:mb-8">
@@ -92,14 +92,14 @@ export function Projects() {
             onMouseMove={onMouseMove}
             onMouseUp={onMouseUp}
             onMouseLeave={onMouseUp}
-            className="flex gap-4 sm:gap-5 overflow-x-auto pb-3 cursor-grab scroll-smooth snap-x snap-mandatory [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden active:cursor-grabbing"
+            className="flex gap-4 sm:gap-5 overflow-x-auto py-1 pb-3 cursor-grab scroll-smooth snap-x snap-mandatory [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden active:cursor-grabbing"
             style={{ WebkitOverflowScrolling: "touch", touchAction: "pan-x" }}
           >
             {list.map((project) => (
               <article
                 key={project.id}
                 data-project-card
-                className="group snap-start shrink-0 w-[85%] sm:w-[calc(50%-10px)] lg:w-[calc(33.333%-14px)] rounded-2xl bg-[#111827] border border-white/8 overflow-hidden hover:border-blue-500/40 hover:-translate-y-1 transition-all duration-300"
+                className="group snap-start shrink-0 w-[85%] sm:w-[calc(50%-10px)] lg:w-[calc(33.333%-14px)] rounded-2xl bg-[#111827] border border-white/8 overflow-hidden hover:border-blue-500/40 transition-colors duration-300"
               >
                 <div className="h-40 sm:h-44 bg-gradient-to-br from-[#1a2234] to-[#0d1220] flex items-center justify-center border-b border-white/5 overflow-hidden pointer-events-none">
                   {project.image ? (
