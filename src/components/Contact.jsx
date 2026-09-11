@@ -3,15 +3,19 @@ import { Mail, Phone, MapPin, Send, Loader2, CheckCircle2 } from "lucide-react";
 import { personal } from "../data/content";
 import { Reveal } from "./Reveal";
 
+const TO_EMAIL = personal.email || "thakurabhi8925@gmail.com";
+
 export function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "", website: "" });
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState("");
+  const [info, setInfo] = useState("");
 
   const onChange = (e) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     setError("");
+    setInfo("");
   };
 
   const onSubmit = async (e) => {
@@ -22,18 +26,49 @@ export function Contact() {
     }
     setLoading(true);
     setError("");
+    setInfo("");
     try {
-      const res = await fetch("/api/contact", {
+      if (form.website && form.website.trim() !== "") {
+        setSent(true);
+        return;
+      }
+
+      const res = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(TO_EMAIL)}`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name: form.name.trim(),
+          email: form.email.trim(),
+          message: form.message.trim(),
+          _subject: `Portfolio message from ${form.name.trim()}`,
+          _template: "table",
+          _captcha: "false",
+          _replyto: form.email.trim(),
+        }),
       });
+
       const data = await res.json().catch(() => ({}));
-      if (!res.ok) throw new Error(data.error || "Failed to send");
-      setSent(true);
-      setForm({ name: "", email: "", message: "", website: "" });
+      const ok = data.success === true || data.success === "true";
+      const msg = String(data.message || "");
+      const needsActivate = /activat|confirm/i.test(msg);
+
+      if (ok) {
+        setSent(true);
+        setForm({ name: "", email: "", message: "", website: "" });
+        return;
+      }
+
+      if (needsActivate) {
+        setInfo("First-time setup: check Gmail (Inbox/Spam) for FormSubmit and click Confirm. Then send again.");
+        return;
+      }
+
+      throw new Error(msg || "Failed to send");
     } catch (err) {
-      setError(err.message || "Something went wrong. Email me directly.");
+      setError(err.message || `Could not send. Email me at ${TO_EMAIL}`);
     } finally {
       setLoading(false);
     }
@@ -123,6 +158,7 @@ export function Contact() {
                     />
                   </div>
                   {error && <p className="text-xs text-red-400">{error}</p>}
+                  {info && <p className="text-xs text-blue-300">{info}</p>}
                   <button
                     type="submit"
                     disabled={loading}
