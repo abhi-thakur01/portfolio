@@ -1,5 +1,135 @@
 <!doctype html>
 <html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Portfolio CMS</title><style>
 :root{--bg:#0a0e1a;--line:#1e293b;--text:#f1f5f9;--muted:#94a3b8;--blue:#3b82f6;--blue2:#60a5fa;--green:#34d399;--red:#f87171}*{box-sizing:border-box}body{margin:0;background:#0a0e1a;color:var(--text);font:14px Inter,system-ui,sans-serif}button,input,textarea,select{font:inherit}button{cursor:pointer}.app{min-height:100vh;display:grid;grid-template-columns:240px 1fr}.side{position:sticky;top:0;height:100vh;overflow:auto;padding:20px 14px;border-right:1px solid var(--line);background:#0d1220}.brand{font-size:18px;font-weight:800;padding:8px 10px 20px}.blue{color:var(--blue2)}.group{font-size:10px;text-transform:uppercase;letter-spacing:.14em;color:#64748b;padding:14px 10px 7px}.nav button{display:block;width:100%;text-align:left;background:transparent;border:1px solid transparent;color:#94a3b8;padding:10px 11px;border-radius:10px;margin:2px 0}.nav button:hover,.nav button.active{background:#111827;border-color:#1e293b;color:var(--blue2)}.main{padding:28px 34px 60px;min-width:0}.top{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;margin-bottom:24px}.eyebrow{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue2)}h1{font-size:28px;margin:5px 0}.sub{margin:0;color:var(--muted)}.actions{display:flex;gap:8px;flex-wrap:wrap}.btn{border:1px solid #334155;background:#111827;color:#e2e8f0;border-radius:10px;padding:10px 13px;font-weight:600}.btn.primary{border:0;background:linear-gradient(100deg,#2563eb,#3b82f6);color:#fff}.btn.danger{color:#fca5a5}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px}.stat,.card{background:#111827;border:1px solid var(--line);border-radius:16px}.stat{padding:16px}.stat b{display:block;font-size:22px}.stat span{color:var(--muted);font-size:11px}.editor{padding:22px}.editorhead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:16px}.editorhead h2{margin:0;font-size:18px}.status{font-size:12px;color:var(--muted)}.success{color:var(--green)}.error{color:var(--red)}.field{border:1px solid #1e293b;background:#0d1220;border-radius:12px;padding:14px;margin-bottom:11px}.label{font-weight:700;margin-bottom:8px;display:flex;justify-content:space-between}.control{width:100%;background:#0a0e1a;color:#f1f5f9;border:1px solid #334155;border-radius:9px;padding:10px 11px;outline:0}.control:focus{border-color:var(--blue)}.textarea{min-height:100px;resize:vertical}.object{margin-top:4px}.array-item{border:1px solid #1e293b;background:#0f172a;border-radius:11px;padding:12px;margin-bottom:9px}.array-actions{display:flex;justify-content:flex-end;margin-top:8px}.add{width:100%;border:1px dashed #334155;background:#0f172a;color:var(--blue2);border-radius:9px;padding:9px}.image{display:grid;grid-template-columns:90px 1fr;gap:12px;align-items:center}.preview{width:90px;height:70px;object-fit:cover;border-radius:8px;background:#0a0e1a;border:1px solid #334155}.toolbar{display:flex;gap:8px;flex-wrap:wrap}.media{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px}.asset{border:1px solid #1e293b;background:#0f172a;border-radius:12px;padding:9px}.asset img{width:100%;height:100px;object-fit:cover;border-radius:8px}.asset small{display:block;color:#94a3b8;margin:7px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mobile{display:none}@media(max-width:900px){.app{grid-template-columns:1fr}.side{position:fixed;z-index:20;left:-270px;width:250px;transition:.2s}.side.open{left:0}.mobile{display:inline-flex}.main{padding:20px}.stats{grid-template-columns:1fr}.top{flex-direction:column}.image{grid-template-columns:1fr}.preview{width:100%;height:150px}}</style></head><body><div id="root"></div><script>
-const fixed=[['Personal','content/personal.json'],['About','content/about.json'],['Projects','content/projects.json'],['Skills','content/skills.json'],['Experience','content/experience.json'],['Navigation','content/nav.json']];const imageKey=/image|photo|avatar|logo|thumbnail|cover|ogImage/i;let files=[],active='',data=null,media=[];const root=document.getElementById('root');const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&','<':'<','>':'>','"':'"',"'":'&#39;'}[m]));const label=s=>s.replace(/([A-Z])/g,' $1').replace(/[_-]/g,' ').replace(/^./,x=>x.toUpperCase());async function api(url,opt){const r=await fetch(url,opt);const d=await r.json().catch(()=>({}));if(!r.ok)throw Error(d.error||'Request failed');return d}function status(t,c=''){const e=document.getElementById('status');if(e){e.textContent=t;e.className='status '+c}}function get(o,p){return p.reduce((v,k)=>v==null?undefined:v[k],o)}function set(o,p,v){let x=o;for(let i=0;i<p.length-1;i++)x=x[p[i]];x[p[p.length-1]]=v}function input(v,k,p){if(typeof v==='boolean')return `<input class="control" type="checkbox" ${v?'checked':''} data-bind="${p.join('.')}" style="width:20px;height:20px">`;if(typeof v==='number')return `<input class="control" type="number" value="${v}" data-bind="${p.join('.')}"/>`;if(imageKey.test(k||''))return `<div class="image"><img class="preview" src="${esc(v)}" onerror="this.style.opacity=.25"><div><input class="control" value="${esc(v)}" data-bind="${p.join('.')}" placeholder="Image URL"><div class="toolbar" style="margin-top:8px"><label class="btn">Upload<input hidden type="file" accept="image/*" data-upload="${p.join('.')}"/></label>${v?`<button class="btn" data-clear="${p.join('.')}">Clear</button>`:''}</div></div></div>`;const multi=String(v??'').length>100||/desc|bio|answer|description|paragraph|message/i.test(k||'');return multi?`<textarea class="control textarea" data-bind="${p.join('.')}" placeholder="${label(k||'')}">${esc(v)}</textarea>`:`<input class="control" value="${esc(v)}" data-bind="${p.join('.')}" placeholder="${label(k||'')}">`}function node(v,p,k){if(Array.isArray(v))return `<div>${v.map((x,i)=>`<div class="array-item">${node(x,p.concat(i),String(i))}<div class="array-actions"><button class="btn danger" data-remove="${p.concat(i).join('.')}">Remove</button></div></div>`).join('')}<button class="add" data-add="${p.join('.')}" data-template="${esc(JSON.stringify(v[0]??''))}">+ Add item</button></div>`;if(v&&typeof v==='object')return `<div class="object">${Object.entries(v).map(([k,x])=>`<div class="field"><div class="label">${label(k)} <span class="status">${typeof x}</span></div>${node(x,p.concat(k),k)}</div>`).join('')}</div>`;return input(v,k,p)}function bind(){document.querySelectorAll('[data-bind]').forEach(e=>e.oninput=()=>{let p=e.dataset.bind.split('.'),v=e.type==='checkbox'?e.checked:e.type==='number'?Number(e.value):e.value;set(data,p,v);status('Unsaved changes')});document.querySelectorAll('[data-remove]').forEach(b=>b.onclick=()=>{let p=b.dataset.remove.split('.'),q=p.slice(0,-1);get(data,q).splice(Number(p.at(-1)),1);renderEditor()});document.querySelectorAll('[data-add]').forEach(b=>b.onclick=()=>{let a=get(data,b.dataset.add.split('.'));let t=JSON.parse(b.dataset.template||'\"\"');a.push(t&&typeof t==='object'?JSON.parse(JSON.stringify(t)):typeof t==='number'?0:typeof t==='boolean'?false:'');renderEditor()});document.querySelectorAll('[data-clear]').forEach(b=>b.onclick=()=>{set(data,b.dataset.clear.split('.'),'');renderEditor()});document.querySelectorAll('[data-upload]').forEach(e=>e.onchange=upload)}async function upload(e){let f=e.target.files?.[0];if(!f)return;if(f.size>4*1024*1024)return status('Image must be under 4 MB','error');status('Uploading…');let r=new FileReader();r.onload=async()=>{try{let d=await api('/api/admin/media',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:f.name,dataUrl:r.result})});set(data,e.target.dataset.upload.split('.'),d.url);await loadMedia();renderEditor();status('Uploaded. Publish to save the link.','success')}catch(x){status(x.message,'error')}};r.readAsDataURL(f)}async function loadFile(path){active=path;data=null;render();status('Loading from GitHub…');try{let d=await api('/api/admin/content?path='+encodeURIComponent(path));data=JSON.parse(d.content);renderEditor();status('Synced from GitHub','success')}catch(e){status(e.message,'error')}}async function save(){if(!data)return;status('Publishing to GitHub…');try{await api('/api/admin/content?path='+encodeURIComponent(active),{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({content:JSON.stringify(data,null,2)})});status('Published. Vercel will rebuild automatically.','success')}catch(e){status(e.message,'error')}}async function loadFiles(){files=fixed.map(x=>({name:x[0],path:x[1],type:'fixed'}))}async function loadMedia(){try{let d=await api('/api/admin/media');media=d.files||[]}catch{media=[]}}function renderEditor(){let e=document.getElementById('editor');if(e&&data)e.innerHTML=node(data,[],'');bind()}function nav(){return `<div class="group">Website</div>`+files.map(x=>`<button class="${x.path===active?'active':''}" data-file="${x.path}">${label(x.name)}</button>`).join('')}function render(){root.innerHTML=`<div class="app"><aside class="side" id="side"><div class="brand">Portfolio <span class="blue">CMS</span></div><nav class="nav">${nav()}<div class="group">Media</div><button data-media="1">Media Library</button></nav></aside><main class="main"><div class="top"><div><button class="btn mobile" id="menu">☰</button><div class="eyebrow">Content control</div><h1>Portfolio CMS</h1><p class="sub">Edit Personal, About, Projects, Skills, Experience & Navigation.</p></div><div class="actions"><button class="btn" id="refresh">↻ Sync GitHub</button><a class="btn" href="/">View Website</a><button class="btn primary" id="publish">Publish Changes</button></div></div><div class="stats"><div class="stat"><b>${files.length}</b><span>Content sections</span></div><div class="stat"><b>6</b><span>Editable files</span></div><div class="stat"><b>Live</b><span>GitHub sync</span></div></div><section class="card editor"><div class="editorhead"><div><h2>${active?label((files.find(x=>x.path===active)||{}).name||'Content'):'Content'}</h2><div id="status" class="status">Ready</div></div></div><div id="editor"></div></section></main></div>`;document.querySelectorAll('[data-file]').forEach(b=>b.onclick=()=>loadFile(b.dataset.file));document.getElementById('publish').onclick=save;document.getElementById('refresh').onclick=async()=>{await loadFiles();await loadMedia();render();if(active)loadFile(active)};document.getElementById('menu').onclick=()=>document.getElementById('side').classList.toggle('open');if(data)renderEditor()}async function mediaView(){await loadMedia();root.innerHTML=`<div class="app"><aside class="side"><div class="brand">Portfolio <span class="blue">CMS</span></div><nav class="nav">${nav()}</nav></aside><main class="main"><div class="top"><div><div class="eyebrow">Assets</div><h1>Media Library</h1><p class="sub">Upload images and use paths in photo/image fields.</p></div><label class="btn primary">Upload image<input hidden type="file" accept="image/*" id="mediaInput"></label></div><section class="card editor"><div class="media">${media.length?media.map(m=>`<div class="asset"><img src="${esc(m.url)}"><small>${esc(m.name)}</small><button class="btn" data-copy="${esc(m.url)}">Copy path</button><button class="btn danger" data-delmedia="${esc(m.path)}">Delete</button></div>`).join(''):'<div class="status">No uploaded images yet.</div>'}</div></section></main></div>`;document.getElementById('mediaInput').onchange=async e=>{let f=e.target.files?.[0];if(!f)return;if(f.size>4*1024*1024)return alert('Image must be under 4 MB');let r=new FileReader();r.onload=async()=>{try{await api('/api/admin/media',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:f.name,dataUrl:r.result})});mediaView()}catch(x){alert(x.message)}};r.readAsDataURL(f)};document.querySelectorAll('[data-copy]').forEach(b=>b.onclick=()=>navigator.clipboard?.writeText(b.dataset.copy));document.querySelectorAll('[data-delmedia]').forEach(b=>b.onclick=async()=>{if(!confirm('Delete this image?'))return;try{await api('/api/admin/media',{method:'DELETE',headers:{'Content-Type':'application/json'},body:JSON.stringify({path:b.dataset.delmedia})});mediaView()}catch(x){alert(x.message)}});document.querySelectorAll('[data-file]').forEach(b=>b.onclick=()=>loadFile(b.dataset.file))}async function start(){try{await api('/api/admin/content?path='+encodeURIComponent(fixed[0][1]));await loadFiles();await loadMedia();active=fixed[0][1];await loadFile(active);document.addEventListener('click',e=>{if(e.target.closest('[data-media]'))mediaView()})}catch(e){root.innerHTML=`<div class="main"><section class="card editor" style="max-width:620px;margin:12vh auto;text-align:center"><h1>Portfolio <span class="blue">CMS</span></h1><p class="sub">Sign in with your authorized GitHub account.</p><a class="btn primary" href="/api/admin/login">Login with GitHub</a></section></div>`}}start();
+const fixed=[['Personal','content/personal.json'],['About','content/about.json'],['Projects','content/projects.json'],['Skills','content/skills.json'],['Experience','content/experience.json'],['Navigation','content/nav.json']];
+const imageKey=/image|photo|avatar|logo|thumbnail|cover|ogImage/i;
+const emptyTemplates={
+  'items':{id:'new-project',title:'New Project',description:'',tags:[''],category:'Other',image:'',link:'#'},
+  'skillIcons':{name:'New Skill',color:'#3b82f6'},
+  'otherTools':'New Tool',
+  'paragraphs':'',
+  'whatIDo':'',
+  'interests':'',
+  'links':{href:'#',label:'New Link'},
+  'stats':{value:'0',label:'Label'},
+  'photoSideText':''
+};
+let files=[],active='',data=null,media=[];
+const root=document.getElementById('root');
+const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+const label=s=>String(s).replace(/([A-Z])/g,' $1').replace(/[_-]/g,' ').replace(/^./,x=>x.toUpperCase());
+async function api(url,opt){const r=await fetch(url,opt);const d=await r.json().catch(()=>({}));if(!r.ok)throw Error(d.error||'Request failed');return d}
+function status(t,c=''){const e=document.getElementById('status');if(e){e.textContent=t;e.className='status '+c}}
+function get(o,p){return p.reduce((v,k)=>v==null?undefined:v[k],o)}
+function set(o,p,v){let x=o;for(let i=0;i<p.length-1;i++){const k=p[i];if(x[k]==null)x[k]=isNaN(p[i+1])?{}:[];x=x[k]}x[p[p.length-1]]=v}
+function input(v,k,p){
+  if(typeof v==='boolean')return `<input class="control" type="checkbox" ${v?'checked':''} data-bind="${p.join('.')}" style="width:20px;height:20px">`;
+  if(typeof v==='number')return `<input class="control" type="number" value="${v}" data-bind="${p.join('.')}"/>`;
+  if(imageKey.test(k||''))return `<div class="image"><img class="preview" src="${esc(v)}" onerror="this.style.opacity=.25"><div><input class="control" value="${esc(v)}" data-bind="${p.join('.')}" placeholder="Image URL"><div class="toolbar" style="margin-top:8px"><label class="btn">Upload<input hidden type="file" accept="image/*" data-upload="${p.join('.')}"/></label>${v?`<button type="button" class="btn" data-clear="${p.join('.')}">Clear</button>`:''}</div></div></div>`;
+  const multi=String(v??'').length>100||/desc|bio|answer|description|paragraph|message/i.test(k||'');
+  return multi?`<textarea class="control textarea" data-bind="${p.join('.')}" placeholder="${label(k||'')}">${esc(v)}</textarea>`:`<input class="control" value="${esc(v)}" data-bind="${p.join('.')}" placeholder="${label(k||'')}">`;
+}
+function node(v,p,k){
+  if(Array.isArray(v)){
+    const pathKey=p[p.length-1]||'items';
+    return `<div>${v.map((x,i)=>`<div class="array-item">${node(x,p.concat(String(i)),String(i))}<div class="array-actions"><button type="button" class="btn danger" data-remove="${p.concat(String(i)).join('.')}">Remove</button></div></div>`).join('')}<button type="button" class="add" data-add="${p.join('.')}" data-key="${pathKey}">+ Add item</button></div>`;
+  }
+  if(v&&typeof v==='object')return `<div class="object">${Object.entries(v).map(([k,x])=>`<div class="field"><div class="label">${label(k)} <span class="status">${typeof x}</span></div>${node(x,p.concat(k),k)}</div>`).join('')}</div>`;
+  return input(v,k,p);
+}
+function cloneTemplate(pathKey,arr){
+  if(arr&&arr.length>0){
+    const sample=arr[0];
+    if(sample&&typeof sample==='object'){
+      const c=JSON.parse(JSON.stringify(sample));
+      if(c.id)c.id='new-'+Date.now();
+      if(c.title)c.title='New Project';
+      if(c.name&&pathKey==='skillIcons')c.name='New Skill';
+      return c;
+    }
+    if(typeof sample==='string')return '';
+    if(typeof sample==='number')return 0;
+  }
+  return emptyTemplates[pathKey]??'';
+}
+function bind(){
+  document.querySelectorAll('[data-bind]').forEach(e=>{
+    e.oninput=()=>{const p=e.dataset.bind.split('.');const v=e.type==='checkbox'?e.checked:e.type==='number'?Number(e.value):e.value;set(data,p,v);status('Unsaved changes')};
+  });
+  document.querySelectorAll('[data-remove]').forEach(b=>{
+    b.onclick=(ev)=>{ev.preventDefault();const p=b.dataset.remove.split('.');const q=p.slice(0,-1);const arr=get(data,q);if(Array.isArray(arr)){arr.splice(Number(p.at(-1)),1);status('Unsaved changes');renderEditor()}};
+  });
+  document.querySelectorAll('[data-add]').forEach(b=>{
+    b.onclick=(ev)=>{
+      ev.preventDefault();
+      const path=b.dataset.add.split('.').filter(Boolean);
+      let arr=get(data,path);
+      if(!Array.isArray(arr)){
+        // ensure array exists
+        set(data,path,[]);
+        arr=get(data,path);
+      }
+      const key=b.dataset.key||path[path.length-1]||'items';
+      arr.push(cloneTemplate(key,arr));
+      status('Unsaved changes');
+      renderEditor();
+    };
+  });
+  document.querySelectorAll('[data-clear]').forEach(b=>{
+    b.onclick=(ev)=>{ev.preventDefault();set(data,b.dataset.clear.split('.'),'');status('Unsaved changes');renderEditor()};
+  });
+  document.querySelectorAll('[data-upload]').forEach(e=>{e.onchange=upload});
+}
+async function upload(e){
+  const f=e.target.files?.[0];if(!f)return;
+  if(f.size>4*1024*1024)return status('Image must be under 4 MB','error');
+  status('Uploading…');
+  const r=new FileReader();
+  r.onload=async()=>{
+    try{
+      const d=await api('/api/admin/media',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:f.name,dataUrl:r.result})});
+      set(data,e.target.dataset.upload.split('.'),d.url);
+      await loadMedia();renderEditor();status('Uploaded. Publish to save the link.','success');
+    }catch(x){status(x.message,'error')}
+  };
+  r.readAsDataURL(f);
+}
+async function loadFile(path){
+  active=path;data=null;render();status('Loading from GitHub…');
+  try{const d=await api('/api/admin/content?path='+encodeURIComponent(path));data=JSON.parse(d.content);renderEditor();status('Synced from GitHub','success')}catch(e){status(e.message,'error')}
+}
+async function save(){
+  if(!data)return;status('Publishing to GitHub…');
+  try{await api('/api/admin/content?path='+encodeURIComponent(active),{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({content:JSON.stringify(data,null,2)})});status('Published. Vercel will rebuild automatically.','success')}catch(e){status(e.message,'error')}
+}
+async function loadFiles(){files=fixed.map(x=>({name:x[0],path:x[1],type:'fixed'}))}
+async function loadMedia(){try{const d=await api('/api/admin/media');media=d.files||[]}catch{media=[]}}
+function renderEditor(){const e=document.getElementById('editor');if(e&&data){e.innerHTML=node(data,[],'');bind()}}
+function nav(){return `<div class="group">Website</div>`+files.map(x=>`<button type="button" class="${x.path===active?'active':''}" data-file="${x.path}">${label(x.name)}</button>`).join('')}
+function render(){
+  root.innerHTML=`<div class="app"><aside class="side" id="side"><div class="brand">Portfolio <span class="blue">CMS</span></div><nav class="nav">${nav()}<div class="group">Media</div><button type="button" data-media="1">Media Library</button></nav></aside><main class="main"><div class="top"><div><button type="button" class="btn mobile" id="menu">☰</button><div class="eyebrow">Content control</div><h1>Portfolio CMS</h1><p class="sub">Edit Personal, About, Projects, Skills, Experience & Navigation.</p></div><div class="actions"><button type="button" class="btn" id="refresh">↻ Sync GitHub</button><a class="btn" href="/">View Website</a><button type="button" class="btn primary" id="publish">Publish Changes</button></div></div><div class="stats"><div class="stat"><b>${files.length}</b><span>Content sections</span></div><div class="stat"><b>6</b><span>Editable files</span></div><div class="stat"><b>Live</b><span>GitHub sync</span></div></div><section class="card editor"><div class="editorhead"><div><h2>${active?label((files.find(x=>x.path===active)||{}).name||'Content'):'Content'}</h2><div id="status" class="status">Ready</div></div></div><div id="editor"></div></section></main></div>`;
+  document.querySelectorAll('[data-file]').forEach(b=>b.onclick=()=>loadFile(b.dataset.file));
+  document.getElementById('publish').onclick=save;
+  document.getElementById('refresh').onclick=async()=>{await loadFiles();await loadMedia();render();if(active)loadFile(active)};
+  document.getElementById('menu').onclick=()=>document.getElementById('side').classList.toggle('open');
+  if(data)renderEditor();
+}
+async function mediaView(){
+  await loadMedia();
+  root.innerHTML=`<div class="app"><aside class="side"><div class="brand">Portfolio <span class="blue">CMS</span></div><nav class="nav">${nav()}</nav></aside><main class="main"><div class="top"><div><div class="eyebrow">Assets</div><h1>Media Library</h1><p class="sub">Upload images and use paths in photo/image fields.</p></div><label class="btn primary">Upload image<input hidden type="file" accept="image/*" id="mediaInput"></label></div><section class="card editor"><div class="media">${media.length?media.map(m=>`<div class="asset"><img src="${esc(m.url)}"><small>${esc(m.name)}</small><button type="button" class="btn" data-copy="${esc(m.url)}">Copy path</button><button type="button" class="btn danger" data-delmedia="${esc(m.path)}">Delete</button></div>`).join(''):'<div class="status">No uploaded images yet.</div>'}</div></section></main></div>`;
+  document.getElementById('mediaInput').onchange=async e=>{const f=e.target.files?.[0];if(!f)return;if(f.size>4*1024*1024)return alert('Image must be under 4 MB');const r=new FileReader();r.onload=async()=>{try{await api('/api/admin/media',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:f.name,dataUrl:r.result})});mediaView()}catch(x){alert(x.message)}};r.readAsDataURL(f)};
+  document.querySelectorAll('[data-copy]').forEach(b=>b.onclick=()=>navigator.clipboard?.writeText(b.dataset.copy));
+  document.querySelectorAll('[data-delmedia]').forEach(b=>b.onclick=async()=>{if(!confirm('Delete this image?'))return;try{await api('/api/admin/media',{method:'DELETE',headers:{'Content-Type':'application/json'},body:JSON.stringify({path:b.dataset.delmedia})});mediaView()}catch(x){alert(x.message)}});
+  document.querySelectorAll('[data-file]').forEach(b=>b.onclick=()=>loadFile(b.dataset.file));
+}
+async function start(){
+  try{
+    await api('/api/admin/content?path='+encodeURIComponent(fixed[0][1]));
+    await loadFiles();await loadMedia();active=fixed[0][1];await loadFile(active);
+    document.addEventListener('click',e=>{if(e.target.closest('[data-media]'))mediaView()});
+  }catch(e){
+    root.innerHTML=`<div class="main"><section class="card editor" style="max-width:620px;margin:12vh auto;text-align:center"><h1>Portfolio <span class="blue">CMS</span></h1><p class="sub">Sign in with your authorized GitHub account.</p><a class="btn primary" href="/api/admin/login">Login with GitHub</a></section></div>`;
+  }
+}
+start();
 </script></body></html>

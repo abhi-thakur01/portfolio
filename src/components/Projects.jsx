@@ -1,62 +1,62 @@
-import { useRef, useState, useCallback } from "react";
+import { useRef, useState, useEffect } from "react";
 import { ExternalLink, FolderGit2, ChevronLeft, ChevronRight } from "lucide-react";
 import { projects } from "../data/content";
 
 export function Projects() {
   const trackRef = useRef(null);
-  const isDown = useRef(false);
-  const startX = useRef(0);
-  const scrollLeft = useRef(0);
-  const moved = useRef(false);
-  const [dragging, setDragging] = useState(false);
+  const [canScroll, setCanScroll] = useState(false);
+  const drag = useRef({ active: false, startX: 0, scrollLeft: 0, moved: false });
+
+  const updateScrollState = () => {
+    const el = trackRef.current;
+    if (!el) return;
+    setCanScroll(el.scrollWidth > el.clientWidth + 4);
+  };
+
+  useEffect(() => {
+    updateScrollState();
+    window.addEventListener("resize", updateScrollState);
+    return () => window.removeEventListener("resize", updateScrollState);
+  }, [projects]);
 
   const scrollByCard = (dir) => {
     const el = trackRef.current;
     if (!el) return;
     const card = el.querySelector("[data-project-card]");
-    const gap = 20;
-    const amount = card ? card.offsetWidth + gap : el.clientWidth * 0.8;
+    const amount = (card?.offsetWidth || 300) + 20;
     el.scrollBy({ left: dir === "next" ? amount : -amount, behavior: "smooth" });
   };
 
-  const onPointerDown = useCallback((e) => {
+  const onMouseDown = (e) => {
     const el = trackRef.current;
     if (!el) return;
-    isDown.current = true;
-    moved.current = false;
-    setDragging(true);
-    startX.current = e.pageX - el.offsetLeft;
-    scrollLeft.current = el.scrollLeft;
-    el.setPointerCapture?.(e.pointerId);
-  }, []);
+    drag.current = {
+      active: true,
+      startX: e.pageX,
+      scrollLeft: el.scrollLeft,
+      moved: false,
+    };
+    el.style.cursor = "grabbing";
+    el.style.userSelect = "none";
+  };
 
-  const onPointerMove = useCallback((e) => {
-    if (!isDown.current) return;
+  const onMouseMove = (e) => {
+    if (!drag.current.active) return;
     const el = trackRef.current;
     if (!el) return;
-    e.preventDefault();
-    const x = e.pageX - el.offsetLeft;
-    const walk = (x - startX.current) * 1.15;
-    if (Math.abs(walk) > 4) moved.current = true;
-    el.scrollLeft = scrollLeft.current - walk;
-  }, []);
+    const dx = e.pageX - drag.current.startX;
+    if (Math.abs(dx) > 5) drag.current.moved = true;
+    el.scrollLeft = drag.current.scrollLeft - dx;
+  };
 
-  const onPointerUp = useCallback((e) => {
-    isDown.current = false;
-    setDragging(false);
+  const onMouseUp = () => {
     const el = trackRef.current;
-    if (el) el.releasePointerCapture?.(e.pointerId);
-  }, []);
-
-  const onWheel = useCallback((e) => {
-    const el = trackRef.current;
-    if (!el) return;
-    // Trackpad / shift+wheel horizontal feel
-    if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-      el.scrollLeft += e.deltaY;
-      e.preventDefault();
+    drag.current.active = false;
+    if (el) {
+      el.style.cursor = "grab";
+      el.style.userSelect = "";
     }
-  }, []);
+  };
 
   return (
     <section id="projects" className="py-20 bg-[#0d1220]/50">
@@ -78,39 +78,38 @@ export function Projects() {
             <button
               type="button"
               onClick={() => scrollByCard("prev")}
-              className="w-10 h-10 rounded-full border border-white/15 text-gray-300 hover:text-white hover:border-blue-500/50 flex items-center justify-center transition-colors"
-              aria-label="Previous projects"
+              className="w-10 h-10 rounded-full border border-white/15 text-gray-300 hover:text-white hover:border-blue-500/50 flex items-center justify-center transition-colors disabled:opacity-40"
+              aria-label="Previous"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
             <button
               type="button"
               onClick={() => scrollByCard("next")}
-              className="w-10 h-10 rounded-full border border-white/15 text-gray-300 hover:text-white hover:border-blue-500/50 flex items-center justify-center transition-colors"
-              aria-label="Next projects"
+              className="w-10 h-10 rounded-full border border-white/15 text-gray-300 hover:text-white hover:border-blue-500/50 flex items-center justify-center transition-colors disabled:opacity-40"
+              aria-label="Next"
             >
               <ChevronRight className="w-5 h-5" />
             </button>
           </div>
         </div>
 
+        {/* Overflow wrapper — cards sized so 2.2 fit → always scrollable */}
         <div
           ref={trackRef}
-          onPointerDown={onPointerDown}
-          onPointerMove={onPointerMove}
-          onPointerUp={onPointerUp}
-          onPointerLeave={onPointerUp}
-          onWheel={onWheel}
-          className={`flex gap-5 overflow-x-auto pb-3 snap-x snap-mandatory select-none touch-pan-x [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden ${
-            dragging ? "cursor-grabbing scroll-auto" : "cursor-grab scroll-smooth"
-          }`}
-          style={{ WebkitOverflowScrolling: "touch" }}
+          onMouseDown={onMouseDown}
+          onMouseMove={onMouseMove}
+          onMouseUp={onMouseUp}
+          onMouseLeave={onMouseUp}
+          onScroll={updateScrollState}
+          className="flex gap-5 overflow-x-auto pb-3 cursor-grab scroll-smooth snap-x snap-mandatory [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden active:cursor-grabbing"
+          style={{ WebkitOverflowScrolling: "touch", touchAction: "pan-x" }}
         >
           {projects.map((project) => (
             <article
               key={project.id}
               data-project-card
-              className="group snap-start shrink-0 w-[min(100%,300px)] sm:w-[320px] md:w-[340px] rounded-2xl bg-[#111827] border border-white/8 overflow-hidden hover:border-blue-500/40 transition-colors duration-300"
+              className="group snap-start shrink-0 w-[85%] sm:w-[48%] lg:w-[42%] rounded-2xl bg-[#111827] border border-white/8 overflow-hidden hover:border-blue-500/40 transition-colors duration-300"
             >
               <div className="h-44 bg-gradient-to-br from-[#1a2234] to-[#0d1220] flex items-center justify-center border-b border-white/5 overflow-hidden pointer-events-none">
                 {project.image ? (
@@ -152,10 +151,9 @@ export function Projects() {
                   target={project.link?.startsWith("http") ? "_blank" : undefined}
                   rel="noreferrer"
                   onClick={(e) => {
-                    // Prevent click after drag
-                    if (moved.current) {
+                    if (drag.current.moved) {
                       e.preventDefault();
-                      moved.current = false;
+                      drag.current.moved = false;
                     }
                   }}
                   className="inline-flex items-center gap-1.5 text-sm text-blue-400 hover:text-blue-300 font-medium"
@@ -168,9 +166,9 @@ export function Projects() {
           ))}
         </div>
 
-        <p className="text-[11px] text-gray-600 mt-3 text-center sm:text-left">
-          Drag · swipe · scroll · or use arrows
-        </p>
+        {canScroll && (
+          <p className="text-[11px] text-gray-600 mt-3">Drag, swipe, or use arrows to browse</p>
+        )}
       </div>
     </section>
   );
