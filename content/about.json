@@ -1,5 +1,5 @@
 {
-  "heading": "A little about me",
+  "heading": "A little about m",
   "paragraphs": [
     "I'm Abhishek Thakur, a Junior Web Designer with 1+ year of hands-on experience building responsive, user-friendly websites. I pair a solid academic foundation in computer applications (BCA completed, MCA in progress) with real-world agency project delivery.",
     "I work predominantly with WordPress (Elementor & Beaver Builder), GoHighLevel, and Square Online — building custom layouts, tuning mobile responsiveness, and shipping cross-browser sites for international clients at Gigsoft Pro.",
@@ -12,5 +12,12 @@
     "Write Clean & Maintainable Code",
     "Keep Learning & Growing"
   ],
-  "interests": ["Web Development", "UI/UX", "WordPress", "CMS Tools", "Technology", "Travel"]
+  "interests": [
+    "Web Development",
+    "UI/UX",
+    "WordPress",
+    "CMS Tools",
+    "Technology",
+    "Travel"
+  ]
 }
