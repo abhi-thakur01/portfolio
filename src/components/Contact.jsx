@@ -38,39 +38,43 @@ export function Contact() {
     }
   };
 
+  const phoneHref = personal.phone ? `tel:${String(personal.phone).replace(/\s/g, "")}` : "#";
+
   return (
-    <section id="contact" className="py-20 relative overflow-hidden">
+    <section id="contact" className="py-14 sm:py-20 relative overflow-hidden">
       <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-blue-600/5 to-transparent pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12">
           <div className="lg:col-span-2">
             <p className="text-blue-400 text-xs font-semibold tracking-wider uppercase mb-2">
               Contact
             </p>
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">Let's Connect</h2>
-            <p className="text-gray-400 text-[15px] mb-8 leading-relaxed">
+            <h2 className="text-2xl sm:text-4xl font-bold text-white mb-3 sm:mb-4">Let's Connect</h2>
+            <p className="text-gray-400 text-sm sm:text-[15px] mb-6 sm:mb-8 leading-relaxed">
               Feel free to reach out if you have a project in mind or just want to say hello!
             </p>
 
             <div className="space-y-4">
-              <a href={`mailto:${personal.email}`} className="flex items-center gap-3 text-sm text-gray-300 hover:text-blue-400">
-                <Mail className="w-4 h-4 text-blue-400" />
+              <a href={`mailto:${personal.email}`} className="flex items-center gap-3 text-sm text-gray-300 hover:text-blue-400 break-all">
+                <Mail className="w-4 h-4 text-blue-400 shrink-0" />
                 {personal.email}
               </a>
-              <a href={`tel:${personal.phone.replace(/\s/g, "")}`} className="flex items-center gap-3 text-sm text-gray-300 hover:text-blue-400">
-                <Phone className="w-4 h-4 text-blue-400" />
-                {personal.phone}
-              </a>
+              {personal.phone && (
+                <a href={phoneHref} className="flex items-center gap-3 text-sm text-gray-300 hover:text-blue-400">
+                  <Phone className="w-4 h-4 text-blue-400 shrink-0" />
+                  {personal.phone}
+                </a>
+              )}
               <div className="flex items-center gap-3 text-sm text-gray-300">
-                <MapPin className="w-4 h-4 text-blue-400" />
+                <MapPin className="w-4 h-4 text-blue-400 shrink-0" />
                 {personal.location}
               </div>
             </div>
           </div>
 
           <div className="lg:col-span-3">
-            <div className="p-6 sm:p-8 rounded-2xl bg-[#111827] border border-white/8">
+            <div className="p-5 sm:p-8 rounded-2xl bg-[#111827] border border-white/8">
               {sent ? (
                 <div className="text-center py-10">
                   <CheckCircle2 className="w-12 h-12 text-blue-400 mx-auto mb-4" />

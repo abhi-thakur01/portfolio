@@ -60,17 +60,17 @@ export function Projects() {
   };
 
   return (
-    <section id="projects" className="py-20 bg-[#0d1220]/50">
+    <section id="projects" className="py-14 sm:py-20 bg-[#0d1220]/50">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-6 sm:mb-8">
           <div>
             <p className="text-blue-400 text-xs font-semibold tracking-wider uppercase mb-2">
               My Projects
             </p>
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-3">
+            <h2 className="text-2xl sm:text-4xl font-bold text-white mb-2 sm:mb-3">
               Featured Projects
             </h2>
-            <p className="text-gray-400 max-w-lg text-[15px]">
+            <p className="text-gray-400 max-w-lg text-sm sm:text-[15px]">
               Here are some of my recent projects. Each project helped me learn something new and improve my skills.
             </p>
           </div>
@@ -102,7 +102,7 @@ export function Projects() {
           onMouseUp={onMouseUp}
           onMouseLeave={onMouseUp}
           onScroll={updateScrollState}
-          className="flex gap-5 overflow-x-auto pb-3 cursor-grab scroll-smooth snap-x snap-mandatory [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden active:cursor-grabbing"
+          className="flex gap-4 sm:gap-5 overflow-x-auto pb-3 cursor-grab scroll-smooth snap-x snap-mandatory [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden active:cursor-grabbing"
           style={{ WebkitOverflowScrolling: "touch", touchAction: "pan-x" }}
         >
           {list.map((project) => (
@@ -111,7 +111,7 @@ export function Projects() {
               data-project-card
               className="group snap-start shrink-0 w-[85%] sm:w-[calc(50%-10px)] lg:w-[calc(33.333%-14px)] rounded-2xl bg-[#111827] border border-white/8 overflow-hidden hover:border-blue-500/40 transition-colors duration-300"
             >
-              <div className="h-44 bg-gradient-to-br from-[#1a2234] to-[#0d1220] flex items-center justify-center border-b border-white/5 overflow-hidden pointer-events-none">
+              <div className="h-40 sm:h-44 bg-gradient-to-br from-[#1a2234] to-[#0d1220] flex items-center justify-center border-b border-white/5 overflow-hidden pointer-events-none">
                 {project.image ? (
                   <img
                     src={project.image}
@@ -121,14 +121,14 @@ export function Projects() {
                   />
                 ) : (
                   <div className="flex flex-col items-center gap-2 text-blue-500/30">
-                    <FolderGit2 className="w-14 h-14" />
+                    <FolderGit2 className="w-12 h-12 sm:w-14 sm:h-14" />
                     <span className="text-[10px] font-mono text-gray-600">{project.category}</span>
                   </div>
                 )}
               </div>
 
-              <div className="p-5">
-                <h3 className="font-semibold text-white mb-2 group-hover:text-blue-400 transition-colors">
+              <div className="p-4 sm:p-5">
+                <h3 className="font-semibold text-white mb-2 group-hover:text-blue-400 transition-colors text-sm sm:text-base">
                   {project.title}
                 </h3>
                 <p className="text-sm text-gray-400 leading-relaxed mb-4 line-clamp-2">

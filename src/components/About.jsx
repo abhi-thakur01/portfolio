@@ -10,19 +10,18 @@ export function About() {
   ];
 
   return (
-    <section id="about" className="py-20">
+    <section id="about" className="py-14 sm:py-20">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-          {/* Left - centered content on its side */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           <div className="flex flex-col justify-center">
             <p className="text-blue-400 text-xs font-semibold tracking-wider uppercase mb-2">
               About Me
             </p>
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-5">
+            <h2 className="text-2xl sm:text-4xl font-bold text-white mb-4 sm:mb-5">
               {about.heading}
             </h2>
-            <div className="space-y-4 text-gray-400 leading-relaxed text-[15px] mb-8">
-              {about.paragraphs.map((p, i) => (
+            <div className="space-y-4 text-gray-400 leading-relaxed text-sm sm:text-[15px] mb-6 sm:mb-8">
+              {(about.paragraphs || []).map((p, i) => (
                 <p key={i}>{p}</p>
               ))}
             </div>
@@ -37,9 +36,8 @@ export function About() {
             </div>
           </div>
 
-          {/* Right - info card vertically centered */}
           <div className="flex items-center justify-center lg:justify-end">
-            <div className="w-full max-w-md p-6 rounded-2xl bg-[#111827]/80 border border-white/8 space-y-5">
+            <div className="w-full max-w-md p-5 sm:p-6 rounded-2xl bg-[#111827]/80 border border-white/8 space-y-4 sm:space-y-5">
               {info.map(({ icon: Icon, label, value, href }) => (
                 <div key={label} className="flex items-start gap-3">
                   <div className="w-9 h-9 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400 shrink-0">

@@ -3,33 +3,33 @@ import { experience } from "../data/content";
 
 export function Experience() {
   return (
-    <section id="experience" className="py-20 bg-[#0d1220]/50">
+    <section id="experience" className="py-14 sm:py-20 bg-[#0d1220]/50">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-12">
           <div className="lg:col-span-3">
             <p className="text-blue-400 text-xs font-semibold tracking-wider uppercase mb-2">
               My Experience
             </p>
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-3">
+            <h2 className="text-2xl sm:text-4xl font-bold text-white mb-2 sm:mb-3">
               Work Experience
             </h2>
-            <p className="text-gray-400 text-[15px] mb-10 max-w-md">
+            <p className="text-gray-400 text-sm sm:text-[15px] mb-8 sm:mb-10 max-w-md">
               My professional journey so far — where I've worked, what I've learned and the skills I've grown.
             </p>
 
             <div className="relative">
               <div className="absolute left-[7px] top-2 bottom-2 w-px bg-gradient-to-b from-blue-500 via-blue-500/30 to-transparent" />
 
-              <div className="space-y-8">
-                {experience.map((job, idx) => (
+              <div className="space-y-7 sm:space-y-8">
+                {(experience || []).map((job, idx) => (
                   <div key={idx} className="relative pl-10">
                     <div className="absolute left-0 top-1.5 w-4 h-4 rounded-full bg-[#0a0e1a] border-2 border-blue-500" />
 
                     <div className="mb-1.5">
                       <div className="text-xs font-mono text-blue-400 mb-1">{job.period}</div>
-                      <h3 className="text-base font-semibold text-white mb-2">{job.title}</h3>
+                      <h3 className="text-sm sm:text-base font-semibold text-white mb-2">{job.title}</h3>
                       <div className="flex flex-wrap gap-1.5 mb-2">
-                        {job.tags.map((tag) => (
+                        {(job.tags || []).map((tag) => (
                           <span
                             key={tag}
                             className="px-2.5 py-0.5 rounded-md bg-blue-500/10 border border-blue-500/20 text-[11px] text-blue-300 whitespace-nowrap"
@@ -47,14 +47,14 @@ export function Experience() {
           </div>
 
           <div className="lg:col-span-2 flex items-center">
-            <div className="w-full p-8 rounded-2xl bg-[#111827] border border-white/8 text-center">
-              <div className="w-14 h-14 mx-auto mb-5 rounded-2xl bg-blue-500/15 border border-blue-500/30 flex items-center justify-center text-blue-400">
-                <Send className="w-6 h-6" />
+            <div className="w-full p-6 sm:p-8 rounded-2xl bg-[#111827] border border-white/8 text-center">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 mx-auto mb-4 sm:mb-5 rounded-2xl bg-blue-500/15 border border-blue-500/30 flex items-center justify-center text-blue-400">
+                <Send className="w-5 h-5 sm:w-6 sm:h-6" />
               </div>
               <p className="text-blue-400 text-xs font-semibold tracking-wider uppercase mb-2">
                 Let's Work Together
               </p>
-              <h3 className="text-xl font-bold text-white mb-3">
+              <h3 className="text-lg sm:text-xl font-bold text-white mb-3">
                 Have a project in mind?
               </h3>
               <p className="text-sm text-gray-400 mb-6 leading-relaxed">
