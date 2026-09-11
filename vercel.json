@@ -36,21 +36,22 @@
       ]
     }
   ],
-  "routes": [
+  "rewrites": [
     {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
+      "source": "/api/(.*)",
+      "destination": "/api/$1"
     },
     {
-      "src": "/admin/?$",
-      "dest": "/admin/index.html"
+      "source": "/admin",
+      "destination": "/admin.html"
     },
     {
-      "handle": "filesystem"
+      "source": "/admin/",
+      "destination": "/admin.html"
     },
     {
-      "src": "/(.*)",
-      "dest": "/index.html"
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
