@@ -1,28 +1,13 @@
-/**
- * Vercel Serverless Function - Contact Form Handler
- * POST /api/contact
- * 
- * Env vars (optional):
- * - RESEND_API_KEY: if set, will send email via Resend
- * - CONTACT_TO_EMAIL: destination email (default: thakurabhi8925@gmail.com)
- * - CONTACT_FROM_EMAIL: from email for Resend
- */
-
 type ContactBody = {
   name?: string;
   email?: string;
+  message?: string;
+  website?: string;
   service?: string;
   budget?: string;
-  message?: string;
-  // honeypot
-  website?: string;
-  // spec from calculator
-  platform?: string;
-  pages?: number;
 };
 
 export default async function handler(req: any, res: any) {
-  // CORS
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
@@ -40,9 +25,7 @@ export default async function handler(req: any, res: any) {
   try {
     const body: ContactBody = typeof req.body === "string" ? JSON.parse(req.body) : req.body || {};
 
-    // Honeypot check - if filled, it's spam
     if (body.website && body.website.trim() !== "") {
-      // Pretend success for bots
       res.status(200).json({ success: true, message: "Message received" });
       return;
     }
@@ -53,7 +36,6 @@ export default async function handler(req: any, res: any) {
     const service = (body.service || "").trim();
     const budget = (body.budget || "").trim();
 
-    // Validation
     if (!name || name.length < 2) {
       res.status(400).json({ success: false, error: "Name must be at least 2 characters" });
       return;
@@ -67,81 +49,105 @@ export default async function handler(req: any, res: any) {
       return;
     }
 
-    // Rate limiting simple check via header (Vercel doesn't have persistent storage)
-    // For production, use Upstash Redis or similar
-
     const toEmail = process.env.CONTACT_TO_EMAIL || "thakurabhi8925@gmail.com";
-    const fromEmail = process.env.CONTACT_FROM_EMAIL || "portfolio@portfolio-delta-flax-28.vercel.app";
-
-    // Try to send via Resend if API key exists
     const resendKey = process.env.RESEND_API_KEY;
+    let sent = false;
+    let lastError = "";
 
     if (resendKey) {
-      try {
-        const resendResponse = await fetch("https://api.resend.com/emails", {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${resendKey}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            from: `Portfolio Contact <${fromEmail}>`,
-            to: [toEmail],
-            reply_to: email,
-            subject: `New inquiry from ${name} - ${service || "Portfolio"}`,
-            html: `
-              <div style="font-family: sans-serif; max-width: 600px; background: #0d0d17; color: #f1f0ea; padding: 24px; border-radius: 12px;">
-                <h2 style="color: #f0d060; margin: 0 0 16px;">New Portfolio Inquiry</h2>
-                <p><strong>Name:</strong> ${escapeHtml(name)}</p>
-                <p><strong>Email:</strong> ${escapeHtml(email)}</p>
-                <p><strong>Service:</strong> ${escapeHtml(service) || "Not specified"}</p>
-                <p><strong>Budget:</strong> ${escapeHtml(budget) || "Not specified"}</p>
-                <p><strong>Platform:</strong> ${escapeHtml(body.platform || "")}</p>
-                <p><strong>Pages:</strong> ${body.pages || ""}</p>
-                <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 16px 0;" />
-                <p><strong>Message:</strong></p>
-                <p style="white-space: pre-wrap; background: #121222; padding: 12px; border-radius: 8px;">${escapeHtml(message)}</p>
-                <p style="font-size: 12px; color: #9ca3af; margin-top: 24px;">Sent from portfolio-delta-flax-28.vercel.app contact form</p>
-              </div>
-            `,
-          }),
-        });
-
-        if (!resendResponse.ok) {
-          const err = await resendResponse.text();
-          console.error("Resend error:", err);
-          // Don't fail - still return success to user, log error
-        }
-      } catch (e) {
-        console.error("Email send failed:", e);
-      }
-    } else {
-      // No email service - log to console (Vercel logs)
-      console.log("New contact inquiry:", {
-        name,
-        email,
-        service,
-        budget,
-        message: message.substring(0, 200),
-        timestamp: new Date().toISOString(),
+      const fromEmail = process.env.CONTACT_FROM_EMAIL || "Portfolio <beth.t@example.com>";
+      const r = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${resendKey}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          from: fromEmail,
+          to: [toEmail],
+          reply_to: email,
+          subject: `New portfolio message from ${name}`,
+          html: emailHtml({ name, email, message, service, budget }),
+        }),
       });
+      if (r.ok) sent = true;
+      else lastError = await r.text();
+    }
+
+    if (!sent) {
+      const r = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(toEmail)}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          message,
+          service: service || "-",
+          budget: budget || "-",
+          _subject: `New portfolio message from ${name}`,
+          _replyto: email,
+          _template: "table",
+          _captcha: "false",
+        }),
+      });
+      const data = await r.json().catch(() => ({}));
+      if (r.ok && (data.success === true || data.success === "true" || data.message)) {
+        sent = true;
+      } else {
+        lastError = data.message || data.error || lastError || "Email provider rejected the message";
+      }
+    }
+
+    if (!sent) {
+      console.error("Contact send failed:", lastError);
+      res.status(500).json({
+        success: false,
+        error: "Could not send email. Please write directly to thakurabhi8925@gmail.com",
+      });
+      return;
     }
 
     res.status(200).json({
       success: true,
-      message: "Thank you! Your message has been received. I will reply within 24 hours.",
+      message: "Thank you! Your message has been sent.",
     });
   } catch (error: any) {
     console.error("Contact API error:", error);
-    res.status(500).json({ success: false, error: "Internal server error. Please email directly at thakurabhi8925@gmail.com" });
+    res.status(500).json({
+      success: false,
+      error: "Internal server error. Please email directly at thakurabhi8925@gmail.com",
+    });
   }
+}
+
+function emailHtml(fields: {
+  name: string;
+  email: string;
+  message: string;
+  service: string;
+  budget: string;
+}) {
+  return `
+    <div style="font-family:Inter,system-ui,sans-serif;max-width:600px;background:#0a0e1a;color:#e5e7eb;padding:24px;border-radius:12px">
+      <h2 style="color:#60a5fa;margin:0 0 16px">New portfolio message</h2>
+      <p><strong>Name:</strong> ${escapeHtml(fields.name)}</p>
+      <p><strong>Email:</strong> ${escapeHtml(fields.email)}</p>
+      ${fields.service ? `<p><strong>Service:</strong> ${escapeHtml(fields.service)}</p>` : ""}
+      ${fields.budget ? `<p><strong>Budget:</strong> ${escapeHtml(fields.budget)}</p>` : ""}
+      <hr style="border:none;border-top:1px solid #1e293b;margin:16px 0" />
+      <p style="white-space:pre-wrap;background:#111827;padding:12px;border-radius:8px">${escapeHtml(fields.message)}</p>
+    </div>
+  `;
 }
 
 function escapeHtml(str: string): string {
   return str
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
+    .replace(/&/g, "&")
+    .replace(/</g, "<")
+    .replace(/>/g, ">")
+    .replace(/"/g, """)
     .replace(/'/g, "&#039;");
 }
