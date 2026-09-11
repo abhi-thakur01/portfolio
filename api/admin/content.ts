@@ -1,17 +1,6 @@
 import { createDecipheriv, createHash } from "node:crypto";
 
-const ALLOWED_FILES = new Set([
-  "content/personal.json",
-  "content/roles.json",
-  "content/addresses.json",
-  "content/faqs.json",
-  "content/nav.json",
-  "content/hero.json",
-  "content/skills.json",
-  "content/about.json",
-  "content/process.json",
-  "content/seo.json",
-]);
+const CONTENT_PATH = /^content\/[A-Za-z0-9_./-]+\.json$/;
 
 function getSession(req: any) {
   const raw = req.headers.cookie?.split(";").map((v: string) => v.trim()).find((v: string) => v.startsWith("cms_session="));
@@ -50,7 +39,7 @@ export default async function handler(req: any, res: any) {
   }
 
   const path = String(req.query?.path || "");
-  if (!ALLOWED_FILES.has(path)) {
+  if (!CONTENT_PATH.test(path) || path.includes("..")) {
     res.status(400).json({ error: "File is not editable from the CMS" });
     return;
   }
