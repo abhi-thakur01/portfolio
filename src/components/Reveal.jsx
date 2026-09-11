@@ -1,5 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 
+const FROM = {
+  up: "translateY(60px)",
+  down: "translateY(-40px)",
+  left: "translateX(-70px)",
+  right: "translateX(70px)",
+};
+
 export function Reveal({ children, from = "up", delay = 0, className = "" }) {
   const ref = useRef(null);
   const [visible, setVisible] = useState(false);
@@ -13,14 +20,18 @@ export function Reveal({ children, from = "up", delay = 0, className = "" }) {
       return;
     }
 
+    const show = () => {
+      requestAnimationFrame(() => setVisible(true));
+    };
+
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setVisible(true);
-          io.unobserve(el);
+          show();
+          io.disconnect();
         }
       },
-      { threshold: 0.12, rootMargin: "0px 0px -48px 0px" }
+      { threshold: 0.08, rootMargin: "0px 0px -10% 0px" }
     );
 
     io.observe(el);
@@ -30,8 +41,13 @@ export function Reveal({ children, from = "up", delay = 0, className = "" }) {
   return (
     <div
       ref={ref}
-      className={`reveal reveal-${from} ${visible ? "is-visible" : ""} ${className}`}
-      style={{ transitionDelay: `${delay}ms` }}
+      className={className}
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? "translate3d(0,0,0)" : FROM[from] || FROM.up,
+        transition: `opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms, transform 0.85s cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms`,
+        willChange: "opacity, transform",
+      }}
     >
       {children}
     </div>

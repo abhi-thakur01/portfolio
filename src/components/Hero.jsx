@@ -6,7 +6,7 @@ export function Hero() {
   const stats = personal.stats || [];
 
   return (
-    <section id="home" className="relative pt-20 sm:pt-24 pb-8 overflow-hidden">
+    <section id="home" className="relative pt-20 sm:pt-24 pb-8">
       <div className="absolute top-10 right-0 w-[280px] sm:w-[420px] h-[280px] sm:h-[420px] bg-blue-600/15 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
@@ -26,17 +26,17 @@ export function Hero() {
               {personal.bio}
             </p>
 
-            <div className="flex flex-col xs:flex-row flex-wrap gap-3 mb-6 sm:mb-8">
+            <div className="flex flex-row flex-wrap items-center gap-3 mb-6 sm:mb-8">
               <a
                 href="#projects"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm transition-colors shadow-lg shadow-blue-600/30 w-full sm:w-auto"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm transition-colors shadow-lg shadow-blue-600/30"
               >
                 {personal.ctaPrimary || "View My Projects"}
                 <ArrowRight className="w-4 h-4" />
               </a>
               <a
                 href={personal.resumeUrl || "#"}
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg border border-white/15 text-gray-200 hover:border-blue-500/50 hover:text-white font-medium text-sm transition-colors w-full sm:w-auto"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg border border-white/15 text-gray-200 hover:border-blue-500/50 hover:text-white font-medium text-sm transition-colors"
               >
                 {personal.ctaSecondary || "Download Resume"}
                 <Download className="w-4 h-4" />
@@ -66,7 +66,7 @@ export function Hero() {
             </div>
           </Reveal>
 
-          <Reveal from="right" delay={120} className="order-1 lg:order-2 flex justify-center lg:justify-end">
+          <Reveal from="right" delay={140} className="order-1 lg:order-2 flex justify-center lg:justify-end">
             <div className="relative w-[200px] sm:w-[260px] md:w-[300px]">
               <div className="absolute inset-0 scale-110 bg-blue-500/25 blur-[60px] rounded-full pointer-events-none" />
 
@@ -95,7 +95,7 @@ export function Hero() {
         </div>
 
         {stats.length > 0 && (
-          <Reveal from="up" delay={220}>
+          <Reveal from="up" delay={240}>
             <div className="mt-10 sm:mt-14 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 py-6 sm:py-8 border-y border-white/5">
               {stats.map((s) => (
                 <div key={s.label} className="text-center">
