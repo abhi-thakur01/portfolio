@@ -11,8 +11,12 @@
   "responseTime": "Within 24 Hours",
   "responseNote": "Email & WhatsApp",
   "languages": [
-    { "label": "English — Professional" },
-    { "label": "Hindi — Native" }
+    {
+      "label": "English — Professional"
+    },
+    {
+      "label": "Hindi — Native"
+    }
   ],
   "traits": [
     {
