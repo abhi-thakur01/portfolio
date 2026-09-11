@@ -4,7 +4,6 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "installCommand": "npm install",
-  "cleanUrls": true,
   "headers": [
     {
       "source": "/assets/(.*)",
@@ -37,22 +36,21 @@
       ]
     }
   ],
-  "rewrites": [
+  "routes": [
     {
-      "source": "/api/(.*)",
-      "destination": "/api/$1"
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
     },
     {
-      "source": "/admin",
-      "destination": "/admin/index"
+      "src": "/admin/?$",
+      "dest": "/admin/index.html"
     },
     {
-      "source": "/admin/",
-      "destination": "/admin/index"
+      "handle": "filesystem"
     },
     {
-      "source": "/(.*)",
-      "destination": "/index.html"
+      "src": "/(.*)",
+      "dest": "/index.html"
     }
   ]
 }
