@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Mail, Phone, MapPin, Send, Loader2, CheckCircle2 } from "lucide-react";
 import { personal } from "../data/content";
+import { Reveal } from "./Reveal";
 
 export function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "", website: "" });
@@ -46,7 +47,7 @@ export function Contact() {
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12">
-          <div className="lg:col-span-2">
+          <Reveal from="left" className="lg:col-span-2">
             <p className="text-blue-400 text-xs font-semibold tracking-wider uppercase mb-2">
               Contact
             </p>
@@ -71,9 +72,9 @@ export function Contact() {
                 {personal.location}
               </div>
             </div>
-          </div>
+          </Reveal>
 
-          <div className="lg:col-span-3">
+          <Reveal from="right" delay={140} className="lg:col-span-3">
             <div className="p-5 sm:p-8 rounded-2xl bg-[#111827] border border-white/8">
               {sent ? (
                 <div className="text-center py-10">
@@ -136,7 +137,7 @@ export function Contact() {
                 </form>
               )}
             </div>
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>

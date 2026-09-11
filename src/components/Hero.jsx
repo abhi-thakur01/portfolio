@@ -1,5 +1,6 @@
 import { Download, Github, Linkedin, Mail, Twitter, ArrowRight } from "lucide-react";
 import { personal } from "../data/content";
+import { Reveal } from "./Reveal";
 
 export function Hero() {
   const stats = personal.stats || [];
@@ -10,7 +11,7 @@ export function Hero() {
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center min-h-0 lg:min-h-[68vh]">
-          <div className="order-2 lg:order-1">
+          <Reveal from="left" className="order-2 lg:order-1">
             <p className="text-blue-400 text-xs font-semibold tracking-[0.2em] uppercase mb-3 sm:mb-4">
               {personal.greeting || "Hi, I'm"}
             </p>
@@ -63,9 +64,9 @@ export function Hero() {
                   </a>
                 ))}
             </div>
-          </div>
+          </Reveal>
 
-          <div className="order-1 lg:order-2 flex justify-center lg:justify-end">
+          <Reveal from="right" delay={120} className="order-1 lg:order-2 flex justify-center lg:justify-end">
             <div className="relative w-[200px] sm:w-[260px] md:w-[300px]">
               <div className="absolute inset-0 scale-110 bg-blue-500/25 blur-[60px] rounded-full pointer-events-none" />
 
@@ -90,18 +91,20 @@ export function Hero() {
                 </div>
               </div>
             </div>
-          </div>
+          </Reveal>
         </div>
 
         {stats.length > 0 && (
-          <div className="mt-10 sm:mt-14 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 py-6 sm:py-8 border-y border-white/5">
-            {stats.map((s) => (
-              <div key={s.label} className="text-center">
-                <div className="text-xl sm:text-3xl font-extrabold text-blue-400 mb-1">{s.value}</div>
-                <div className="text-[10px] sm:text-xs text-gray-500">{s.label}</div>
-              </div>
-            ))}
-          </div>
+          <Reveal from="up" delay={220}>
+            <div className="mt-10 sm:mt-14 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 py-6 sm:py-8 border-y border-white/5">
+              {stats.map((s) => (
+                <div key={s.label} className="text-center">
+                  <div className="text-xl sm:text-3xl font-extrabold text-blue-400 mb-1">{s.value}</div>
+                  <div className="text-[10px] sm:text-xs text-gray-500">{s.label}</div>
+                </div>
+              ))}
+            </div>
+          </Reveal>
         )}
       </div>
     </section>

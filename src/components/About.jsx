@@ -1,5 +1,6 @@
 import { MapPin, Mail, Clock, Calendar, ArrowRight } from "lucide-react";
 import { about, personal } from "../data/content";
+import { Reveal } from "./Reveal";
 
 export function About() {
   const info = [
@@ -10,10 +11,10 @@ export function About() {
   ];
 
   return (
-    <section id="about" className="py-14 sm:py-20">
+    <section id="about" className="py-14 sm:py-20 overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-          <div className="flex flex-col justify-center">
+          <Reveal from="left" className="flex flex-col justify-center">
             <p className="text-blue-400 text-xs font-semibold tracking-wider uppercase mb-2">
               About Me
             </p>
@@ -34,9 +35,9 @@ export function About() {
                 <ArrowRight className="w-4 h-4" />
               </a>
             </div>
-          </div>
+          </Reveal>
 
-          <div className="flex items-center justify-center lg:justify-end">
+          <Reveal from="right" delay={120} className="flex items-center justify-center lg:justify-end">
             <div className="w-full max-w-md p-5 sm:p-6 rounded-2xl bg-[#111827]/80 border border-white/8 space-y-4 sm:space-y-5">
               {info.map(({ icon: Icon, label, value, href }) => (
                 <div key={label} className="flex items-start gap-3">
@@ -56,7 +57,7 @@ export function About() {
                 </div>
               ))}
             </div>
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>
