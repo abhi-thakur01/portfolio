@@ -2,7 +2,7 @@
 
 Modern, fast, SEO-optimized portfolio for Junior Web Designer & WordPress/CMS Specialist.
 
-**Live:** https://abhishekthakur.in (Vercel)  
+**Live:** https://portfolio-delta-flax-28.vercel.app  
 **Stack:** React 19 + Vite 7 + Tailwind 4 + TypeScript
 
 ---
@@ -15,6 +15,7 @@ Modern, fast, SEO-optimized portfolio for Junior Web Designer & WordPress/CMS Sp
 - ❌ `api/auth.ts` — GitHub OAuth for CMS removed
 - ❌ `ADMIN_SETUP.md` — CMS docs removed
 - ❌ `.github/workflows/deploy.yml` — GitHub Pages workflow removed (Vercel only now)
+- ❌ Custom domain `abhishekthakur.in` references removed (using Vercel URL only)
 
 ### Performance Improvements
 - ✅ **Code splitting:** `React.lazy()` + `Suspense` for all below-fold sections (About, Skills, Services, Calculator, Process, Work, SEO, FAQ, Contact, Footer)
@@ -92,12 +93,9 @@ npm run preview  # preview dist
 5. Env vars (optional):
    - `RESEND_API_KEY` — from https://resend.com (free 100/day)
    - `CONTACT_TO_EMAIL` — your email (default: thakurabhi8925@gmail.com)
-   - `CONTACT_FROM_EMAIL` — from address (default: portfolio@abhishekthakur.in)
+   - `CONTACT_FROM_EMAIL` — from address (optional)
 
 If `RESEND_API_KEY` not set, form still works and logs to Vercel logs.
-
-### Custom Domain
-Add `abhishekthakur.in` in Vercel > Settings > Domains
 
 ---
 

@@ -8,7 +8,7 @@ Disallow: /*.json$
 Allow: /content/
 
 # Sitemap
-Sitemap: https://abhishekthakur.in/sitemap.xml
+Sitemap: https://portfolio-delta-flax-28.vercel.app/sitemap.xml
 
 # Crawl-delay
 Crawl-delay: 1

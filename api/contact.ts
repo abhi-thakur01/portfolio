@@ -71,7 +71,7 @@ export default async function handler(req: any, res: any) {
     // For production, use Upstash Redis or similar
 
     const toEmail = process.env.CONTACT_TO_EMAIL || "thakurabhi8925@gmail.com";
-    const fromEmail = process.env.CONTACT_FROM_EMAIL || "portfolio@abhishekthakur.in";
+    const fromEmail = process.env.CONTACT_FROM_EMAIL || "portfolio@portfolio-delta-flax-28.vercel.app";
 
     // Try to send via Resend if API key exists
     const resendKey = process.env.RESEND_API_KEY;
@@ -101,7 +101,7 @@ export default async function handler(req: any, res: any) {
                 <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 16px 0;" />
                 <p><strong>Message:</strong></p>
                 <p style="white-space: pre-wrap; background: #121222; padding: 12px; border-radius: 8px;">${escapeHtml(message)}</p>
-                <p style="font-size: 12px; color: #9ca3af; margin-top: 24px;">Sent from abhishekthakur.in contact form</p>
+                <p style="font-size: 12px; color: #9ca3af; margin-top: 24px;">Sent from portfolio-delta-flax-28.vercel.app contact form</p>
               </div>
             `,
           }),
