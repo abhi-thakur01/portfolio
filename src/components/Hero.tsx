@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
   ArrowRight,
-  Sparkles,
   Lock,
   ExternalLink,
   Zap,
@@ -9,11 +8,7 @@ import {
 } from "lucide-react";
 import { ROLES, ADDRESSES, HERO, PERSONAL_INFO } from "../data/portfolioData";
 
-interface HeroProps {
-  onSelectProject?: (id: string) => void;
-}
-
-export const Hero: React.FC<HeroProps> = () => {
+export const Hero: React.FC = () => {
   const [roleIndex, setRoleIndex] = useState(0);
   const [displayText, setDisplayText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
@@ -96,14 +91,6 @@ export const Hero: React.FC<HeroProps> = () => {
                 className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-[#141424] border border-[#c9a227]/30 text-gray-200 hover:text-white hover:border-[#c9a227] hover:bg-[#19192e] font-medium text-sm transition-all duration-200"
               >
                 <span>{HERO.ctaSecondary}</span>
-              </a>
-
-              <a
-                href="#calculator"
-                className="inline-flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl bg-white/[0.04] border border-white/10 text-gray-300 hover:text-[#f0d060] hover:border-[#c9a227]/40 text-xs font-mono transition-all duration-200"
-              >
-                <Sparkles className="w-3.5 h-3.5 text-[#f0d060]" />
-                <span>{HERO.ctaTertiary}</span>
               </a>
             </div>
 

@@ -1,5 +1,5 @@
 {
-  "statusPill": "Available for Freelance & Agency Projects",
+  "statusPill": "Available for Full-time & Freelance Roles",
   "greeting": "Hi, I'm",
   "bioBefore": "A",
   "bioHighlight": "Junior Web Designer",
@@ -8,7 +8,7 @@
   "bioEnd": ", and clean modern code.",
   "ctaPrimary": "View My Work",
   "ctaSecondary": "Get In Touch",
-  "ctaTertiary": "Price Estimator",
+  "ctaTertiary": "",
   "metric1Label": "Years Experience",
   "metric2Label": "Projects Built",
   "metric3Label": "CMS & Tools",
