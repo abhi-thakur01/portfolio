@@ -45,6 +45,8 @@ export const TAG_CLOUD = skillsJson.tagCloud;
 export const TOOLS_ROW_1 = skillsJson.toolsRow1;
 export const TOOLS_ROW_2 = skillsJson.toolsRow2;
 
+export const ABOUT = aboutJson;
+
 export const ABOUT_TRAITS = aboutJson.traits.map((t) => ({
   ...t,
   icon: iconMap[t.icon] || Globe,
