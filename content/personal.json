@@ -1,6 +1,6 @@
 {
   "name": "Abhishek Thakur",
-  "role": "Junior Web Designer",
+  "role": "Junior Web Designer & WordPress / CMS Specialist",
   "bio": "I build fast, pixel-perfect, and mobile-friendly websites with WordPress, Elementor, Beaver Builder, GoHighLevel, and clean modern code. Passionate about clean UI and continuous learning.",
   "email": "thakurabhi8925@gmail.com",
   "phone": "+91 82192 88267",
@@ -13,26 +13,14 @@
   "resumeUrl": "#",
   "photo": "",
   "greeting": "Hi, I'm",
-  "photoSideText": [],
+  "photoSideText": ["Build", "Create", "Improve"],
   "ctaPrimary": "View My Projects",
   "ctaSecondary": "Download Resume",
   "stats": [
-    {
-      "value": "1+",
-      "label": "Years Experience"
-    },
-    {
-      "value": "12+",
-      "label": "Projects Completed"
-    },
-    {
-      "value": "100%",
-      "label": "Client Satisfaction"
-    },
-    {
-      "value": "10+",
-      "label": "Technologies"
-    }
+    { "value": "1+", "label": "Years Experience" },
+    { "value": "12+", "label": "Projects Completed" },
+    { "value": "100%", "label": "Client Satisfaction" },
+    { "value": "10+", "label": "Technologies" }
   ],
   "agency": {
     "role": "Junior Web Designer",

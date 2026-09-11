@@ -6,6 +6,7 @@ export function Projects() {
   const trackRef = useRef(null);
   const [canScroll, setCanScroll] = useState(false);
   const drag = useRef({ active: false, startX: 0, scrollLeft: 0, moved: false });
+  const list = Array.isArray(projects) ? projects : [];
 
   const updateScrollState = () => {
     const el = trackRef.current;
@@ -17,7 +18,7 @@ export function Projects() {
     updateScrollState();
     window.addEventListener("resize", updateScrollState);
     return () => window.removeEventListener("resize", updateScrollState);
-  }, [projects]);
+  }, [list.length]);
 
   const scrollByCard = (dir) => {
     const el = trackRef.current;
@@ -74,7 +75,7 @@ export function Projects() {
             </p>
           </div>
 
-          {projects.length > 3 && (
+          {list.length > 3 && (
             <div className="flex items-center gap-2 shrink-0">
               <button
                 type="button"
@@ -106,7 +107,7 @@ export function Projects() {
           className="flex gap-5 overflow-x-auto pb-3 cursor-grab scroll-smooth snap-x snap-mandatory [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden active:cursor-grabbing"
           style={{ WebkitOverflowScrolling: "touch", touchAction: "pan-x" }}
         >
-          {projects.map((project) => (
+          {list.map((project) => (
             <article
               key={project.id}
               data-project-card
@@ -137,7 +138,7 @@ export function Projects() {
                 </p>
 
                 <div className="flex flex-wrap gap-1.5 mb-4">
-                  {project.tags.map((tag) => (
+                  {(project.tags || []).map((tag) => (
                     <span
                       key={tag}
                       className="px-2.5 py-0.5 rounded-md bg-white/5 border border-white/8 text-[11px] text-gray-400"
@@ -148,7 +149,7 @@ export function Projects() {
                 </div>
 
                 <a
-                  href={project.link}
+                  href={project.link || "#"}
                   target={project.link?.startsWith("http") ? "_blank" : undefined}
                   rel="noreferrer"
                   onClick={(e) => {
@@ -167,7 +168,7 @@ export function Projects() {
           ))}
         </div>
 
-        {canScroll && projects.length > 3 && (
+        {canScroll && list.length > 3 && (
           <p className="text-[11px] text-gray-600 mt-3">Drag, swipe, or use arrows to browse more</p>
         )}
       </div>
