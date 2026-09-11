@@ -74,27 +74,28 @@ export function Projects() {
             </p>
           </div>
 
-          <div className="flex items-center gap-2 shrink-0">
-            <button
-              type="button"
-              onClick={() => scrollByCard("prev")}
-              className="w-10 h-10 rounded-full border border-white/15 text-gray-300 hover:text-white hover:border-blue-500/50 flex items-center justify-center transition-colors disabled:opacity-40"
-              aria-label="Previous"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-            <button
-              type="button"
-              onClick={() => scrollByCard("next")}
-              className="w-10 h-10 rounded-full border border-white/15 text-gray-300 hover:text-white hover:border-blue-500/50 flex items-center justify-center transition-colors disabled:opacity-40"
-              aria-label="Next"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
-          </div>
+          {projects.length > 3 && (
+            <div className="flex items-center gap-2 shrink-0">
+              <button
+                type="button"
+                onClick={() => scrollByCard("prev")}
+                className="w-10 h-10 rounded-full border border-white/15 text-gray-300 hover:text-white hover:border-blue-500/50 flex items-center justify-center transition-colors"
+                aria-label="Previous"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <button
+                type="button"
+                onClick={() => scrollByCard("next")}
+                className="w-10 h-10 rounded-full border border-white/15 text-gray-300 hover:text-white hover:border-blue-500/50 flex items-center justify-center transition-colors"
+                aria-label="Next"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
+          )}
         </div>
 
-        {/* Overflow wrapper — cards sized so 2.2 fit → always scrollable */}
         <div
           ref={trackRef}
           onMouseDown={onMouseDown}
@@ -109,7 +110,7 @@ export function Projects() {
             <article
               key={project.id}
               data-project-card
-              className="group snap-start shrink-0 w-[85%] sm:w-[48%] lg:w-[42%] rounded-2xl bg-[#111827] border border-white/8 overflow-hidden hover:border-blue-500/40 transition-colors duration-300"
+              className="group snap-start shrink-0 w-[85%] sm:w-[calc(50%-10px)] lg:w-[calc(33.333%-14px)] rounded-2xl bg-[#111827] border border-white/8 overflow-hidden hover:border-blue-500/40 transition-colors duration-300"
             >
               <div className="h-44 bg-gradient-to-br from-[#1a2234] to-[#0d1220] flex items-center justify-center border-b border-white/5 overflow-hidden pointer-events-none">
                 {project.image ? (
@@ -166,8 +167,8 @@ export function Projects() {
           ))}
         </div>
 
-        {canScroll && (
-          <p className="text-[11px] text-gray-600 mt-3">Drag, swipe, or use arrows to browse</p>
+        {canScroll && projects.length > 3 && (
+          <p className="text-[11px] text-gray-600 mt-3">Drag, swipe, or use arrows to browse more</p>
         )}
       </div>
     </section>
