@@ -2,21 +2,32 @@
   "items": [
     {
       "period": "2025 – Present",
-      "title": "Junior Web Designer · Gigsoft Pro (Remote)",
+      "title": "Junior Web Designer · Gigsoft Pro",
       "description": "Building responsive sites for international clients across WordPress, GoHighLevel, and Square Online — custom layouts in Elementor and Beaver Builder, mobile responsiveness, cross-browser testing, and ongoing maintenance.",
-      "tags": ["WordPress", "Elementor", "GoHighLevel", "Square Online"]
+      "tags": [
+        "WordPress",
+        "Elementor",
+        "GoHighLevel",
+        "Square Online"
+      ]
     },
     {
       "period": "2023 – 2025",
       "title": "MCA · Master of Computer Applications",
       "description": "Pursuing Master of Computer Applications (2023 – 2025). Strengthening skills in software development, web technologies, and computer science fundamentals alongside real client project work.",
-      "tags": ["MCA", "Computer Applications"]
+      "tags": [
+        "MCA",
+        "Computer Applications"
+      ]
     },
     {
       "period": "2020 – 2023",
       "title": "BCA · Bachelor of Computer Applications",
       "description": "Completed Bachelor of Computer Applications (2020 – 2023). Built a strong foundation in programming, web development, and computer science while starting hands-on WordPress and frontend projects.",
-      "tags": ["BCA", "Computer Applications"]
+      "tags": [
+        "BCA",
+        "Computer Applications"
+      ]
     }
   ]
 }
