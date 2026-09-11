@@ -2,21 +2,21 @@
   "items": [
     {
       "period": "2025 – Present",
-      "title": "Junior Web Designer · Gigsoft Pro",
+      "title": "Junior Web Designer · Gigsoft Pro (Remote)",
       "description": "Building responsive sites for international clients across WordPress, GoHighLevel, and Square Online — custom layouts in Elementor and Beaver Builder, mobile responsiveness, cross-browser testing, and ongoing maintenance.",
       "tags": ["WordPress", "Elementor", "GoHighLevel", "Square Online"]
     },
     {
-      "period": "2023 – 2025",
-      "title": "WordPress & CMS Projects (Freelance / Learning)",
-      "description": "Developed and customized WordPress websites using Elementor, Beaver Builder and related tools. Focused on responsive layouts, clean structure, and client-ready delivery.",
+      "period": "2023 – 2024",
+      "title": "WordPress Developer (Freelance)",
+      "description": "Developed and customized WordPress websites using Elementor, Beaver Builder and WooCommerce for small businesses. Focused on responsive layouts, clean structure, and client-ready delivery.",
       "tags": ["WordPress", "Elementor", "Beaver Builder"]
     },
     {
-      "period": "2020 – 2025",
-      "title": "BCA & MCA · Computer Applications",
-      "description": "Bachelor of Computer Applications completed (2020–2023). Master of Computer Applications in progress (2023–2025). Strong foundation in programming and web technologies.",
-      "tags": ["BCA", "MCA", "CS Fundamentals"]
+      "period": "2022 – 2023",
+      "title": "Front End Learner",
+      "description": "Built small projects focused on core concepts of HTML, CSS, JavaScript and modern web development while completing BCA and starting MCA.",
+      "tags": ["HTML", "CSS", "JavaScript"]
     }
   ]
 }

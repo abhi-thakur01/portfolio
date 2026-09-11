@@ -12,8 +12,9 @@ export function About() {
   return (
     <section id="about" className="py-20">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 items-start">
-          <div className="lg:col-span-3">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+          {/* Left - centered content on its side */}
+          <div className="flex flex-col justify-center">
             <p className="text-blue-400 text-xs font-semibold tracking-wider uppercase mb-2">
               About Me
             </p>
@@ -25,23 +26,26 @@ export function About() {
                 <p key={i}>{p}</p>
               ))}
             </div>
-            <a
-              href="#experience"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-white/15 text-gray-200 hover:border-blue-500/50 hover:text-white text-sm font-medium transition-colors"
-            >
-              Learn More
-              <ArrowRight className="w-4 h-4" />
-            </a>
+            <div>
+              <a
+                href="#experience"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-white/15 text-gray-200 hover:border-blue-500/50 hover:text-white text-sm font-medium transition-colors"
+              >
+                Learn More
+                <ArrowRight className="w-4 h-4" />
+              </a>
+            </div>
           </div>
 
-          <div className="lg:col-span-2">
-            <div className="p-6 rounded-2xl bg-[#111827]/80 border border-white/8 space-y-5">
+          {/* Right - info card vertically centered */}
+          <div className="flex items-center justify-center lg:justify-end">
+            <div className="w-full max-w-md p-6 rounded-2xl bg-[#111827]/80 border border-white/8 space-y-5">
               {info.map(({ icon: Icon, label, value, href }) => (
                 <div key={label} className="flex items-start gap-3">
                   <div className="w-9 h-9 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400 shrink-0">
                     <Icon className="w-4 h-4" />
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <div className="text-[11px] text-gray-500 mb-0.5">{label}</div>
                     {href ? (
                       <a href={href} className="text-sm text-gray-200 hover:text-blue-400 break-all">

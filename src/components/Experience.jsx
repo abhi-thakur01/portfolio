@@ -25,16 +25,14 @@ export function Experience() {
                   <div key={idx} className="relative pl-10">
                     <div className="absolute left-0 top-1.5 w-4 h-4 rounded-full bg-[#0a0e1a] border-2 border-blue-500" />
 
-                    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-1.5">
-                      <div>
-                        <div className="text-xs font-mono text-blue-400 mb-1">{job.period}</div>
-                        <h3 className="text-base font-semibold text-white">{job.title}</h3>
-                      </div>
-                      <div className="flex flex-wrap gap-1.5">
+                    <div className="mb-1.5">
+                      <div className="text-xs font-mono text-blue-400 mb-1">{job.period}</div>
+                      <h3 className="text-base font-semibold text-white mb-2">{job.title}</h3>
+                      <div className="flex flex-wrap gap-1.5 mb-2">
                         {job.tags.map((tag) => (
                           <span
                             key={tag}
-                            className="px-2 py-0.5 rounded-md bg-blue-500/10 border border-blue-500/20 text-[10px] text-blue-300"
+                            className="px-2.5 py-0.5 rounded-md bg-blue-500/10 border border-blue-500/20 text-[11px] text-blue-300 whitespace-nowrap"
                           >
                             {tag}
                           </span>
@@ -48,7 +46,6 @@ export function Experience() {
             </div>
           </div>
 
-          {/* CTA card */}
           <div className="lg:col-span-2 flex items-center">
             <div className="w-full p-8 rounded-2xl bg-[#111827] border border-white/8 text-center">
               <div className="w-14 h-14 mx-auto mb-5 rounded-2xl bg-blue-500/15 border border-blue-500/30 flex items-center justify-center text-blue-400">

@@ -1,11 +1,21 @@
-import { ExternalLink, FolderGit2, ArrowRight } from "lucide-react";
+import { useRef } from "react";
+import { ExternalLink, FolderGit2, ChevronLeft, ChevronRight } from "lucide-react";
 import { projects } from "../data/content";
 
 export function Projects() {
+  const trackRef = useRef(null);
+
+  const scroll = (dir) => {
+    const el = trackRef.current;
+    if (!el) return;
+    const amount = el.clientWidth * 0.85;
+    el.scrollBy({ left: dir === "next" ? amount : -amount, behavior: "smooth" });
+  };
+
   return (
     <section id="projects" className="py-20 bg-[#0d1220]/50">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
           <div>
             <p className="text-blue-400 text-xs font-semibold tracking-wider uppercase mb-2">
               My Projects
@@ -17,22 +27,36 @@ export function Projects() {
               Here are some of my recent projects. Each project helped me learn something new and improve my skills.
             </p>
           </div>
-          <a
-            href={projects[0]?.link || "#contact"}
-            className="text-sm text-blue-400 hover:text-blue-300 font-medium inline-flex items-center gap-1 shrink-0"
-          >
-            View All Projects
-            <ArrowRight className="w-4 h-4" />
-          </a>
+
+          <div className="flex items-center gap-2 shrink-0">
+            <button
+              onClick={() => scroll("prev")}
+              className="w-10 h-10 rounded-full border border-white/15 text-gray-300 hover:text-white hover:border-blue-500/50 flex items-center justify-center transition-colors"
+              aria-label="Previous projects"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <button
+              onClick={() => scroll("next")}
+              className="w-10 h-10 rounded-full border border-white/15 text-gray-300 hover:text-white hover:border-blue-500/50 flex items-center justify-center transition-colors"
+              aria-label="Next projects"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Carousel track */}
+        <div
+          ref={trackRef}
+          className="flex gap-5 overflow-x-auto scroll-smooth pb-2 snap-x snap-mandatory [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        >
           {projects.map((project) => (
             <article
               key={project.id}
-              className="group rounded-2xl bg-[#111827] border border-white/8 overflow-hidden hover:border-blue-500/40 transition-all duration-300 hover:-translate-y-1"
+              className="group snap-start shrink-0 w-[min(100%,320px)] sm:w-[340px] rounded-2xl bg-[#111827] border border-white/8 overflow-hidden hover:border-blue-500/40 transition-all duration-300"
             >
-              <div className="h-44 bg-gradient-to-br from-[#1a2234] to-[#0d1220] flex items-center justify-center border-b border-white/5 relative overflow-hidden">
+              <div className="h-44 bg-gradient-to-br from-[#1a2234] to-[#0d1220] flex items-center justify-center border-b border-white/5 overflow-hidden">
                 {project.image ? (
                   <img
                     src={project.image}

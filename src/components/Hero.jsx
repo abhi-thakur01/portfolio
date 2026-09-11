@@ -11,12 +11,12 @@ const stats = [
 export function Hero() {
   return (
     <section id="home" className="relative pt-24 pb-8 overflow-hidden">
-      <div className="absolute top-20 right-0 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-10 right-0 w-[420px] h-[420px] bg-blue-600/15 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-10 items-center min-h-[70vh]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center min-h-[68vh]">
           {/* Left */}
-          <div>
+          <div className="order-2 lg:order-1">
             <p className="text-blue-400 text-xs font-semibold tracking-[0.2em] uppercase mb-4">
               Hi, I'm
             </p>
@@ -68,38 +68,51 @@ export function Hero() {
             </div>
           </div>
 
-          {/* Right - Photo */}
-          <div className="flex justify-center lg:justify-end relative">
-            <div className="absolute -right-4 top-8 hidden lg:block text-right">
-              <p className="text-blue-400/80 font-script text-lg italic leading-relaxed" style={{ fontFamily: "Georgia, serif" }}>
-                Build<br />Create<br />Improve
-              </p>
-            </div>
-            <div className="relative">
-              <div className="absolute -inset-6 rounded-full bg-blue-500/20 blur-3xl" />
-              <div className="absolute -inset-2 rounded-2xl border border-blue-500/20" />
-              <div className="relative w-64 h-80 sm:w-72 sm:h-96 rounded-2xl overflow-hidden border border-blue-500/30 bg-[#111827] shadow-2xl shadow-blue-900/40">
-                {personal.photo ? (
-                  <img
-                    src={personal.photo}
-                    alt={personal.name}
-                    className="w-full h-full object-cover object-top"
-                  />
-                ) : (
-                  <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-b from-[#1a2234] via-[#111827] to-[#0d1220]">
-                    <div className="w-28 h-28 rounded-full bg-blue-500/20 border-2 border-blue-500/40 flex items-center justify-center text-4xl font-bold text-blue-400 mb-4">
-                      AT
+          {/* Right - Photo frame matching mockup */}
+          <div className="order-1 lg:order-2 flex justify-center lg:justify-end">
+            <div className="relative w-[260px] sm:w-[300px]">
+              {/* Soft blue glow behind */}
+              <div className="absolute inset-0 scale-110 bg-blue-500/25 blur-[60px] rounded-full pointer-events-none" />
+
+              {/* Outer frame */}
+              <div className="relative rounded-2xl p-[2px] bg-gradient-to-b from-blue-400/40 via-blue-600/20 to-transparent">
+                <div className="rounded-2xl overflow-hidden bg-[#0d1220] border border-blue-500/20 aspect-[3/4]">
+                  {personal.photo ? (
+                    <img
+                      src={personal.photo}
+                      alt={personal.name}
+                      className="w-full h-full object-cover object-top"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-b from-[#152033] to-[#0a0e1a]">
+                      <div className="w-24 h-24 rounded-full bg-blue-500/15 border border-blue-400/40 flex items-center justify-center text-3xl font-bold text-blue-400 mb-3">
+                        AT
+                      </div>
+                      <p className="text-[11px] text-gray-500 px-4 text-center">
+                        Upload photo in CMS → Personal
+                      </p>
                     </div>
-                    <p className="text-xs text-gray-500">Add photo in CMS → Personal</p>
-                  </div>
-                )}
+                  )}
+                </div>
+              </div>
+
+              {/* Build Create Improve - positioned outside frame like mockup */}
+              <div className="absolute -right-2 sm:-right-6 top-1/4 hidden sm:block pointer-events-none select-none">
+                <p
+                  className="text-blue-400/70 text-sm sm:text-base leading-snug italic"
+                  style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
+                >
+                  Build<br />
+                  Create<br />
+                  Improve
+                </p>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Stats bar */}
-        <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 py-8 border-y border-white/5">
+        {/* Stats */}
+        <div className="mt-14 grid grid-cols-2 md:grid-cols-4 gap-6 py-8 border-y border-white/5">
           {stats.map((s) => (
             <div key={s.label} className="text-center">
               <div className="text-2xl sm:text-3xl font-extrabold text-blue-400 mb-1">{s.value}</div>
