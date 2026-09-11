@@ -1,6 +1,6 @@
 {
   "skills": {
-    "label": "// skills",
+    "label": "",
     "heading": "My Design &",
     "headingHighlight": "Build Arsenal",
     "description": "From core web fundamentals to no-code CMS builders — the full toolkit for shipping fast, modern, and conversion-optimized websites.",
@@ -41,10 +41,22 @@
     "scoresNote": "* Scores are build targets based on semantic HTML, optimized assets, and Core Web Vitals best practices. Actual scores vary by content.",
     "ctaLabel": "Build a High-Speed Site",
     "scores": [
-      { "value": "95+", "label": "Performance" },
-      { "value": "100", "label": "Accessibility" },
-      { "value": "100", "label": "Best Practices" },
-      { "value": "100", "label": "SEO" }
+      {
+        "value": "95+",
+        "label": "Performance"
+      },
+      {
+        "value": "100",
+        "label": "Accessibility"
+      },
+      {
+        "value": "100",
+        "label": "Best Practices"
+      },
+      {
+        "value": "100",
+        "label": "SEO"
+      }
     ]
   },
   "faqs": {
