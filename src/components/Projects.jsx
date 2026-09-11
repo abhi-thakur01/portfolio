@@ -64,7 +64,7 @@ export function Projects() {
               </p>
             </div>
 
-            <div className="flex items-center gap-2 shrink-0">
+            <div className="flex items-center gap-2 shrink-0 self-end sm:self-auto">
               <button
                 type="button"
                 onClick={() => scrollByCard("prev")}
@@ -93,7 +93,7 @@ export function Projects() {
             onMouseUp={onMouseUp}
             onMouseLeave={onMouseUp}
             className="flex gap-4 sm:gap-5 overflow-x-auto py-1 pb-3 cursor-grab scroll-smooth snap-x snap-mandatory [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden active:cursor-grabbing"
-            style={{ WebkitOverflowScrolling: "touch", touchAction: "pan-x" }}
+            style={{ WebkitOverflowScrolling: "touch", touchAction: "pan-x pan-y" }}
           >
             {list.map((project) => (
               <article
