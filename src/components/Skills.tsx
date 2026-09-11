@@ -4,12 +4,14 @@ import {
   SKILL_BARS,
   TAG_CLOUD,
   TOOLS_ROW_1,
-  TOOLS_ROW_2
+  TOOLS_ROW_2,
+  SECTIONS,
 } from "../data/portfolioData";
 
 export const Skills: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<string>("all");
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
+  const s = SECTIONS.skills;
 
   const categories = [
     { id: "all", label: "All Skills" },
@@ -21,25 +23,22 @@ export const Skills: React.FC = () => {
   const filteredSkills =
     activeCategory === "all"
       ? SKILL_BARS
-      : SKILL_BARS.filter((s) => s.category === activeCategory);
+      : SKILL_BARS.filter((sk) => sk.category === activeCategory);
 
   return (
     <section id="skills" className="py-24 relative content-visibility-auto bg-[#07070d]">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        
-        {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-14">
           <div className="font-mono text-xs text-[#f0d060] tracking-wider mb-2">
-            {"// skills.json"}
+            {s.label}
           </div>
           <h2 className="font-display font-extrabold text-3xl sm:text-4xl text-white tracking-tight mb-4">
-            My Design &amp; <span className="gold-gradient-text">Build Arsenal</span>
+            {s.heading} <span className="gold-gradient-text">{s.headingHighlight}</span>
           </h2>
           <p className="text-gray-300 text-sm sm:text-base leading-relaxed">
-            From core web fundamentals to no-code CMS builders — the full toolkit for shipping fast, modern, and conversion-optimized websites.
+            {s.description}
           </p>
 
-          {/* Category Filter Tabs */}
           <div className="flex flex-wrap items-center justify-center gap-2 mt-8">
             {categories.map((cat) => (
               <button
@@ -57,7 +56,6 @@ export const Skills: React.FC = () => {
           </div>
         </div>
 
-        {/* Skill Bars Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6 mb-16">
           {filteredSkills.map((skill) => (
             <div
@@ -72,29 +70,22 @@ export const Skills: React.FC = () => {
                   {skill.pct}%
                 </span>
               </div>
-
-              {/* Progress Bar Track */}
               <div className="h-2 w-full rounded-full bg-white/5 overflow-hidden mb-2">
                 <div
                   className="h-full rounded-full bg-gradient-to-r from-[#c9a227] via-[#f0d060] to-[#e8a020] transition-all duration-1000 ease-out"
                   style={{ width: `${skill.pct}%` }}
                 />
               </div>
-
-              <p className="text-[11px] text-gray-400 font-mono">
-                {skill.desc}
-              </p>
+              <p className="text-[11px] text-gray-400 font-mono">{skill.desc}</p>
             </div>
           ))}
         </div>
 
-        {/* Interactive Tag Cloud */}
         <div className="mb-16">
           <div className="text-center font-mono text-xs text-gray-400 mb-4 flex items-center justify-center gap-2">
             <Sparkles className="w-3.5 h-3.5 text-[#f0d060]" />
-            <span>Interactive Tech Tags (Click to Highlight)</span>
+            <span>{s.tagCloudLabel}</span>
           </div>
-
           <div className="flex flex-wrap items-center justify-center gap-2 max-w-4xl mx-auto">
             {TAG_CLOUD.map((tag) => {
               const isSelected = selectedTag === tag;
@@ -115,13 +106,10 @@ export const Skills: React.FC = () => {
           </div>
         </div>
 
-        {/* Infinite Tool Marquee Rails */}
         <div className="rounded-2xl bg-[#10101f] border border-white/10 p-6 overflow-hidden">
           <div className="text-center font-mono text-xs text-gray-400 uppercase tracking-widest mb-6">
-            Platforms &amp; Technologies I Build On
+            {s.toolsLabel}
           </div>
-
-          {/* Marquee Row 1 */}
           <div className="overflow-hidden mb-3.5 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
             <div className="marquee-left gap-3">
               {[...TOOLS_ROW_1, ...TOOLS_ROW_1, ...TOOLS_ROW_1].map((tool, idx) => (
@@ -134,8 +122,6 @@ export const Skills: React.FC = () => {
               ))}
             </div>
           </div>
-
-          {/* Marquee Row 2 */}
           <div className="overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
             <div className="marquee-right gap-3">
               {[...TOOLS_ROW_2, ...TOOLS_ROW_2, ...TOOLS_ROW_2].map((tool, idx) => (
@@ -149,7 +135,6 @@ export const Skills: React.FC = () => {
             </div>
           </div>
         </div>
-
       </div>
     </section>
   );

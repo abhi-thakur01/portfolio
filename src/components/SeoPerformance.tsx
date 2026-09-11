@@ -1,72 +1,58 @@
 import React from "react";
 import { ArrowRight } from "lucide-react";
-import { SEO_FEATURES } from "../data/portfolioData";
+import { SEO_FEATURES, SECTIONS } from "../data/portfolioData";
 
 export const SeoPerformance: React.FC = () => {
+  const s = SECTIONS.seo;
+
   return (
     <section id="seo" className="py-24 relative bg-[#090912] content-visibility-auto">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          
-          {/* Left Narrative */}
           <div className="lg:col-span-6 flex flex-col items-start">
             <div className="font-mono text-xs text-[#f0d060] tracking-wider mb-2">
-              {"// performance.md"}
+              {s.label}
             </div>
 
             <h2 className="font-display font-extrabold text-3xl sm:text-4xl text-white tracking-tight leading-tight mb-6">
-              Built to Rank High <br />
-              <span className="gold-gradient-text">&amp; Convert Traffic</span>
+              {s.heading} <br />
+              <span className="gold-gradient-text">{s.headingHighlight}</span>
             </h2>
 
             <div className="space-y-4 text-gray-300 text-base leading-relaxed mb-8">
-              <p>
-                As a web designer who understands technical SEO, I treat speed and search rankings as core requirements, not an afterthought.
-              </p>
-              <p>
-                Every website I construct is tuned to satisfy Google's <strong className="text-white">Core Web Vitals (LCP, FID, CLS)</strong>, with semantic HTML5 markup, optimized responsive assets, and fast hosting configurations.
-              </p>
+              {s.paragraphs.map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
             </div>
 
-            {/* Realistic Target Scores - No fake Google Verified */}
             <div className="p-5 rounded-2xl bg-[#121222] border border-[#c9a227]/30 w-full mb-8 shadow-xl">
               <div className="text-xs font-mono text-gray-400 mb-3 flex items-center justify-between">
-                <span>Target Lighthouse Scores — Built For</span>
-                <span className="text-[#f0d060] font-bold text-[11px] px-2 py-0.5 rounded bg-[#c9a227]/15 border border-[#c9a227]/30">Optimized Build</span>
+                <span>{s.scoresLabel}</span>
+                <span className="text-[#f0d060] font-bold text-[11px] px-2 py-0.5 rounded bg-[#c9a227]/15 border border-[#c9a227]/30">
+                  {s.scoresBadge}
+                </span>
               </div>
 
               <div className="grid grid-cols-4 gap-2 text-center">
-                <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30">
-                  <div className="font-display font-extrabold text-lg text-emerald-400">95+</div>
-                  <div className="text-[10px] text-gray-300 font-mono">Performance</div>
-                </div>
-                <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30">
-                  <div className="font-display font-extrabold text-lg text-emerald-400">100</div>
-                  <div className="text-[10px] text-gray-300 font-mono">Accessibility</div>
-                </div>
-                <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30">
-                  <div className="font-display font-extrabold text-lg text-emerald-400">100</div>
-                  <div className="text-[10px] text-gray-300 font-mono">Best Practices</div>
-                </div>
-                <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30">
-                  <div className="font-display font-extrabold text-lg text-emerald-400">100</div>
-                  <div className="text-[10px] text-gray-300 font-mono">SEO</div>
-                </div>
+                {s.scores.map((score) => (
+                  <div key={score.label} className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30">
+                    <div className="font-display font-extrabold text-lg text-emerald-400">{score.value}</div>
+                    <div className="text-[10px] text-gray-300 font-mono">{score.label}</div>
+                  </div>
+                ))}
               </div>
-              <p className="text-[10px] text-gray-500 font-mono mt-3">* Scores are build targets based on semantic HTML, optimized assets, and Core Web Vitals best practices. Actual scores vary by content.</p>
+              <p className="text-[10px] text-gray-500 font-mono mt-3">{s.scoresNote}</p>
             </div>
 
             <a
               href="#contact"
               className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#c9a227] to-[#f0d060] text-[#08080f] font-bold text-sm shadow-lg shadow-[#c9a227]/25 hover:shadow-[#c9a227]/45 hover:-translate-y-0.5 transition-all"
             >
-              <span>Build a High-Speed Site</span>
+              <span>{s.ctaLabel}</span>
               <ArrowRight className="w-4 h-4" />
             </a>
           </div>
 
-          {/* Right SEO Feature Cards */}
           <div className="lg:col-span-6 flex flex-col gap-4">
             {SEO_FEATURES.map((feat) => {
               const IconComponent = feat.icon;
@@ -78,7 +64,6 @@ export const SeoPerformance: React.FC = () => {
                   <div className="w-10 h-10 rounded-xl bg-[#c9a227]/10 border border-[#c9a227]/30 flex items-center justify-center text-[#f0d060] shrink-0 mt-0.5 group-hover:scale-110 transition-transform">
                     <IconComponent className="w-5 h-5" />
                   </div>
-
                   <div className="flex-1">
                     <div className="flex items-center justify-between mb-1">
                       <h4 className="font-display font-bold text-base text-white group-hover:text-[#f0d060] transition-colors">
@@ -88,17 +73,13 @@ export const SeoPerformance: React.FC = () => {
                         {feat.badge}
                       </span>
                     </div>
-                    <p className="text-xs text-gray-300 leading-relaxed">
-                      {feat.desc}
-                    </p>
+                    <p className="text-xs text-gray-300 leading-relaxed">{feat.desc}</p>
                   </div>
                 </div>
               );
             })}
           </div>
-
         </div>
-
       </div>
     </section>
   );
