@@ -1,0 +1,76 @@
+{
+  "skills": {
+    "label": "// skills",
+    "heading": "My Design &",
+    "headingHighlight": "Build Arsenal",
+    "description": "From core web fundamentals to no-code CMS builders — the full toolkit for shipping fast, modern, and conversion-optimized websites.",
+    "tagCloudLabel": "Interactive Tech Tags (Click to Highlight)",
+    "toolsLabel": "Platforms & Technologies I Build On"
+  },
+  "services": {
+    "label": "// services",
+    "heading": "Services Built for",
+    "headingHighlight": "Real Business Growth",
+    "description": "End-to-end web design and CMS development tailored to help your brand look polished, load instantly, and turn visitors into clients.",
+    "ctaLabel": "Request This Service",
+    "deliverablesLabel": "Deliverables:"
+  },
+  "process": {
+    "label": "// process",
+    "heading": "How I Build",
+    "headingHighlight": "Excellence",
+    "description": "A battle-tested 6-step workflow shaped by real client projects — keeping you informed, on schedule, and thrilled with the final website."
+  },
+  "work": {
+    "label": "// selected-work",
+    "heading": "Work That",
+    "headingHighlight": "Converts & Delights",
+    "description": "Real client projects shipped for businesses worldwide — tuned for speed, polished on mobile, and built on reliable CMS foundations.",
+    "hireCta": "Hire for Your Team"
+  },
+  "seo": {
+    "label": "// performance",
+    "heading": "Built to Rank High",
+    "headingHighlight": "& Convert Traffic",
+    "paragraphs": [
+      "As a web designer who understands technical SEO, I treat speed and search rankings as core requirements, not an afterthought.",
+      "Every website I construct is tuned to satisfy Google's Core Web Vitals (LCP, FID, CLS), with semantic HTML5 markup, optimized responsive assets, and fast hosting configurations."
+    ],
+    "scoresLabel": "Target Lighthouse Scores — Built For",
+    "scoresBadge": "Optimized Build",
+    "scoresNote": "* Scores are build targets based on semantic HTML, optimized assets, and Core Web Vitals best practices. Actual scores vary by content.",
+    "ctaLabel": "Build a High-Speed Site",
+    "scores": [
+      { "value": "95+", "label": "Performance" },
+      { "value": "100", "label": "Accessibility" },
+      { "value": "100", "label": "Best Practices" },
+      { "value": "100", "label": "SEO" }
+    ]
+  },
+  "faqs": {
+    "label": "// faq",
+    "heading": "Frequently Asked",
+    "headingHighlight": "Questions",
+    "description": "Everything you need to know about working together, project delivery, and post-launch support.",
+    "trustItems": [
+      "30-Day Post-Launch Support",
+      "100% Mobile Guarantee",
+      "Direct Developer Communication"
+    ]
+  },
+  "contact": {
+    "label": "// contact",
+    "heading": "Let's Connect",
+    "headingHighlight": "About Opportunities",
+    "description": "Open to full-time roles, freelance projects, and collaboration. I typically reply within 24 hours.",
+    "sidebarTitle": "Get In Touch",
+    "availabilityText": "Open to opportunities: Full-time roles, freelance projects, and remote collaboration. Response within 24h.",
+    "submitLabel": "Send Message",
+    "successTitle": "Message Sent Successfully!",
+    "successMessage": "Thank you for reaching out. I'll get back to you within 24 hours."
+  },
+  "footer": {
+    "tagline": "Junior Web Designer · WordPress & CMS Specialist · Agency Client Delivery at Gigsoft Pro.",
+    "copyright": "All rights reserved. Built with React & Tailwind."
+  }
+}

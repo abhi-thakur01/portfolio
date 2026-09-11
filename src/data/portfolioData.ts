@@ -21,6 +21,7 @@ import skillsJson from "../../content/skills.json";
 import aboutJson from "../../content/about.json";
 import processJson from "../../content/process.json";
 import seoJson from "../../content/seo.json";
+import sectionsJson from "../../content/sections.json";
 
 const iconMap: Record<string, LucideIcon> = {
   Globe,
@@ -44,6 +45,7 @@ export const SKILL_BARS = skillsJson.skillBars;
 export const TAG_CLOUD = skillsJson.tagCloud;
 export const TOOLS_ROW_1 = skillsJson.toolsRow1;
 export const TOOLS_ROW_2 = skillsJson.toolsRow2;
+export const SECTIONS = sectionsJson;
 
 export const ABOUT = aboutJson;
 
