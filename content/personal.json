@@ -13,14 +13,26 @@
   "resumeUrl": "#",
   "photo": "",
   "greeting": "Hi, I'm",
-  "photoSideText": ["Build", "Create", "Improve"],
+  "photoSideText": [],
   "ctaPrimary": "View My Projects",
   "ctaSecondary": "Download Resume",
   "stats": [
-    { "value": "1+", "label": "Years Experience" },
-    { "value": "12+", "label": "Projects Completed" },
-    { "value": "100%", "label": "Client Satisfaction" },
-    { "value": "10+", "label": "Technologies" }
+    {
+      "value": "1+",
+      "label": "Years Experience"
+    },
+    {
+      "value": "12+",
+      "label": "Projects Completed"
+    },
+    {
+      "value": "100%",
+      "label": "Client Satisfaction"
+    },
+    {
+      "value": "10+",
+      "label": "Technologies"
+    }
   ],
   "agency": {
     "role": "Junior Web Designer",
