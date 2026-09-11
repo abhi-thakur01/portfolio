@@ -1,0 +1,14 @@
+# Robots.txt for Abhishek Thakur Portfolio
+User-agent: *
+Allow: /
+
+# Disallow sensitive paths
+Disallow: /api/
+Disallow: /*.json$
+Allow: /content/
+
+# Sitemap
+Sitemap: https://abhishekthakur.in/sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 1

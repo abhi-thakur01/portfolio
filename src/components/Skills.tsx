@@ -24,7 +24,7 @@ export const Skills: React.FC = () => {
       : SKILL_BARS.filter((s) => s.category === activeCategory);
 
   return (
-    <section id="skills" className="py-24 relative bg-[#07070d]">
+    <section id="skills" className="py-24 relative content-visibility-auto bg-[#07070d]">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         
         {/* Section Header */}

@@ -6,7 +6,7 @@ export const Process: React.FC = () => {
   const [activePhase, setActivePhase] = useState<string>("01");
 
   return (
-    <section id="process" className="py-24 relative bg-[#07070d]">
+    <section id="process" className="py-24 relative content-visibility-auto bg-[#07070d]">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         
         {/* Section Header */}

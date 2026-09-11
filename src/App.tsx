@@ -1,17 +1,25 @@
-import { useState } from "react";
+import { useState, lazy, Suspense } from "react";
 import { Navbar } from "./components/Navbar";
 import { Hero } from "./components/Hero";
-import { About } from "./components/About";
-import { Skills } from "./components/Skills";
-import { Services } from "./components/Services";
-import { InteractiveProjectCostCalculator } from "./components/InteractiveProjectCostCalculator";
-import { Process } from "./components/Process";
-import { Work } from "./components/Work";
-import { SeoPerformance } from "./components/SeoPerformance";
-import { FaqSection } from "./components/FaqSection";
-import { Contact } from "./components/Contact";
-import { Footer } from "./components/Footer";
 import { Toast } from "./components/Toast";
+
+// Lazy load below-fold components for performance
+const About = lazy(() => import("./components/About").then(m => ({ default: m.About })));
+const Skills = lazy(() => import("./components/Skills").then(m => ({ default: m.Skills })));
+const Services = lazy(() => import("./components/Services").then(m => ({ default: m.Services })));
+const InteractiveProjectCostCalculator = lazy(() => import("./components/InteractiveProjectCostCalculator").then(m => ({ default: m.InteractiveProjectCostCalculator })));
+const Process = lazy(() => import("./components/Process").then(m => ({ default: m.Process })));
+const Work = lazy(() => import("./components/Work").then(m => ({ default: m.Work })));
+const SeoPerformance = lazy(() => import("./components/SeoPerformance").then(m => ({ default: m.SeoPerformance })));
+const FaqSection = lazy(() => import("./components/FaqSection").then(m => ({ default: m.FaqSection })));
+const Contact = lazy(() => import("./components/Contact").then(m => ({ default: m.Contact })));
+const Footer = lazy(() => import("./components/Footer").then(m => ({ default: m.Footer })));
+
+const SectionLoader = () => (
+  <div className="py-24 flex items-center justify-center">
+    <div className="w-8 h-8 rounded-full border-2 border-[#c9a227]/30 border-t-[#c9a227] animate-spin" />
+  </div>
+);
 
 export default function App() {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
@@ -41,51 +49,58 @@ export default function App() {
   const handleApplySpec = (spec: { platform: string; pages: number; budgetEst: string }) => {
     setSelectedSpec(spec);
     showToast(`Applied ${spec.platform} spec (${spec.pages} pages) to form!`);
+    const contactElem = document.getElementById("contact");
+    if (contactElem) {
+      setTimeout(() => contactElem.scrollIntoView({ behavior: "smooth" }), 100);
+    }
   };
 
   return (
     <div className="min-h-screen bg-[#07070d] text-[#f1f0ea] selection:bg-[#c9a227]/30 selection:text-[#f0d060] relative">
-      {/* Navigation */}
+      {/* Navigation - eager loaded for LCP */}
       <Navbar onOpenEmail={() => showToast("Opening email composer...")} />
 
       <main>
-        {/* 1. Hero Section */}
+        {/* 1. Hero Section - eager for LCP */}
         <Hero />
 
-        {/* 2. About Me Section */}
-        <About onNotify={showToast} />
+        <Suspense fallback={<SectionLoader />}>
+          {/* 2. About Me Section */}
+          <About onNotify={showToast} />
 
-        {/* 3. Skills & Technologies Section */}
-        <Skills />
+          {/* 3. Skills & Technologies Section */}
+          <Skills />
 
-        {/* 4. Services Section */}
-        <Services onSelectService={handleSelectService} />
+          {/* 4. Services Section */}
+          <Services onSelectService={handleSelectService} />
 
-        {/* 5. Interactive Project Estimator */}
-        <InteractiveProjectCostCalculator onApplySpec={handleApplySpec} />
+          {/* 5. Interactive Project Estimator */}
+          <InteractiveProjectCostCalculator onApplySpec={handleApplySpec} />
 
-        {/* 6. Process / Workflow Pipeline */}
-        <Process />
+          {/* 6. Process / Workflow Pipeline */}
+          <Process />
 
-        {/* 7. Selected Work & Client Projects */}
-        <Work />
+          {/* 7. Selected Work & Client Projects */}
+          <Work />
 
-        {/* 8. SEO & Performance Benchmark Audit */}
-        <SeoPerformance />
+          {/* 8. SEO & Performance Benchmark Audit */}
+          <SeoPerformance />
 
-        {/* 9. FAQs & Client Trust */}
-        <FaqSection />
+          {/* 9. FAQs & Client Trust */}
+          <FaqSection />
 
-        {/* 10. Contact Section */}
-        <Contact
-          initialService={selectedService}
-          initialSpec={selectedSpec}
-          onNotify={showToast}
-        />
+          {/* 10. Contact Section */}
+          <Contact
+            initialService={selectedService}
+            initialSpec={selectedSpec}
+            onNotify={showToast}
+          />
+        </Suspense>
       </main>
 
-      {/* Footer */}
-      <Footer />
+      <Suspense fallback={null}>
+        <Footer />
+      </Suspense>
 
       {/* Floating Global Toast Notification */}
       {toastMessage && (

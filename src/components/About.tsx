@@ -19,7 +19,7 @@ export const About: React.FC<AboutProps> = ({ onNotify }) => {
   };
 
   return (
-    <section id="about" className="py-24 relative bg-[#090912]">
+    <section id="about" className="py-24 relative content-visibility-auto bg-[#090912]">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           

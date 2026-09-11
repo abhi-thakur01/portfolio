@@ -4,7 +4,7 @@ import { SEO_FEATURES } from "../data/portfolioData";
 
 export const SeoPerformance: React.FC = () => {
   return (
-    <section id="seo" className="py-24 relative bg-[#090912]">
+    <section id="seo" className="py-24 relative bg-[#090912] content-visibility-auto">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -29,16 +29,16 @@ export const SeoPerformance: React.FC = () => {
               </p>
             </div>
 
-            {/* Quick Lighthouse Score Visualizer Card */}
+            {/* Realistic Target Scores - No fake Google Verified */}
             <div className="p-5 rounded-2xl bg-[#121222] border border-[#c9a227]/30 w-full mb-8 shadow-xl">
               <div className="text-xs font-mono text-gray-400 mb-3 flex items-center justify-between">
-                <span>Lighthouse Benchmark Audit</span>
-                <span className="text-[#f0d060] font-bold">Google Verified</span>
+                <span>Target Lighthouse Scores — Built For</span>
+                <span className="text-[#f0d060] font-bold text-[11px] px-2 py-0.5 rounded bg-[#c9a227]/15 border border-[#c9a227]/30">Optimized Build</span>
               </div>
 
               <div className="grid grid-cols-4 gap-2 text-center">
                 <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30">
-                  <div className="font-display font-extrabold text-lg text-emerald-400">98</div>
+                  <div className="font-display font-extrabold text-lg text-emerald-400">95+</div>
                   <div className="text-[10px] text-gray-300 font-mono">Performance</div>
                 </div>
                 <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30">
@@ -54,11 +54,12 @@ export const SeoPerformance: React.FC = () => {
                   <div className="text-[10px] text-gray-300 font-mono">SEO</div>
                 </div>
               </div>
+              <p className="text-[10px] text-gray-500 font-mono mt-3">* Scores are build targets based on semantic HTML, optimized assets, and Core Web Vitals best practices. Actual scores vary by content.</p>
             </div>
 
             <a
               href="#contact"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#c9a227] to-[#f0d060] text-[#08080f] font-bold text-sm shadow-lg shadow-[#c9a227]/25 hover:shadow-[#c9a227]/45 transition-all"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#c9a227] to-[#f0d060] text-[#08080f] font-bold text-sm shadow-lg shadow-[#c9a227]/25 hover:shadow-[#c9a227]/45 hover:-translate-y-0.5 transition-all"
             >
               <span>Build a High-Speed Site</span>
               <ArrowRight className="w-4 h-4" />
