@@ -13,14 +13,30 @@
   "resumeUrl": "/media/1789370995187-Abhishek-Thakur.pdf",
   "photo": "",
   "greeting": "Hi, I'm",
-  "photoSideText": ["Build", "Create", "Improve"],
+  "photoSideText": [
+    "Build",
+    "Create",
+    "Improve"
+  ],
   "ctaPrimary": "View My Projects",
   "ctaSecondary": "Download Resume",
   "stats": [
-    { "value": "1.6+", "label": "Years Experience" },
-    { "value": "40+", "label": "Live Client Sites" },
-    { "value": "100%", "label": "Client Satisfaction" },
-    { "value": "15+", "label": "Technologies" }
+    {
+      "value": "1.6+",
+      "label": "Years Experience"
+    },
+    {
+      "value": "40+",
+      "label": "Live Client Sites"
+    },
+    {
+      "value": "100%",
+      "label": "Client Satisfaction"
+    },
+    {
+      "value": "15+",
+      "label": "Technologies"
+    }
   ],
   "agency": {
     "role": "Junior Web Designer",
