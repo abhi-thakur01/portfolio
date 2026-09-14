@@ -54,7 +54,11 @@ export const projects = (Array.isArray(projectsJson?.items) ? projectsJson.items
   link: p.link || "#",
 }));
 
-export const skillIcons = Array.isArray(skillsJson?.skillIcons) ? skillsJson.skillIcons : [];
+export const skillIcons = (Array.isArray(skillsJson?.skillIcons) ? skillsJson.skillIcons : []).map((s) => ({
+  name: s.name || "",
+  color: s.color || "#3b82f6",
+  category: s.category || "Other",
+}));
 export const otherTools = Array.isArray(skillsJson?.otherTools) ? skillsJson.otherTools : [];
 
 export const experience = (Array.isArray(experienceJson?.items) ? experienceJson.items : []).map((e) => ({
