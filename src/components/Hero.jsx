@@ -1,6 +1,75 @@
+import { useEffect, useRef, useState } from "react";
 import { Download, Github, Linkedin, Mail, Twitter, ArrowRight } from "lucide-react";
 import { personal } from "../data/content";
 import { Reveal } from "./Reveal";
+
+function parseStat(value) {
+  const str = String(value ?? "");
+  const num = parseFloat(str.replace(/[^0-9.]/g, ""));
+  const suffix = str.replace(/[0-9.]/g, "");
+  const decimals = str.includes(".") ? (str.split(".")[1].match(/\d/) || []).length : 0;
+  return {
+    num: Number.isFinite(num) ? num : 0,
+    suffix: suffix || "",
+    decimals: Math.min(decimals, 1),
+  };
+}
+
+function CountUp({ value, className }) {
+  const { num, suffix, decimals } = parseStat(value);
+  const [display, setDisplay] = useState(0);
+  const [started, setStarted] = useState(false);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setStarted(true);
+          io.disconnect();
+        }
+      },
+      { threshold: 0.4 }
+    );
+
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!started) return;
+
+    const duration = 1400;
+    const start = performance.now();
+    let raf;
+
+    const tick = (now) => {
+      const t = Math.min((now - start) / duration, 1);
+      // ease-out cubic
+      const eased = 1 - Math.pow(1 - t, 3);
+      setDisplay(num * eased);
+      if (t < 1) raf = requestAnimationFrame(tick);
+      else setDisplay(num);
+    };
+
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [started, num]);
+
+  const text =
+    decimals > 0
+      ? display.toFixed(decimals) + suffix
+      : Math.round(display) + suffix;
+
+  return (
+    <div ref={ref} className={className}>
+      {text}
+    </div>
+  );
+}
 
 export function Hero() {
   const stats = personal.stats || [];
@@ -109,7 +178,10 @@ export function Hero() {
             <div className="mt-10 sm:mt-14 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 py-6 sm:py-8 border-y border-white/5">
               {stats.map((s) => (
                 <div key={s.label} className="text-center">
-                  <div className="text-xl sm:text-3xl font-extrabold text-blue-400 mb-1">{s.value}</div>
+                  <CountUp
+                    value={s.value}
+                    className="text-xl sm:text-3xl font-extrabold text-blue-400 mb-1 tabular-nums"
+                  />
                   <div className="text-[10px] sm:text-xs text-gray-500">{s.label}</div>
                 </div>
               ))}
