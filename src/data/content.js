@@ -45,6 +45,7 @@ export const projects = (Array.isArray(projectsJson?.items) ? projectsJson.items
   description: p.description || "",
   tags: Array.isArray(p.tags) ? p.tags : [],
   category: p.category || "Other",
+  platform: p.platform || p.category || "Web",
   image: p.image || "",
   link: p.link || "#",
 }));
