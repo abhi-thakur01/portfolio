@@ -111,35 +111,6 @@
       "platform": "GoHighLevel · Elementor",
       "image": "",
       "link": "#contact"
-    },
-    {
-      "id": "tastybite",
-      "title": "TastyBite",
-      "description": "Food delivery web app built with React and Tailwind CSS — reusable components, responsive UI, deployed on Vercel.",
-      "tags": [
-        "React",
-        "Tailwind CSS",
-        "Vercel"
-      ],
-      "category": "React",
-      "platform": "React · Tailwind CSS",
-      "image": "",
-      "link": "https://github.com/abhi-thakur01/tastybite"
-    },
-    {
-      "id": "portfolio-website",
-      "title": "Portfolio Website",
-      "description": "Personal portfolio built with React 19, Vite and Tailwind CSS — SEO-optimised and deployed on Vercel.",
-      "tags": [
-        "React",
-        "Vite",
-        "Tailwind CSS",
-        "TypeScript"
-      ],
-      "category": "React",
-      "platform": "React · Vite · TypeScript",
-      "image": "",
-      "link": "https://github.com/abhi-thakur01/portfolio"
     }
   ]
 }
