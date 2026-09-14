@@ -15,7 +15,9 @@
     { "name": "GoHighLevel", "color": "#FF6B35", "category": "CMS" },
     { "name": "Square Online", "color": "#006AFF", "category": "CMS" },
     { "name": "Wix", "color": "#0C6EFC", "category": "CMS" },
-    { "name": "Squarespace", "color": "#000000", "category": "CMS" }
+    { "name": "Squarespace", "color": "#000000", "category": "CMS" },
+    { "name": "Git", "color": "#F05032", "category": "Tools" },
+    { "name": "GitHub", "color": "#E6EDF3", "category": "Tools" }
   ],
   "otherTools": []
 }

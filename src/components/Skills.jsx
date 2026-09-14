@@ -5,6 +5,7 @@ import { Reveal } from "./Reveal";
 const TABS = [
   { key: "Frontend", label: "Frontend" },
   { key: "CMS", label: "CMS & Builders" },
+  { key: "Tools", label: "Tools" },
 ];
 
 export function Skills() {
@@ -39,12 +40,11 @@ export function Skills() {
               Technologies & Tools
             </h2>
             <p className="text-gray-400 max-w-xl mx-auto text-sm sm:text-[15px] leading-relaxed">
-              Frontend code and the CMS platforms I use to ship client websites.
+              Frontend code, CMS platforms, and version control tools I use daily.
             </p>
           </div>
         </Reveal>
 
-        {/* Tabs */}
         <Reveal from="up" delay={60}>
           <div className="flex justify-center mb-8 sm:mb-10">
             <div className="inline-flex p-1 rounded-xl bg-white/[0.04] border border-white/[0.08]">
@@ -55,7 +55,7 @@ export function Skills() {
                     key={tab.key}
                     type="button"
                     onClick={() => setActive(tab.key)}
-                    className={`relative px-5 sm:px-6 py-2.5 rounded-lg text-sm font-medium transition-all ${
+                    className={`relative px-4 sm:px-6 py-2.5 rounded-lg text-sm font-medium transition-all ${
                       isActive
                         ? "bg-blue-600 text-white shadow-lg shadow-blue-600/25"
                         : "text-gray-400 hover:text-white"
@@ -76,7 +76,6 @@ export function Skills() {
           </div>
         </Reveal>
 
-        {/* Grid */}
         <div
           key={active}
           className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2.5 sm:gap-3 animate-[fadeIn_0.3s_ease]"
