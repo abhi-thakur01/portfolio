@@ -1,7 +1,9 @@
-import { useMemo, useState } from "react";
-import { ExternalLink, FolderGit2, Globe, Layout, Code2, ShoppingBag } from "lucide-react";
+import { useMemo, useState, useEffect } from "react";
+import { ExternalLink, FolderGit2, Globe, Layout, Code2, ShoppingBag, ChevronDown } from "lucide-react";
 import { projects } from "../data/content";
 import { Reveal } from "./Reveal";
+
+const PAGE_SIZE = 6;
 
 const CATEGORY_META = {
   WordPress: {
@@ -41,6 +43,7 @@ function getMeta(category) {
 export function Projects() {
   const list = Array.isArray(projects) ? projects : [];
   const [active, setActive] = useState("All");
+  const [visible, setVisible] = useState(PAGE_SIZE);
 
   const categories = useMemo(() => {
     const set = new Set(list.map((p) => p.category || "Other"));
@@ -51,6 +54,15 @@ export function Projects() {
     if (active === "All") return list;
     return list.filter((p) => (p.category || "Other") === active);
   }, [list, active]);
+
+  // Reset visible count when category changes
+  useEffect(() => {
+    setVisible(PAGE_SIZE);
+  }, [active]);
+
+  const shown = filtered.slice(0, visible);
+  const hasMore = visible < filtered.length;
+  const remaining = filtered.length - visible;
 
   return (
     <section id="projects" className="py-14 sm:py-20 bg-[#0d1220]/50">
@@ -80,7 +92,6 @@ export function Projects() {
           <div className="flex flex-wrap gap-2 mb-8" role="tablist" aria-label="Filter projects by category">
             {categories.map((cat) => {
               const isActive = active === cat;
-              const meta = cat === "All" ? null : getMeta(cat);
               return (
                 <button
                   key={cat}
@@ -95,7 +106,9 @@ export function Projects() {
                       : "bg-white/5 text-gray-400 border-white/10 hover:border-white/25 hover:text-gray-200")
                   }
                 >
-                  {cat === "All" ? `All (${list.length})` : `${cat} (${list.filter((p) => (p.category || "Other") === cat).length})`}
+                  {cat === "All"
+                    ? `All (${list.length})`
+                    : `${cat} (${list.filter((p) => (p.category || "Other") === cat).length})`}
                 </button>
               );
             })}
@@ -104,7 +117,7 @@ export function Projects() {
 
         {/* Projects grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
-          {filtered.map((project, i) => {
+          {shown.map((project, i) => {
             const meta = getMeta(project.category);
             const Icon = meta.icon;
             const isExternal = project.link?.startsWith("http");
@@ -193,6 +206,23 @@ export function Projects() {
           <div className="text-center py-16 text-gray-500">
             <FolderGit2 className="w-10 h-10 mx-auto mb-3 opacity-40" />
             <p className="text-sm">No projects in this category yet.</p>
+          </div>
+        )}
+
+        {/* Load More */}
+        {hasMore && (
+          <div className="flex justify-center mt-8 sm:mt-10">
+            <button
+              type="button"
+              onClick={() => setVisible((v) => v + PAGE_SIZE)}
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/5 border border-white/10 text-sm font-medium text-gray-200 hover:bg-blue-600 hover:border-blue-500 hover:text-white transition-all shadow-sm"
+            >
+              Load More
+              <span className="text-xs text-gray-400 group-hover:text-blue-200">
+                (+{remaining} more)
+              </span>
+              <ChevronDown className="w-4 h-4" />
+            </button>
           </div>
         )}
       </div>
