@@ -4,17 +4,25 @@
       "id": "integr8-human-ai",
       "title": "Integr8 Human AI",
       "description": "Lead-generation site for a UK/EU AI consultancy with a gated executive-brief download and an integrated booking funnel.",
-      "tags": ["WordPress", "Beaver Builder", "Lead Generation"],
+      "tags": [
+        "WordPress",
+        "Beaver Builder",
+        "Lead Generation"
+      ],
       "category": "WordPress",
       "platform": "WordPress · Beaver Builder",
-      "image": "",
+      "image": "/media/1789371837675-ChatGPT-Image-Sep-11--2026--01_12_15-PM.png",
       "link": "https://integr8human.ai"
     },
     {
       "id": "ascension-aminos",
       "title": "Ascension Aminos",
       "description": "End-to-end e-commerce store with product catalogue, COA documentation and secure checkout.",
-      "tags": ["WordPress", "Elementor", "WooCommerce"],
+      "tags": [
+        "WordPress",
+        "Elementor",
+        "WooCommerce"
+      ],
       "category": "WordPress",
       "platform": "WordPress · Elementor · WooCommerce",
       "image": "",
@@ -24,7 +32,11 @@
       "id": "service-resource-sr-gc",
       "title": "Service Resource (SR-GC)",
       "description": "Corporate website for a commercial construction and restoration firm — services, project portfolio, accreditations.",
-      "tags": ["Squarespace", "Corporate", "Portfolio"],
+      "tags": [
+        "Squarespace",
+        "Corporate",
+        "Portfolio"
+      ],
       "category": "CMS",
       "platform": "Squarespace",
       "image": "",
@@ -34,7 +46,11 @@
       "id": "matt-says",
       "title": "Matt Says",
       "description": "Content-heavy wine review platform with varietal-wise ranking archives, article templates and newsletter integration.",
-      "tags": ["WordPress", "Content Platform", "Newsletter"],
+      "tags": [
+        "WordPress",
+        "Content Platform",
+        "Newsletter"
+      ],
       "category": "WordPress",
       "platform": "WordPress",
       "image": "",
@@ -44,7 +60,11 @@
       "id": "ime-transcriptions",
       "title": "IME Transcriptions",
       "description": "Clean, fast-loading website for a medical-legal transcription provider.",
-      "tags": ["Framer", "Medical", "Fast Loading"],
+      "tags": [
+        "Framer",
+        "Medical",
+        "Fast Loading"
+      ],
       "category": "CMS",
       "platform": "Framer",
       "image": "",
@@ -54,7 +74,11 @@
       "id": "revived-kansas",
       "title": "Revived Kansas",
       "description": "Clean and responsive business website optimised for mobile users. Delivered as client work at Gigsoft Pro.",
-      "tags": ["Square Online", "Responsive Design", "Mobile Optimised"],
+      "tags": [
+        "Square Online",
+        "Responsive Design",
+        "Mobile Optimised"
+      ],
       "category": "CMS",
       "platform": "Square Online",
       "image": "",
@@ -64,7 +88,11 @@
       "id": "melanie-hoggan",
       "title": "Melanie Hoggan",
       "description": "Fully responsive WordPress site built with Beaver Builder, with custom sections and layouts for better engagement — international client.",
-      "tags": ["WordPress", "Beaver Builder", "Custom Layouts"],
+      "tags": [
+        "WordPress",
+        "Beaver Builder",
+        "Custom Layouts"
+      ],
       "category": "WordPress",
       "platform": "WordPress · Beaver Builder",
       "image": "",
@@ -74,7 +102,11 @@
       "id": "gohighlevel-funnels",
       "title": "High-Converting CMS Funnels",
       "description": "Custom landing pages and sales funnels on GoHighLevel and WordPress Elementor with multi-step lead capture and crisp visual hierarchy.",
-      "tags": ["GoHighLevel", "Elementor Pro", "Landing Page"],
+      "tags": [
+        "GoHighLevel",
+        "Elementor Pro",
+        "Landing Page"
+      ],
       "category": "WordPress",
       "platform": "GoHighLevel · Elementor",
       "image": "",
@@ -84,7 +116,11 @@
       "id": "tastybite",
       "title": "TastyBite",
       "description": "Food delivery web app built with React and Tailwind CSS — reusable components, responsive UI, deployed on Vercel.",
-      "tags": ["React", "Tailwind CSS", "Vercel"],
+      "tags": [
+        "React",
+        "Tailwind CSS",
+        "Vercel"
+      ],
       "category": "React",
       "platform": "React · Tailwind CSS",
       "image": "",
@@ -94,7 +130,12 @@
       "id": "portfolio-website",
       "title": "Portfolio Website",
       "description": "Personal portfolio built with React 19, Vite and Tailwind CSS — SEO-optimised and deployed on Vercel.",
-      "tags": ["React", "Vite", "Tailwind CSS", "TypeScript"],
+      "tags": [
+        "React",
+        "Vite",
+        "Tailwind CSS",
+        "TypeScript"
+      ],
       "category": "React",
       "platform": "React · Vite · TypeScript",
       "image": "",
