@@ -3,24 +3,33 @@
     { "name": "HTML5", "color": "#E34F26" },
     { "name": "CSS3", "color": "#1572B6" },
     { "name": "JavaScript", "color": "#F7DF1E" },
+    { "name": "React", "color": "#61DAFB" },
+    { "name": "Tailwind CSS", "color": "#06B6D4" },
     { "name": "WordPress", "color": "#21759B" },
     { "name": "Elementor", "color": "#92003B" },
     { "name": "Beaver Builder", "color": "#1B4E8C" },
-    { "name": "Tailwind CSS", "color": "#06B6D4" },
+    { "name": "Framer", "color": "#0055FF" },
+    { "name": "Shopify", "color": "#96BF48" },
     { "name": "GoHighLevel", "color": "#FF6B35" },
     { "name": "Square Online", "color": "#006AFF" },
-    { "name": "Figma", "color": "#F24E1E" }
+    { "name": "Figma", "color": "#F24E1E" },
+    { "name": "Webflow", "color": "#4353FF" },
+    { "name": "Bootstrap", "color": "#7952B3" }
   ],
   "otherTools": [
-    "Bootstrap",
-    "Webflow",
     "Wix",
     "Squarespace",
+    "Kajabi",
+    "Responsive Design",
     "Git",
     "GitHub",
     "VS Code",
+    "Vite",
+    "TypeScript",
     "PageSpeed Insights",
     "SEO Schema",
-    "Core Web Vitals"
+    "Core Web Vitals",
+    "On-page SEO",
+    "Cross-browser Compatibility"
   ]
 }
