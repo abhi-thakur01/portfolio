@@ -3,31 +3,20 @@
     {
       "period": "2025 – Present",
       "title": "Junior Web Designer · Gigsoft Pro",
-      "description": "Building responsive sites for international clients across WordPress, GoHighLevel, and Square Online — custom layouts in Elementor and Beaver Builder, mobile responsiveness, cross-browser testing, and ongoing maintenance.",
-      "tags": [
-        "WordPress",
-        "Elementor",
-        "GoHighLevel",
-        "Square Online"
-      ]
+      "description": "Designed and launched 40+ responsive websites for international clients across WordPress, Squarespace, Wix and Framer. Custom layouts with Elementor & Beaver Builder, mobile responsiveness, cross-browser testing, on-page SEO, and ongoing maintenance.",
+      "tags": ["WordPress", "Elementor", "GoHighLevel", "Square Online", "Framer"]
     },
     {
       "period": "2023 – 2025",
       "title": "MCA · Master of Computer Applications",
-      "description": "",
-      "tags": [
-        "MCA",
-        "Computer Applications"
-      ]
+      "description": "Himachal Pradesh Technical University, Hamirpur — advanced coursework in software development, web technologies and system design.",
+      "tags": ["MCA", "Computer Applications"]
     },
     {
       "period": "2020 – 2023",
       "title": "BCA · Bachelor of Computer Applications",
-      "description": "",
-      "tags": [
-        "BCA",
-        "Computer Applications"
-      ]
+      "description": "Himachal Pradesh University — foundational degree covering programming, databases, web development and computer fundamentals.",
+      "tags": ["BCA", "Computer Applications"]
     }
   ]
 }

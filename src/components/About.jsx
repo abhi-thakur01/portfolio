@@ -10,6 +10,8 @@ export function About() {
     { icon: Calendar, label: "Availability", value: personal.availability },
   ];
 
+  const whatIDo = about.whatIDo || [];
+
   return (
     <section id="about" className="py-14 sm:py-20 overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
@@ -21,11 +23,25 @@ export function About() {
             <h2 className="text-2xl sm:text-4xl font-bold text-white mb-4 sm:mb-5">
               {about.heading}
             </h2>
-            <div className="space-y-4 text-gray-400 leading-relaxed text-sm sm:text-[15px] mb-6 sm:mb-8">
+            <div className="space-y-4 text-gray-400 leading-relaxed text-sm sm:text-[15px] mb-6">
               {(about.paragraphs || []).map((p, i) => (
                 <p key={i}>{p}</p>
               ))}
             </div>
+
+            {whatIDo.length > 0 && (
+              <div className="flex flex-wrap gap-2 mb-6 sm:mb-8">
+                {whatIDo.map((item) => (
+                  <span
+                    key={item}
+                    className="px-3 py-1.5 rounded-lg bg-blue-500/10 border border-blue-500/20 text-xs text-blue-300"
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
+            )}
+
             <div>
               <a
                 href="#experience"

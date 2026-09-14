@@ -35,8 +35,12 @@ export const personal = {
 export const about = {
   heading: "A little about me",
   paragraphs: [],
+  whatIDo: [],
+  interests: [],
   ...aboutJson,
   paragraphs: Array.isArray(aboutJson.paragraphs) ? aboutJson.paragraphs : [],
+  whatIDo: Array.isArray(aboutJson.whatIDo) ? aboutJson.whatIDo : [],
+  interests: Array.isArray(aboutJson.interests) ? aboutJson.interests : [],
 };
 
 export const projects = (Array.isArray(projectsJson?.items) ? projectsJson.items : []).map((p) => ({

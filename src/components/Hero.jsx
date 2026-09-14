@@ -4,6 +4,12 @@ import { Reveal } from "./Reveal";
 
 export function Hero() {
   const stats = personal.stats || [];
+  const initials = (personal.name || "AT")
+    .split(" ")
+    .map((w) => w[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
 
   return (
     <section id="home" className="relative pt-20 sm:pt-24 pb-8">
@@ -79,12 +85,16 @@ export function Hero() {
                       className="w-full h-full object-cover object-top"
                     />
                   ) : (
-                    <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-b from-[#152033] to-[#0a0e1a]">
-                      <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-blue-500/15 border border-blue-400/40 flex items-center justify-center text-2xl sm:text-3xl font-bold text-blue-400 mb-3">
-                        AT
+                    <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-b from-[#152033] to-[#0a0e1a] relative">
+                      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.12),transparent_70%)]" />
+                      <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gradient-to-br from-blue-500/25 to-blue-600/10 border border-blue-400/30 flex items-center justify-center text-3xl sm:text-4xl font-bold text-blue-300 shadow-lg shadow-blue-500/10">
+                        {initials}
                       </div>
-                      <p className="text-[11px] text-gray-500 px-4 text-center">
-                        Upload photo in CMS → Personal
+                      <p className="relative mt-4 text-sm font-medium text-gray-300">
+                        {personal.name?.split(" ")[0] || "Abhishek"}
+                      </p>
+                      <p className="relative text-xs text-gray-500 mt-1">
+                        {personal.role}
                       </p>
                     </div>
                   )}
