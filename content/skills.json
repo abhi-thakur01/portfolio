@@ -15,21 +15,7 @@
     { "name": "GoHighLevel", "color": "#FF6B35", "category": "CMS" },
     { "name": "Square Online", "color": "#006AFF", "category": "CMS" },
     { "name": "Wix", "color": "#0C6EFC", "category": "CMS" },
-    { "name": "Squarespace", "color": "#000000", "category": "CMS" },
-    { "name": "Figma", "color": "#F24E1E", "category": "Design" },
-    { "name": "Git", "color": "#F05032", "category": "Tools" },
-    { "name": "GitHub", "color": "#E6EDF3", "category": "Tools" },
-    { "name": "Vite", "color": "#646CFF", "category": "Tools" },
-    { "name": "TypeScript", "color": "#3178C6", "category": "Tools" }
+    { "name": "Squarespace", "color": "#000000", "category": "CMS" }
   ],
-  "otherTools": [
-    "Kajabi",
-    "Responsive Design",
-    "VS Code",
-    "PageSpeed Insights",
-    "SEO Schema",
-    "Core Web Vitals",
-    "On-page SEO",
-    "Cross-browser Compatibility"
-  ]
+  "otherTools": []
 }
