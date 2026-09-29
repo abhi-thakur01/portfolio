@@ -14,11 +14,9 @@ const S=[
 let A="",D=null,O=null;
 const R=document.getElementById("root");
 function esc(s){
-  return String(s==null?"":s)
-    .split("&").join("&")
-    .split("<").join("<")
-    .split(">").join(">")
-    .split('"').join(""");
+  var d=document.createElement("div");
+  d.appendChild(document.createTextNode(s==null?"":String(s)));
+  return d.innerHTML;
 }
 async function api(u,o){
   const r=await fetch(u,o);
@@ -30,7 +28,7 @@ function st(t,c){
   var x=document.getElementById("status");
   if(x){x.textContent=t;x.className="status "+(c||"");}
 }
-function dirty(){st("Unsaved changes — click Publish");}
+function dirty(){st("Unsaved changes - click Publish");}
 function F(l,h){return '<div class="field"><div class="label">'+l+'</div>'+h+'</div>';}
 function I(k,v,ph,ta){
   if(ta) return '<textarea class="control textarea" data-k="'+k+'">'+esc(v)+'</textarea>';
