@@ -1,8 +1,19 @@
 {
   "heading": "A little about me",
+  "subtitle": "",
+  "description": "",
   "paragraphs": [
     "I'm Abhishek Thakur — a Web Designer focused on building modern, responsive and user-friendly websites.",
     "With 1.6+ years of experience and 40+ live client websites, I've worked across WordPress, Elementor, Beaver Builder, Framer, Squarespace, Wix and more, delivering websites for clients across the US, UK, Australia and Canada.",
     "Beyond design, I also work with React, JavaScript and Tailwind CSS, which helps me understand both the visual and technical side of the web."
-  ]
+  ],
+  "image": "",
+  "imageAlt": "About Abhishek Thakur",
+  "imageCaption": "",
+  "buttonText": "",
+  "buttonUrl": "",
+  "buttonVisible": false,
+  "highlights": [],
+  "whatIDo": [],
+  "interests": []
 }
