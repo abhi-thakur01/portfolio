@@ -1,3 +1,29 @@
-/* Portfolio CMS — designed form UI (self-extracting) */
-(async function(){
-  const b64="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"}]}
+/* Portfolio CMS loader — designed forms */
+(function(){
+  var n=3, loaded=0, parts=[];
+  function done(){
+    var code=parts.join("");
+    var s=document.createElement("script");
+    s.textContent=code;
+    document.head.appendChild(s);
+  }
+  function load(i){
+    var x=new XMLHttpRequest();
+    x.open("GET","/cms-part-"+i+".js?v="+Date.now());
+    x.onload=function(){
+      try {
+        (0,eval)(x.responseText);
+        parts[i]=window.__CMS_PARTS[i];
+        loaded++;
+        if(loaded===n) done();
+      } catch(e) {
+        document.getElementById("root").innerHTML='<p style="color:#f87171;padding:40px">CMS part '+i+' error: '+e.message+'</p>';
+      }
+    };
+    x.onerror=function(){
+      document.getElementById("root").innerHTML='<p style="color:#f87171;padding:40px">Failed to load CMS part '+i+'</p>';
+    };
+    x.send();
+  }
+  for(var i=0;i<n;i++) load(i);
+})();
