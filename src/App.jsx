@@ -6,20 +6,21 @@ import { Skills } from "./components/Skills";
 import { Experience } from "./components/Experience";
 import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
+import { isSectionVisible } from "./data/content";
 
 export default function App() {
   return (
     <div className="min-h-screen bg-[#0a0e1a] text-gray-100">
       <Navbar />
       <main>
-        <Hero />
-        <About />
-        <Projects />
-        <Skills />
-        <Experience />
-        <Contact />
+        {isSectionVisible("hero") && <Hero />}
+        {isSectionVisible("about") && <About />}
+        {isSectionVisible("projects") && <Projects />}
+        {isSectionVisible("skills") && <Skills />}
+        {isSectionVisible("experience") && <Experience />}
+        {isSectionVisible("contact") && <Contact />}
       </main>
-      <Footer />
+      {isSectionVisible("footer") && <Footer />}
     </div>
   );
 }
