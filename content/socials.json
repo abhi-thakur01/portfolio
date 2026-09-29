@@ -1,0 +1,10 @@
+{
+  "items": [
+    {"id": "github", "platform": "GitHub", "url": "https://github.com/abhi-thakur01", "icon": "github", "label": "GitHub", "newTab": true, "active": true, "order": 1},
+    {"id": "linkedin", "platform": "LinkedIn", "url": "https://linkedin.com/in/abhi-thakur01", "icon": "linkedin", "label": "LinkedIn", "newTab": true, "active": true, "order": 2},
+    {"id": "email", "platform": "Email", "url": "mailto:thakurabhi8925@gmail.com", "icon": "mail", "label": "Email", "newTab": false, "active": true, "order": 3},
+    {"id": "twitter", "platform": "Twitter/X", "url": "", "icon": "twitter", "label": "Twitter", "newTab": true, "active": false, "order": 4},
+    {"id": "instagram", "platform": "Instagram", "url": "", "icon": "instagram", "label": "Instagram", "newTab": true, "active": false, "order": 5},
+    {"id": "whatsapp", "platform": "WhatsApp", "url": "", "icon": "whatsapp", "label": "WhatsApp", "newTab": true, "active": false, "order": 6}
+  ]
+}

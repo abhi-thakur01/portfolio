@@ -1,0 +1,19 @@
+{
+  "items": [
+    {
+      "id": "mca",
+      "institution": "Master of Computer Applications",
+      "degree": "MCA",
+      "course": "Computer Applications",
+      "description": "",
+      "startDate": "2023",
+      "endDate": "2025",
+      "grade": "",
+      "location": "India",
+      "certificateUrl": "",
+      "certificateImage": "",
+      "active": true,
+      "order": 1
+    }
+  ]
+}

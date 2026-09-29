@@ -1,0 +1,45 @@
+{
+  "websiteName": "Abhishek Thakur",
+  "websiteTitle": "Abhishek Thakur — Junior Web Designer | WordPress & CMS",
+  "metaTitle": "Abhishek Thakur — Junior Web Designer | WordPress & CMS",
+  "metaDescription": "Abhishek Thakur — Junior Web Designer specializing in WordPress, Elementor, Beaver Builder, GoHighLevel and responsive websites.",
+  "favicon": "/favicon.svg",
+  "siteLogo": "",
+  "ogImage": "/og-image.png",
+  "googleAnalyticsId": "",
+  "primaryEmail": "thakurabhi8925@gmail.com",
+  "primaryPhone": "+91 82192 88267",
+  "canonicalUrl": "https://abhi-thakur-web.vercel.app/",
+  "sectionOrder": ["hero", "about", "projects", "skills", "experience", "services", "process", "testimonials", "faqs", "contact"],
+  "sectionVisibility": {
+    "hero": true,
+    "about": true,
+    "projects": true,
+    "skills": true,
+    "experience": true,
+    "services": true,
+    "process": true,
+    "testimonials": false,
+    "education": false,
+    "certifications": false,
+    "faqs": true,
+    "contact": true,
+    "footer": true
+  },
+  "header": {
+    "logoText": "Abhishek Thakur",
+    "logoImage": "",
+    "logoLink": "#home",
+    "ctaText": "Download Resume",
+    "ctaUrl": "/media/1789384610153-Abhishek-Thakur.pdf",
+    "ctaVisible": true,
+    "sticky": true,
+    "showSocials": true
+  },
+  "footer": {
+    "tagline": "Junior Web Designer · WordPress & CMS Specialist · Agency Client Delivery at Gigsoft Pro.",
+    "copyright": "All rights reserved. Built with React & Tailwind.",
+    "showSocials": true,
+    "columns": []
+  }
+}
