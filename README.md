@@ -2,7 +2,7 @@
 
 Modern, fast, SEO-optimized portfolio for Junior Web Designer & WordPress/CMS Specialist.
 
-**Live:** https://portfolio-delta-flax-28.vercel.app  
+**Live:** https://abhi-thakur-web.vercel.app  
 **Stack:** React 19 + Vite 7 + Tailwind 4 + TypeScript
 
 ---
