@@ -1,42 +1,42 @@
 {
+  "fullName": "Abhishek Thakur",
+  "displayName": "Abhishek Thakur",
   "name": "Abhishek Thakur",
+  "greeting": "Hi, I'm",
   "role": "Junior Web Designer",
+  "secondaryRole": "WordPress & CMS Specialist",
+  "shortIntro": "I build fast, pixel-perfect, and mobile-friendly websites.",
   "bio": "I build fast, pixel-perfect, and mobile-friendly websites with WordPress, Elementor, Beaver Builder, GoHighLevel, and clean modern code. Passionate about clean UI and continuous learning.",
+  "aboutMe": "I'm Abhishek Thakur — a Web Designer focused on building modern, responsive and user-friendly websites. With 1.6+ years of experience and 40+ live client websites, I've worked across WordPress, Elementor, Beaver Builder, Framer, Squarespace, Wix and more.",
+  "photo": "",
+  "photoAlt": "Abhishek Thakur profile photo",
+  "photoPosition": "right",
+  "resumeUrl": "/media/1789384610153-Abhishek-Thakur.pdf",
+  "resumeButtonText": "Download Resume",
   "email": "thakurabhi8925@gmail.com",
   "phone": "+91 82192 88267",
+  "whatsapp": "",
   "location": "India — Available Worldwide (Remote)",
-  "workingHours": "Full-time / Remote",
+  "websiteUrl": "https://abhi-thakur-web.vercel.app",
+  "availabilityStatus": "available",
   "availability": "Available for Freelance & Full-time Roles",
+  "workingHours": "Full-time / Remote",
   "github": "https://github.com/abhi-thakur01",
   "linkedin": "https://linkedin.com/in/abhi-thakur01",
   "twitter": "",
-  "resumeUrl": "/media/1789384610153-Abhishek-Thakur.pdf",
-  "photo": "",
-  "greeting": "Hi, I'm",
-  "photoSideText": [
-    "Build",
-    "Create",
-    "Improve"
-  ],
+  "instagram": "",
+  "facebook": "",
+  "behance": "",
+  "dribbble": "",
+  "youtube": "",
+  "photoSideText": ["Build", "Create", "Improve"],
   "ctaPrimary": "View My Projects",
   "ctaSecondary": "Download Resume",
   "stats": [
-    {
-      "value": "1.6+",
-      "label": "Years Experience"
-    },
-    {
-      "value": "40+",
-      "label": "Live Client Sites"
-    },
-    {
-      "value": "100%",
-      "label": "Client Satisfaction"
-    },
-    {
-      "value": "15+",
-      "label": "Technologies"
-    }
+    { "value": "1.6+", "label": "Years Experience" },
+    { "value": "40+", "label": "Live Client Sites" },
+    { "value": "100%", "label": "Client Satisfaction" },
+    { "value": "15+", "label": "Technologies" }
   ],
   "agency": {
     "role": "Junior Web Designer",
