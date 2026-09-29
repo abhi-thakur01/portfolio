@@ -1,10 +1,10 @@
 {
   "links": [
-    { "href": "#home", "label": "Home" },
-    { "href": "#about", "label": "About" },
-    { "href": "#projects", "label": "Projects" },
-    { "href": "#skills", "label": "Skills" },
-    { "href": "#experience", "label": "Experience" },
-    { "href": "#contact", "label": "Contact" }
+    { "id": "nav-1", "href": "#home", "label": "Home", "target": "_self", "icon": "", "active": true, "order": 1, "external": false },
+    { "id": "nav-2", "href": "#about", "label": "About", "target": "_self", "icon": "", "active": true, "order": 2, "external": false },
+    { "id": "nav-3", "href": "#projects", "label": "Projects", "target": "_self", "icon": "", "active": true, "order": 3, "external": false },
+    { "id": "nav-4", "href": "#skills", "label": "Skills", "target": "_self", "icon": "", "active": true, "order": 4, "external": false },
+    { "id": "nav-5", "href": "#experience", "label": "Experience", "target": "_self", "icon": "", "active": true, "order": 5, "external": false },
+    { "id": "nav-6", "href": "#contact", "label": "Contact", "target": "_self", "icon": "", "active": true, "order": 6, "external": false }
   ]
 }
