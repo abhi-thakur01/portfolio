@@ -1,6 +1,6 @@
 import { Download, Github, Linkedin, Mail, Twitter, ArrowRight } from "lucide-react";
 import { personal } from "../data/content";
-import { TextReveal, Magnetic, ClipReveal, MouseGlow, CountUp, Stagger } from "./motion";
+import { Magnetic, ClipReveal, MouseGlow, CountUp, Stagger } from "./motion";
 
 export function Hero() {
   const stats = personal.stats || [];
@@ -24,42 +24,29 @@ export function Hero() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center min-h-0 lg:min-h-[68vh]">
           <div className="order-2 lg:order-1">
-            <p className="text-blue-400 text-xs font-semibold tracking-[0.22em] uppercase mb-3 sm:mb-4 overflow-hidden">
-              <span className="inline-block animate-[pop-in_0.6s_cubic-bezier(0.34,1.56,0.64,1)_both]">
-                {personal.greeting || "Hi, I'm"}
-              </span>
+            <p className="text-blue-400 text-xs font-semibold tracking-[0.22em] uppercase mb-3 sm:mb-4">
+              {personal.greeting || "Hi, I'm"}
             </p>
 
-            <TextReveal
-              as="h1"
-              className="text-3xl sm:text-5xl lg:text-[3.4rem] font-extrabold text-white leading-[1.15] mb-1"
-              delay={80}
-              stagger={70}
-            >
-              {first}
-            </TextReveal>
-            <TextReveal
-              as="div"
-              className="text-3xl sm:text-5xl lg:text-[3.4rem] font-extrabold leading-[1.15] mb-3 text-gradient"
-              delay={180}
-              stagger={60}
-            >
-              {rest}
-            </TextReveal>
+            {/* Full name always visible — gradient on last name span only */}
+            <h1 className="text-3xl sm:text-5xl lg:text-[3.4rem] font-extrabold text-white leading-[1.15] mb-3">
+              {first}{" "}
+              <span className="text-gradient">{rest}</span>
+            </h1>
 
-            <ClipReveal delay={280} direction="up">
+            <ClipReveal delay={80} direction="up">
               <p className="text-base sm:text-xl text-gray-300 font-medium mb-4 sm:mb-5">
                 {personal.role}
               </p>
             </ClipReveal>
 
-            <ClipReveal delay={360} direction="up">
+            <ClipReveal delay={140} direction="up">
               <p className="text-gray-400 leading-relaxed max-w-md mb-6 sm:mb-8 text-sm sm:text-[15px]">
                 {personal.bio}
               </p>
             </ClipReveal>
 
-            <Stagger className="flex flex-row flex-wrap items-center gap-3 mb-6 sm:mb-8" delay={420} step={90}>
+            <Stagger className="flex flex-row flex-wrap items-center gap-3 mb-6 sm:mb-8" delay={200} step={70}>
               <Magnetic strength={0.25}>
                 <a
                   href="#projects"
@@ -80,7 +67,7 @@ export function Hero() {
               </Magnetic>
             </Stagger>
 
-            <Stagger className="flex items-center gap-3" delay={520} step={60} from="scale">
+            <Stagger className="flex items-center gap-3" delay={280} step={50} from="scale">
               {[
                 { href: personal.github, icon: Github, label: "GitHub", show: !!personal.github },
                 { href: personal.linkedin, icon: Linkedin, label: "LinkedIn", show: !!personal.linkedin },
@@ -105,7 +92,7 @@ export function Hero() {
           </div>
 
           <div className="order-1 lg:order-2 flex justify-center lg:justify-end">
-            <ClipReveal delay={120} direction="right" className="relative w-[200px] sm:w-[260px] md:w-[300px]">
+            <div className="relative w-[200px] sm:w-[260px] md:w-[300px]">
               <div className="absolute inset-0 scale-110 bg-blue-500/25 blur-[60px] rounded-full pointer-events-none animate-pulse-glow" />
               <div className="relative rounded-2xl p-[2px] bg-gradient-to-b from-blue-400/50 via-blue-600/25 to-transparent group">
                 <div className="rounded-2xl overflow-hidden bg-[#0d1220] border border-blue-500/25 aspect-[3/4] img-mask transition-shadow duration-500 group-hover:shadow-2xl group-hover:shadow-blue-500/25">
@@ -121,23 +108,21 @@ export function Hero() {
                       <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gradient-to-br from-blue-500/30 to-blue-600/10 border border-blue-400/35 flex items-center justify-center text-3xl sm:text-4xl font-bold text-blue-300 shadow-lg shadow-blue-500/20 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3">
                         {initials}
                       </div>
-                      <p className="relative mt-4 text-sm font-medium text-gray-300">
-                        {first}
-                      </p>
+                      <p className="relative mt-4 text-sm font-medium text-gray-300">{first}</p>
                       <p className="relative text-xs text-gray-500 mt-1">{personal.role}</p>
                     </div>
                   )}
                 </div>
               </div>
-            </ClipReveal>
+            </div>
           </div>
         </div>
 
         {stats.length > 0 && (
           <Stagger
             className="mt-10 sm:mt-14 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 py-6 sm:py-8 border-y border-white/5"
-            delay={200}
-            step={80}
+            delay={120}
+            step={60}
           >
             {stats.map((s) => (
               <div key={s.label} className="text-center group">
