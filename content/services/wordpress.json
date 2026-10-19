@@ -3,12 +3,15 @@
   "icon": "Globe",
   "title": "WordPress Development",
   "startingPrice": "$299",
-  "desc": "Custom WordPress websites built with Elementor Pro or Beaver Builder — responsive, modern layouts with ongoing maintenance, plugin security, and client handoff.",
-  "tags": ["WordPress", "Elementor", "Beaver Builder", "WooCommerce"],
+  "desc": "Custom WordPress websites built with Elementor Pro or Beaver Builder. Fully responsive, SEO-ready, and easy for clients to update. Includes clean layouts, plugin setup, security basics, and a smooth handoff so you can manage content yourself.",
+  "tags": ["WordPress", "Elementor Pro", "Beaver Builder", "WooCommerce", "SEO Ready"],
   "deliverables": [
-    "Custom layout design from scratch",
-    "Full mobile & tablet responsiveness",
-    "Easy CMS visual editor setup for clients",
-    "Speed caching & security hardening"
+    "Custom page layouts designed from scratch or from your brand guidelines",
+    "Full mobile, tablet & desktop responsiveness",
+    "Easy visual editor setup (Elementor / Beaver Builder) for non-technical clients",
+    "Essential plugins: SEO, security, caching, contact forms",
+    "Speed optimization (caching, image compression, clean code)",
+    "Basic on-page SEO (titles, meta, headings, alt text)",
+    "30-day post-launch support for minor fixes"
   ]
 }

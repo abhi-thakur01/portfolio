@@ -3,12 +3,15 @@
   "icon": "RefreshCw",
   "title": "Website Maintenance & Fixes",
   "startingPrice": "$149",
-  "desc": "Ongoing updates, responsive bug fixes, speed tune-ups, and layout refreshes so your website stays secure, fast, and modern.",
-  "tags": ["Updates", "Bug Fixes", "Performance Tuning", "Backups"],
+  "desc": "Keep your website secure, fast and up-to-date. Plugin/core updates, bug fixes, speed improvements, layout corrections and regular health checks so your site stays professional long after launch.",
+  "tags": ["Updates", "Bug Fixes", "Performance", "Security", "Backups"],
   "deliverables": [
-    "Plugin & core system updates without downtime",
-    "Fix broken layouts or mobile display bugs",
-    "Image optimization & script cleanup",
-    "Monthly health check & speed verification"
+    "WordPress / plugin / theme updates without downtime",
+    "Fix broken layouts, mobile display issues or form errors",
+    "Image optimization, unused script cleanup & caching tweaks",
+    "Security checks and basic hardening",
+    "Monthly (or on-demand) health & speed report",
+    "Backup verification and recovery assistance",
+    "Priority support for urgent issues"
   ]
 }

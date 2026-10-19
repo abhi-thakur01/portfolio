@@ -3,12 +3,16 @@
   "icon": "LayoutGrid",
   "title": "CMS Website Building",
   "startingPrice": "$279",
-  "desc": "Professional sites built on GoHighLevel, Square Online, Wix, Squarespace, Webflow, and other leading platforms — matched to your business needs.",
-  "tags": ["GoHighLevel", "Square Online", "Webflow", "Wix / Squarespace"],
+  "desc": "Professional websites built on GoHighLevel, Square Online, Wix, Squarespace, Webflow, Framer and other leading platforms. Perfect when you need a fast, branded, conversion-focused site without heavy custom code. Fully matched to your business goals and easy for you to edit later.",
+  "tags": ["GoHighLevel", "Square Online", "Webflow", "Wix", "Squarespace", "Framer"],
   "deliverables": [
-    "No-code platform setup & DNS connection",
-    "Custom branded styling & font integration",
-    "E-commerce or booking pipeline integration",
-    "1-on-1 video walkthrough for client handover"
+    "Platform selection advice based on your business needs",
+    "Complete site setup, branding, colors, fonts & logo integration",
+    "Custom page structure (Home, Services, About, Contact, etc.)",
+    "E-commerce, booking, or lead-funnel integration where needed",
+    "Mobile-first responsive design across all devices",
+    "DNS / domain connection & basic SEO setup",
+    "1-on-1 video walkthrough so you can edit content yourself",
+    "Handover of all logins and clear documentation"
   ]
 }

@@ -3,12 +3,15 @@
   "icon": "Smartphone",
   "title": "Responsive Web Design",
   "startingPrice": "$249",
-  "desc": "Mobile-first websites that hold up beautifully across every screen size and browser — clean, fast, and easy to use on iPhone, Android, tablets, and 4K desktops.",
-  "tags": ["Mobile-First", "Cross-Browser", "Pixel-Perfect", "Tailwind/CSS"],
+  "desc": "Mobile-first websites that look and work perfectly on every screen — iPhone, Android, tablets, and large desktops. Clean layouts, touch-friendly interactions, and zero broken elements. Ideal as a standalone service or as part of any WordPress / CMS project.",
+  "tags": ["Mobile-First", "Cross-Browser", "Pixel-Perfect", "Tailwind / CSS", "Touch Friendly"],
   "deliverables": [
-    "Fluid grid layouts with flexible typography",
-    "Touch-friendly tap targets and sticky nav",
-    "Zero horizontal scrolling or broken elements",
-    "Cross-browser tested (Chrome, Safari, Firefox)"
+    "Fluid grid layouts with flexible typography and spacing",
+    "Touch-friendly buttons, menus and form fields",
+    "Sticky / adaptive navigation for mobile",
+    "Zero horizontal scrolling or overflow issues",
+    "Cross-browser testing (Chrome, Safari, Firefox, Edge)",
+    "Consistent look on high-DPI and retina screens",
+    "Fast loading on slower mobile networks"
   ]
 }

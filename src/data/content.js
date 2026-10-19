@@ -13,7 +13,6 @@ import testimonialsJson from "../../content/testimonials.json";
 // Services (individual JSON files)
 import serviceWordpress from "../../content/services/wordpress.json";
 import serviceCms from "../../content/services/cms.json";
-import serviceDesignToCode from "../../content/services/design-to-code.json";
 import serviceMaintenance from "../../content/services/maintenance.json";
 import serviceResponsive from "../../content/services/responsive.json";
 
@@ -119,7 +118,6 @@ export const experience = (Array.isArray(experienceJson?.items) ? experienceJson
 export const services = [
   serviceWordpress,
   serviceCms,
-  serviceDesignToCode,
   serviceResponsive,
   serviceMaintenance,
 ].filter(Boolean).map((s) => ({
