@@ -10,9 +10,11 @@ export function Process() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <Reveal from="up">
           <div className="text-center mb-10 sm:mb-14">
-            <p className="text-blue-400 text-xs font-semibold tracking-wider uppercase mb-2">
-              {meta.label || "// process"}
-            </p>
+            {meta.label ? (
+              <p className="text-blue-400 text-xs font-semibold tracking-wider uppercase mb-2">
+                {meta.label}
+              </p>
+            ) : null}
             <h2 className="text-2xl sm:text-4xl font-bold text-white mb-3">
               {meta.heading || "How I Build"}{" "}
               <span className="text-blue-400">{meta.headingHighlight || "Excellence"}</span>
@@ -25,7 +27,6 @@ export function Process() {
         </Reveal>
 
         <div className="relative">
-          {/* vertical line for desktop */}
           <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-blue-500/40 via-blue-500/20 to-transparent -translate-x-1/2" />
 
           <div className="space-y-8 lg:space-y-12">
@@ -38,7 +39,6 @@ export function Process() {
                       isEven ? "lg:flex-row" : "lg:flex-row-reverse"
                     }`}
                   >
-                    {/* content card */}
                     <div className="flex-1 lg:w-[calc(50%-2rem)]">
                       <div className="rounded-2xl bg-[#111827] border border-white/8 p-5 sm:p-6 hover:border-blue-500/30 transition-colors">
                         <div className="flex items-center gap-3 mb-3">
@@ -79,10 +79,8 @@ export function Process() {
                       </div>
                     </div>
 
-                    {/* center dot */}
                     <div className="hidden lg:flex absolute left-1/2 top-8 -translate-x-1/2 w-4 h-4 rounded-full bg-blue-500 border-4 border-[#0a0e1a] shadow-lg shadow-blue-500/30 z-10" />
 
-                    {/* spacer for alternating layout */}
                     <div className="hidden lg:block flex-1 lg:w-[calc(50%-2rem)]" />
                   </div>
                 </Reveal>

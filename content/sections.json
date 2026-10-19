@@ -8,7 +8,7 @@
     "toolsLabel": "Platforms & Technologies I Build On"
   },
   "services": {
-    "label": "// services",
+    "label": "",
     "heading": "Services Built for",
     "headingHighlight": "Real Business Growth",
     "description": "End-to-end web design and CMS development tailored to help your brand look polished, load instantly, and turn visitors into clients.",
@@ -16,20 +16,20 @@
     "deliverablesLabel": "Deliverables:"
   },
   "process": {
-    "label": "// process",
+    "label": "",
     "heading": "How I Build",
     "headingHighlight": "Excellence",
     "description": "A battle-tested 6-step workflow shaped by real client projects — keeping you informed, on schedule, and thrilled with the final website."
   },
   "work": {
-    "label": "// selected-work",
+    "label": "",
     "heading": "Work That",
     "headingHighlight": "Converts & Delights",
     "description": "Real client projects shipped for businesses worldwide — tuned for speed, polished on mobile, and built on reliable CMS foundations.",
     "hireCta": "Hire for Your Team"
   },
   "seo": {
-    "label": "// performance",
+    "label": "",
     "heading": "Built to Rank High",
     "headingHighlight": "& Convert Traffic",
     "paragraphs": [
@@ -60,7 +60,7 @@
     ]
   },
   "faqs": {
-    "label": "// faq",
+    "label": "",
     "heading": "Frequently Asked",
     "headingHighlight": "Questions",
     "description": "Everything you need to know about working together, project delivery, and post-launch support.",
@@ -71,7 +71,7 @@
     ]
   },
   "contact": {
-    "label": "// contact",
+    "label": "",
     "heading": "Let's Connect",
     "headingHighlight": "About Opportunities",
     "description": "Open to full-time roles, freelance projects, and collaboration. I typically reply within 24 hours.",
