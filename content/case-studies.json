@@ -1,0 +1,106 @@
+{
+  "sectionTitle": "Case Studies",
+  "sectionSubtitle": "Deep Dives",
+  "description": "Dummy case studies showing how projects go from brief to launch. Replace with your real work anytime from the CMS.",
+  "items": [
+    {
+      "id": "local-business-wordpress",
+      "title": "Local Business WordPress Site",
+      "client": "Demo Client Co.",
+      "year": "2025",
+      "role": "Web Designer",
+      "category": "WordPress",
+      "coverImage": "",
+      "excerpt": "Redesigned a slow brochure site into a fast, mobile-first WordPress build with clear CTAs.",
+      "problem": "The old site was outdated, slow on mobile, and not converting visitors into calls.",
+      "solution": "Rebuilt on WordPress + Elementor with a focused landing structure, compressed media, and clear contact paths.",
+      "process": [
+        "Discovery call and competitor scan",
+        "Wireframe + content outline",
+        "Design in Figma, then Elementor build",
+        "Speed, SEO, and form testing",
+        "Launch + 2 weeks of polish"
+      ],
+      "results": [
+        "Mobile-friendly layout across breakpoints",
+        "Clear primary CTA on every key page",
+        "Faster perceived load with optimized images"
+      ],
+      "metrics": [
+        { "label": "Pages", "value": "8" },
+        { "label": "Timeline", "value": "3 weeks" },
+        { "label": "Stack", "value": "WP + Elementor" }
+      ],
+      "tags": ["WordPress", "Elementor", "SEO", "Mobile"],
+      "liveUrl": "#",
+      "active": true,
+      "order": 1
+    },
+    {
+      "id": "ghl-funnel-landing",
+      "title": "GoHighLevel Funnel Landing",
+      "client": "Agency Demo",
+      "year": "2025",
+      "role": "Landing Page Designer",
+      "category": "CMS",
+      "coverImage": "",
+      "excerpt": "Designed a high-converting GHL landing page with form, trust blocks, and mobile-first sections.",
+      "problem": "Paid traffic was landing on a generic page with weak messaging and no social proof.",
+      "solution": "Built a structured funnel page: hero, benefits, proof, FAQ, and sticky mobile CTA.",
+      "process": [
+        "Offer and audience briefing",
+        "Copy hierarchy and section map",
+        "Visual design + GHL build",
+        "Form + tracking checks",
+        "Iterate after first week of data"
+      ],
+      "results": [
+        "Stronger message hierarchy",
+        "Mobile sticky CTA",
+        "Ready for A/B headline tests"
+      ],
+      "metrics": [
+        { "label": "Sections", "value": "7" },
+        { "label": "Timeline", "value": "10 days" },
+        { "label": "Platform", "value": "GoHighLevel" }
+      ],
+      "tags": ["GoHighLevel", "Funnel", "CRO"],
+      "liveUrl": "#",
+      "active": true,
+      "order": 2
+    },
+    {
+      "id": "portfolio-react-rebuild",
+      "title": "Personal Portfolio Rebuild",
+      "client": "Personal",
+      "year": "2026",
+      "role": "Designer + Frontend",
+      "category": "React",
+      "coverImage": "",
+      "excerpt": "Rebuilt this portfolio in React + Tailwind with CMS-driven content and polished motion.",
+      "problem": "Needed a fast, maintainable portfolio that non-devs can update via CMS.",
+      "solution": "Content JSON + admin CMS, modular sections, and performance-minded UI.",
+      "process": [
+        "Content model design",
+        "Component system in React",
+        "CMS wiring to GitHub",
+        "Motion and accessibility pass",
+        "Deploy on Vercel"
+      ],
+      "results": [
+        "Edit content without touching code",
+        "Consistent design system",
+        "Ready for case studies and blog"
+      ],
+      "metrics": [
+        { "label": "Stack", "value": "React + Vite" },
+        { "label": "CMS", "value": "GitHub" },
+        { "label": "Host", "value": "Vercel" }
+      ],
+      "tags": ["React", "Tailwind", "CMS"],
+      "liveUrl": "#",
+      "active": true,
+      "order": 3
+    }
+  ]
+}

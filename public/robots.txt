@@ -1,14 +1,3 @@
-# Robots.txt for Abhishek Thakur Portfolio
 User-agent: *
 Allow: /
-
-# Disallow sensitive paths
-Disallow: /api/
-Disallow: /*.json$
-Allow: /content/
-
-# Sitemap
-Sitemap: https://portfolio-delta-flax-28.vercel.app/sitemap.xml
-
-# Crawl-delay
-Crawl-delay: 1
+Sitemap: https://abhi-thakur-web.vercel.app/sitemap.xml

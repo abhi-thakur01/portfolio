@@ -1,0 +1,55 @@
+{
+  "sectionTitle": "Tips & Insights",
+  "sectionSubtitle": "Blog",
+  "description": "Short, practical notes on WordPress, Elementor, and client-ready web design. Dummy posts for now — edit from CMS.",
+  "posts": [
+    {
+      "id": "elementor-speed-checklist",
+      "title": "Elementor Speed Checklist (Quick Wins)",
+      "slug": "elementor-speed-checklist",
+      "excerpt": "A practical list to make Elementor sites feel faster without rewriting the whole theme.",
+      "coverImage": "",
+      "category": "WordPress",
+      "tags": ["Elementor", "Performance", "WordPress"],
+      "author": "Abhishek Thakur",
+      "date": "2026-09-12",
+      "readTime": "4 min",
+      "featured": true,
+      "active": true,
+      "order": 1,
+      "content": "Most Elementor sites feel slow because of heavy sections, unoptimized images, and too many widgets.\n\nStart with images: export WebP, set correct size, and lazy-load below the fold.\n\nThen audit widgets — remove unused ones, limit animations, and avoid stacking multiple nested containers.\n\nFinally, use a lightweight theme, caching, and only the plugins you truly need.\n\nThis dummy post is editable from the CMS — replace it with your real tips."
+    },
+    {
+      "id": "client-website-brief",
+      "title": "What to Ask Before Building a Client Site",
+      "slug": "client-website-brief",
+      "excerpt": "A simple brief that saves revisions and keeps projects on schedule.",
+      "coverImage": "",
+      "category": "Process",
+      "tags": ["Clients", "Process", "Brief"],
+      "author": "Abhishek Thakur",
+      "date": "2026-08-28",
+      "readTime": "5 min",
+      "featured": false,
+      "active": true,
+      "order": 2,
+      "content": "Before design starts, lock goals, audience, must-have pages, and brand assets.\n\nAsk for examples they like (and dislike), form fields they need, and who approves the final site.\n\nDefine mobile priority, SEO basics, and launch checklist early.\n\nDummy content — update from CMS anytime."
+    },
+    {
+      "id": "ghl-landing-structure",
+      "title": "GoHighLevel Landing Page Structure That Converts",
+      "slug": "ghl-landing-structure",
+      "excerpt": "A clean section order for funnels: hook, proof, offer, objections, CTA.",
+      "coverImage": "",
+      "category": "GoHighLevel",
+      "tags": ["GoHighLevel", "Funnels", "CRO"],
+      "author": "Abhishek Thakur",
+      "date": "2026-07-15",
+      "readTime": "6 min",
+      "featured": false,
+      "active": true,
+      "order": 3,
+      "content": "Open with one clear promise and a single primary action.\n\nFollow with benefits, social proof, and a short FAQ that removes fear.\n\nKeep the mobile CTA sticky and the form short.\n\nThis is placeholder copy for your CMS-driven blog."
+    }
+  ]
+}
