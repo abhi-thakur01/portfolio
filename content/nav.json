@@ -3,12 +3,10 @@
     { "id": "nav-1", "href": "#home", "label": "Home", "active": true, "order": 1 },
     { "id": "nav-2", "href": "#about", "label": "About", "active": true, "order": 2 },
     { "id": "nav-3", "href": "#projects", "label": "Projects", "active": true, "order": 3 },
-    { "id": "nav-cs", "href": "#case-studies", "label": "Case Studies", "active": true, "order": 4 },
-    { "id": "nav-4", "href": "#skills", "label": "Skills", "active": true, "order": 5 },
-    { "id": "nav-5", "href": "#experience", "label": "Experience", "active": true, "order": 6 },
-    { "id": "nav-6", "href": "#process", "label": "Process", "active": true, "order": 7 },
-    { "id": "nav-blog", "href": "#blog", "label": "Blog", "active": true, "order": 8 },
-    { "id": "nav-7", "href": "#faqs", "label": "FAQ", "active": true, "order": 9 },
-    { "id": "nav-8", "href": "#contact", "label": "Contact", "active": true, "order": 10 }
+    { "id": "nav-4", "href": "#skills", "label": "Skills", "active": true, "order": 4 },
+    { "id": "nav-5", "href": "#experience", "label": "Experience", "active": true, "order": 5 },
+    { "id": "nav-6", "href": "#process", "label": "Process", "active": true, "order": 6 },
+    { "id": "nav-7", "href": "#faqs", "label": "FAQ", "active": true, "order": 7 },
+    { "id": "nav-8", "href": "#contact", "label": "Contact", "active": true, "order": 8 }
   ]
 }

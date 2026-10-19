@@ -5,8 +5,6 @@ import { Projects } from "./components/Projects";
 import { Skills } from "./components/Skills";
 import { Experience } from "./components/Experience";
 import { Process } from "./components/Process";
-import { CaseStudies } from "./components/CaseStudies";
-import { Blog } from "./components/Blog";
 import { FAQ } from "./components/FAQ";
 import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
@@ -25,11 +23,9 @@ export default function App() {
         {isSectionVisible("hero") && <Hero />}
         {isSectionVisible("about") && <About />}
         {isSectionVisible("projects") && <Projects />}
-        {isSectionVisible("case-studies") && <CaseStudies />}
         {isSectionVisible("skills") && <Skills />}
         {isSectionVisible("experience") && <Experience />}
         {isSectionVisible("process") && <Process />}
-        {isSectionVisible("blog") && <Blog />}
         {isSectionVisible("faqs") && <FAQ />}
         {isSectionVisible("contact") && <Contact />}
       </main>

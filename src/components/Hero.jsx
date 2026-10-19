@@ -24,24 +24,23 @@ export function Hero() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center min-h-0 lg:min-h-[68vh]">
           <div className="order-2 lg:order-1">
-            <p className="text-blue-400 text-xs font-semibold tracking-[0.22em] uppercase mb-3 sm:mb-4">
+            <p className="text-blue-500 dark:text-blue-400 text-xs font-semibold tracking-[0.22em] uppercase mb-3 sm:mb-4">
               {personal.greeting || "Hi, I'm"}
             </p>
 
-            {/* Full name always visible — gradient on last name span only */}
-            <h1 className="text-3xl sm:text-5xl lg:text-[3.4rem] font-extrabold text-white leading-[1.15] mb-3">
+            <h1 className="text-3xl sm:text-5xl lg:text-[3.4rem] font-extrabold text-[var(--text-strong)] leading-[1.15] mb-3">
               {first}{" "}
               <span className="text-gradient">{rest}</span>
             </h1>
 
             <ClipReveal delay={80} direction="up">
-              <p className="text-base sm:text-xl text-gray-300 font-medium mb-4 sm:mb-5">
+              <p className="text-base sm:text-xl text-[var(--text-muted)] font-medium mb-4 sm:mb-5">
                 {personal.role}
               </p>
             </ClipReveal>
 
             <ClipReveal delay={140} direction="up">
-              <p className="text-gray-400 leading-relaxed max-w-md mb-6 sm:mb-8 text-sm sm:text-[15px]">
+              <p className="text-[var(--text-muted)] leading-relaxed max-w-md mb-6 sm:mb-8 text-sm sm:text-[15px]">
                 {personal.bio}
               </p>
             </ClipReveal>
@@ -50,7 +49,7 @@ export function Hero() {
               <Magnetic strength={0.25}>
                 <a
                   href="#projects"
-                  className="btn-shine inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm shadow-lg shadow-blue-600/30 hover:shadow-blue-500/45 transition-shadow"
+                  className="btn-shine inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm shadow-lg shadow-blue-600/25 hover:shadow-blue-500/40 transition-shadow"
                 >
                   {personal.ctaPrimary || "View My Projects"}
                   <ArrowRight className="w-4 h-4" />
@@ -59,7 +58,7 @@ export function Hero() {
               <Magnetic strength={0.25}>
                 <a
                   href={personal.resumeUrl || "#"}
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg border border-white/15 text-gray-200 hover:border-blue-500/50 hover:text-white font-medium text-sm hover:bg-white/5 transition-colors"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg border border-[var(--border-strong)] text-[var(--text-strong)] hover:border-blue-500/50 hover:text-blue-600 font-medium text-sm hover:bg-blue-500/5 transition-colors"
                 >
                   {personal.ctaSecondary || "Download Resume"}
                   <Download className="w-4 h-4" />
@@ -81,7 +80,7 @@ export function Hero() {
                       href={href}
                       target={href.startsWith("http") ? "_blank" : undefined}
                       rel="noreferrer"
-                      className="icon-lift w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:border-blue-500/50 hover:bg-blue-500/10"
+                      className="icon-lift w-10 h-10 rounded-full bg-[var(--chip-bg)] border border-[var(--border-strong)] flex items-center justify-center text-[var(--text-muted)] hover:text-blue-600 hover:border-blue-500/50 hover:bg-blue-500/10"
                       aria-label={label}
                     >
                       <Icon className="w-4 h-4" />
@@ -93,7 +92,7 @@ export function Hero() {
 
           <div className="order-1 lg:order-2 flex justify-center lg:justify-end">
             <div className="relative w-[200px] sm:w-[260px] md:w-[300px]">
-              <div className="absolute inset-0 scale-110 bg-blue-500/25 blur-[60px] rounded-full pointer-events-none animate-pulse-glow" />
+              <div className="absolute inset-0 scale-110 bg-blue-500/20 blur-[60px] rounded-full pointer-events-none animate-pulse-glow" />
               <div className="relative rounded-2xl p-[2px] bg-gradient-to-b from-blue-400/50 via-blue-600/25 to-transparent group">
                 <div className="rounded-2xl overflow-hidden bg-[#0d1220] border border-blue-500/25 aspect-[3/4] img-mask transition-shadow duration-500 group-hover:shadow-2xl group-hover:shadow-blue-500/25">
                   {personal.photo ? (
@@ -120,7 +119,7 @@ export function Hero() {
 
         {stats.length > 0 && (
           <Stagger
-            className="mt-10 sm:mt-14 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 py-6 sm:py-8 border-y border-white/5"
+            className="mt-10 sm:mt-14 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 py-6 sm:py-8 border-y border-[var(--border)]"
             delay={120}
             step={60}
           >
@@ -128,9 +127,9 @@ export function Hero() {
               <div key={s.label} className="text-center group">
                 <CountUp
                   value={s.value}
-                  className="text-xl sm:text-3xl font-extrabold text-blue-400 mb-1 tabular-nums transition-transform duration-300 group-hover:scale-110"
+                  className="text-xl sm:text-3xl font-extrabold text-blue-500 mb-1 tabular-nums transition-transform duration-300 group-hover:scale-110"
                 />
-                <div className="text-[10px] sm:text-xs text-gray-500">{s.label}</div>
+                <div className="text-[10px] sm:text-xs text-[var(--text-muted)]">{s.label}</div>
               </div>
             ))}
           </Stagger>
