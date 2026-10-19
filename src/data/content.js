@@ -5,6 +5,17 @@ import skillsJson from "../../content/skills.json";
 import experienceJson from "../../content/experience.json";
 import navJson from "../../content/nav.json";
 import siteJson from "../../content/site.json";
+import processJson from "../../content/process.json";
+import faqsJson from "../../content/faqs.json";
+import sectionsJson from "../../content/sections.json";
+import testimonialsJson from "../../content/testimonials.json";
+
+// Services (individual JSON files)
+import serviceWordpress from "../../content/services/wordpress.json";
+import serviceCms from "../../content/services/cms.json";
+import serviceDesignToCode from "../../content/services/design-to-code.json";
+import serviceMaintenance from "../../content/services/maintenance.json";
+import serviceResponsive from "../../content/services/responsive.json";
 
 export const site = {
   sectionVisibility: {
@@ -13,13 +24,17 @@ export const site = {
     projects: true,
     skills: true,
     experience: true,
+    services: true,
+    process: true,
+    testimonials: false,
+    faqs: true,
     contact: true,
     footer: true,
     ...(siteJson?.sectionVisibility || {}),
   },
   sectionOrder: Array.isArray(siteJson?.sectionOrder)
     ? siteJson.sectionOrder
-    : ["hero", "about", "projects", "skills", "experience", "contact"],
+    : ["hero", "about", "projects", "skills", "experience", "services", "process", "faqs", "contact"],
   header: siteJson?.header || {},
   footer: siteJson?.footer || {},
   ...siteJson,
@@ -101,6 +116,48 @@ export const experience = (Array.isArray(experienceJson?.items) ? experienceJson
     tags: Array.isArray(e.tags) ? e.tags : [],
   }));
 
+export const services = [
+  serviceWordpress,
+  serviceCms,
+  serviceDesignToCode,
+  serviceResponsive,
+  serviceMaintenance,
+].filter(Boolean).map((s) => ({
+  id: s.id || "",
+  icon: s.icon || "Globe",
+  title: s.title || "",
+  startingPrice: s.startingPrice || "",
+  desc: s.desc || "",
+  tags: Array.isArray(s.tags) ? s.tags : [],
+  deliverables: Array.isArray(s.deliverables) ? s.deliverables : [],
+}));
+
+export const processSteps = (Array.isArray(processJson?.steps) ? processJson.steps : []).map(
+  (step, i) => ({
+    phase: step.phase || String(i + 1).padStart(2, "0"),
+    title: step.title || "",
+    sub: step.sub || "",
+    duration: step.duration || "",
+    desc: step.desc || "",
+    tags: Array.isArray(step.tags) ? step.tags : [],
+    deliverable: step.deliverable || "",
+  })
+);
+
+export const faqs = (Array.isArray(faqsJson?.faqs) ? faqsJson.faqs : []).map((f) => ({
+  q: f.q || f.question || "",
+  a: f.a || f.answer || "",
+}));
+
+export const testimonials = {
+  sectionTitle: testimonialsJson?.sectionTitle || "What Clients Say",
+  sectionSubtitle: testimonialsJson?.sectionSubtitle || "Testimonials",
+  description: testimonialsJson?.description || "",
+  items: Array.isArray(testimonialsJson?.items) ? testimonialsJson.items : [],
+};
+
+export const sections = sectionsJson || {};
+
 export const navLinks = (Array.isArray(navJson?.links) ? navJson.links : [])
   .filter((l) => l.active !== false)
   .sort((a, b) => (a.order || 0) - (b.order || 0))
@@ -116,6 +173,9 @@ if (!navLinks.length) {
     { href: "#projects", label: "Projects" },
     { href: "#skills", label: "Skills" },
     { href: "#experience", label: "Experience" },
+    { href: "#services", label: "Services" },
+    { href: "#process", label: "Process" },
+    { href: "#faqs", label: "FAQ" },
     { href: "#contact", label: "Contact" }
   );
 }
