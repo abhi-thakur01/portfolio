@@ -9,8 +9,6 @@ import processJson from "../../content/process.json";
 import faqsJson from "../../content/faqs.json";
 import sectionsJson from "../../content/sections.json";
 import testimonialsJson from "../../content/testimonials.json";
-import caseStudiesJson from "../../content/case-studies.json";
-import blogJson from "../../content/blog.json";
 
 import serviceWordpress from "../../content/services/wordpress.json";
 import serviceCms from "../../content/services/cms.json";
@@ -22,12 +20,12 @@ export const site = {
     hero: true,
     about: true,
     projects: true,
-    "case-studies": true,
+    "case-studies": false,
     skills: true,
     experience: true,
     services: false,
     process: true,
-    blog: true,
+    blog: false,
     testimonials: false,
     faqs: true,
     contact: true,
@@ -36,18 +34,7 @@ export const site = {
   },
   sectionOrder: Array.isArray(siteJson?.sectionOrder)
     ? siteJson.sectionOrder
-    : [
-        "hero",
-        "about",
-        "projects",
-        "case-studies",
-        "skills",
-        "experience",
-        "process",
-        "blog",
-        "faqs",
-        "contact",
-      ],
+    : ["hero", "about", "projects", "skills", "experience", "process", "faqs", "contact"],
   header: siteJson?.header || {},
   footer: siteJson?.footer || {},
   ...siteJson,
@@ -170,20 +157,6 @@ export const testimonials = {
   items: Array.isArray(testimonialsJson?.items) ? testimonialsJson.items : [],
 };
 
-export const caseStudies = {
-  sectionTitle: caseStudiesJson?.sectionTitle || "Case Studies",
-  sectionSubtitle: caseStudiesJson?.sectionSubtitle || "Deep Dives",
-  description: caseStudiesJson?.description || "",
-  items: Array.isArray(caseStudiesJson?.items) ? caseStudiesJson.items : [],
-};
-
-export const blog = {
-  sectionTitle: blogJson?.sectionTitle || "Tips & Insights",
-  sectionSubtitle: blogJson?.sectionSubtitle || "Blog",
-  description: blogJson?.description || "",
-  posts: Array.isArray(blogJson?.posts) ? blogJson.posts : [],
-};
-
 export const sections = sectionsJson || {};
 
 export const navLinks = (Array.isArray(navJson?.links) ? navJson.links : [])
@@ -199,11 +172,9 @@ if (!navLinks.length) {
     { href: "#home", label: "Home" },
     { href: "#about", label: "About" },
     { href: "#projects", label: "Projects" },
-    { href: "#case-studies", label: "Case Studies" },
     { href: "#skills", label: "Skills" },
     { href: "#experience", label: "Experience" },
     { href: "#process", label: "Process" },
-    { href: "#blog", label: "Blog" },
     { href: "#faqs", label: "FAQ" },
     { href: "#contact", label: "Contact" }
   );

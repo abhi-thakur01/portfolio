@@ -17,15 +17,15 @@ export function PageLoader() {
 
   return (
     <div
-      className={`fixed inset-0 z-[100] flex items-center justify-center bg-[#0a0e1a] transition-opacity duration-400 ${
+      className={`fixed inset-0 z-[100] flex items-center justify-center bg-[var(--bg)] transition-opacity duration-400 ${
         out ? "opacity-0 pointer-events-none" : "opacity-100"
       }`}
       aria-hidden
     >
       <div className="text-center">
         <div className="w-10 h-10 mx-auto mb-4 rounded-full border-2 border-blue-500/30 border-t-blue-500 animate-spin" />
-        <p className="text-sm font-medium text-gray-400 tracking-wide">
-          Abhishek <span className="text-blue-400">Thakur</span>
+        <p className="text-sm font-medium text-[var(--text-muted)] tracking-wide">
+          Abhishek <span className="text-blue-500">Thakur</span>
         </p>
       </div>
     </div>
