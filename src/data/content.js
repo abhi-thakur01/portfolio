@@ -46,7 +46,7 @@ export function isSectionVisible(key) {
 
 export const personal = {
   name: "Abhishek Thakur",
-  role: "Junior Web Designer",
+  role: "Web Designer",
   bio: "",
   email: "",
   phone: "",
