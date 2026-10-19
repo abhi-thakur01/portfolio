@@ -30,17 +30,17 @@
 
 [data-theme="light"],
 html.light {
-  --bg: #f4f7fb;
+  --bg: #f1f5f9;
   --panel: #ffffff;
   --card: #ffffff;
-  --nav-bg: rgba(255, 255, 255, 0.92);
-  --text: #334155;
+  --nav-bg: rgba(255, 255, 255, 0.95);
+  --text: #1e293b;
   --text-strong: #0f172a;
-  --text-muted: #64748b;
-  --border: rgba(15, 23, 42, 0.08);
-  --border-strong: rgba(15, 23, 42, 0.14);
-  --chip-bg: rgba(15, 23, 42, 0.04);
-  --section-alt: #eef2f7;
+  --text-muted: #475569;
+  --border: rgba(15, 23, 42, 0.1);
+  --border-strong: rgba(15, 23, 42, 0.16);
+  --chip-bg: #f8fafc;
+  --section-alt: #e2e8f0;
 }
 
 html {
@@ -104,82 +104,153 @@ body.cursor-hover .cursor-ring {
   border-color: rgba(37, 99, 235, 0.85);
 }
 
-/* ===== Light theme overrides for hardcoded dark classes ===== */
+/* ========== LIGHT MODE — readable contrast ========== */
+
+/* Headings / body text that were pure white */
 html.light .text-white {
   color: #0f172a !important;
 }
-html.light .text-gray-200,
-html.light .text-gray-300 {
-  color: #334155 !important;
+
+/* Blue solid buttons must KEEP white text */
+html.light .bg-blue-600,
+html.light .bg-blue-500,
+html.light .bg-blue-600.text-white,
+html.light .bg-blue-500.text-white,
+html.light a.bg-blue-600,
+html.light a.bg-blue-500,
+html.light button.bg-blue-600,
+html.light button.bg-blue-500,
+html.light .btn-shine.bg-blue-600,
+html.light .btn-shine.bg-blue-500 {
+  color: #ffffff !important;
 }
-html.light .text-gray-400 {
-  color: #64748b !important;
+html.light .bg-blue-600 *,
+html.light .bg-blue-500 *,
+html.light a.bg-blue-600 *,
+html.light button.bg-blue-600 * {
+  color: #ffffff !important;
 }
-html.light .text-gray-500,
-html.light .text-gray-600 {
-  color: #64748b !important;
+
+/* Active filter / tab pills */
+html.light .bg-blue-600.border-blue-500,
+html.light button.bg-blue-600 {
+  color: #ffffff !important;
 }
-html.light .bg-\[\#0a0e1a\],
-html.light .bg-\[\#0d1220\],
-html.light .bg-\[\#111827\],
-html.light .bg-\[\#0d1220\]\/50,
-html.light .bg-\[\#111827\]\/80,
-html.light .bg-\[\#111827\]\/60 {
+
+/* Gray text → darker for light bg */
+html.light .text-gray-100 { color: #0f172a !important; }
+html.light .text-gray-200 { color: #1e293b !important; }
+html.light .text-gray-300 { color: #334155 !important; }
+html.light .text-gray-400 { color: #475569 !important; }
+html.light .text-gray-500 { color: #64748b !important; }
+html.light .text-gray-600 { color: #64748b !important; }
+
+/* Soft blue labels — slightly stronger on light */
+html.light .text-blue-400 {
+  color: #2563eb !important;
+}
+html.light .text-blue-300 {
+  color: #3b82f6 !important;
+}
+html.light .text-cyan-400 {
+  color: #0891b2 !important;
+}
+html.light .text-violet-400 {
+  color: #7c3aed !important;
+}
+html.light .text-amber-400 {
+  color: #d97706 !important;
+}
+
+/* Dark card backgrounds → white */
+html.light [class*="bg-[#0a0e1a]"],
+html.light [class*="bg-[#0d1220]"],
+html.light [class*="bg-[#111827]"],
+html.light [class*="bg-[#152033]"] {
   background-color: #ffffff !important;
 }
-html.light .bg-\[\#0d1220\]\/50 {
-  background-color: #eef2f7 !important;
+
+/* Section alternate bands */
+html.light section[class*="bg-[#0d1220]"] {
+  background-color: #e8eef5 !important;
 }
-html.light .border-white\/5,
-html.light .border-white\/8,
-html.light .border-white\/10,
-html.light .border-white\/15 {
-  border-color: rgba(15, 23, 42, 0.1) !important;
+
+/* Borders */
+html.light [class*="border-white/"] {
+  border-color: rgba(15, 23, 42, 0.12) !important;
 }
-html.light .bg-white\/5,
-html.light .bg-white\/\[0\.04\],
-html.light .bg-white\/\[0\.06\] {
+
+/* Subtle fills */
+html.light [class*="bg-white/"] {
   background-color: rgba(15, 23, 42, 0.04) !important;
 }
-html.light .hover\:text-white:hover {
-  color: #0f172a !important;
-}
-html.light .hover\:bg-white\/5:hover {
-  background-color: rgba(59, 130, 246, 0.06) !important;
-}
+
+/* Cards */
 html.light .card-premium {
   background-color: #ffffff !important;
   border-color: rgba(15, 23, 42, 0.1) !important;
-  box-shadow: 0 4px 24px rgba(15, 23, 42, 0.06);
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
 }
 html.light .card-premium:hover {
   border-color: rgba(59, 130, 246, 0.35) !important;
-  box-shadow: 0 16px 40px rgba(59, 130, 246, 0.12);
+  box-shadow: 0 16px 36px rgba(59, 130, 246, 0.12);
 }
-html.light section.bg-\[\#0d1220\]\/50 {
-  background-color: #eef2f7 !important;
+
+/* Keep photo / avatar card DARK (don't force white) */
+html.light .img-mask,
+html.light .img-mask [class*="bg-[#"],
+html.light .img-mask [class*="from-[#"],
+html.light .img-mask [class*="to-[#"] {
+  background-color: #0d1220 !important;
+  background-image: linear-gradient(to bottom, #152033, #0a0e1a) !important;
 }
+html.light .img-mask .text-gray-300,
+html.light .img-mask .text-gray-500,
+html.light .img-mask .text-blue-300,
+html.light .img-mask .text-white {
+  color: #e2e8f0 !important;
+}
+html.light .img-mask .text-gray-500 {
+  color: #94a3b8 !important;
+}
+
+/* Form fields */
+html.light input,
+html.light textarea {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: rgba(15, 23, 42, 0.15) !important;
+}
+html.light input::placeholder,
+html.light textarea::placeholder {
+  color: #94a3b8 !important;
+}
+
+/* Hover text white → dark */
+html.light .hover\:text-white:hover {
+  color: #0f172a !important;
+}
+html.light a.bg-blue-600:hover,
+html.light button.bg-blue-600:hover,
+html.light a.bg-blue-500:hover {
+  color: #ffffff !important;
+}
+
 html.light .section-ambient::before {
-  background: radial-gradient(ellipse, rgba(59, 130, 246, 0.08), transparent 70%);
+  background: radial-gradient(ellipse, rgba(59, 130, 246, 0.1), transparent 70%);
 }
+
 html.light .text-gradient {
-  background: linear-gradient(135deg, #2563eb 0%, #3b82f6 45%, #6366f1 100%);
+  background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 40%, #4f46e5 100%);
   background-size: 200% 200%;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
-html.light input.control,
-html.light textarea.control,
-html.light input[class*="bg-[#0a0e1a]"],
-html.light textarea[class*="bg-[#0a0e1a]"] {
-  background: #f8fafc !important;
-  color: #0f172a !important;
-  border-color: rgba(15, 23, 42, 0.12) !important;
-}
-html.light .PageLoader,
-html.light [class*="bg-[#0a0e1a]"] {
-  /* keep loader dark for contrast */
+
+/* Nav link muted */
+html.light .text-\[var\(--text-muted\)\] {
+  color: #475569 !important;
 }
 
 @keyframes float-orb {
