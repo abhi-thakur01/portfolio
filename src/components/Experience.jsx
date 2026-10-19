@@ -1,36 +1,39 @@
 import { ArrowRight, Send } from "lucide-react";
 import { experience } from "../data/content";
-import { Reveal } from "./Reveal";
+import { TextReveal, ClipReveal, TiltCard, Magnetic, DrawLine, MouseGlow } from "./motion";
 
 export function Experience() {
   const items = Array.isArray(experience) ? experience : [];
 
   return (
     <section id="experience" className="py-14 sm:py-20 bg-[#0d1220]/50 overflow-hidden section-ambient">
+      <MouseGlow color="52, 211, 153" />
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-12">
           <div className="lg:col-span-3">
-            <Reveal from="left">
-              <p className="text-blue-400 text-xs font-semibold tracking-wider uppercase mb-2">
-                My Journey
-              </p>
-              <h2 className="text-2xl sm:text-4xl font-bold text-white mb-2 sm:mb-3">
-                Experience & <span className="text-gradient">Education</span>
-              </h2>
+            <p className="text-blue-400 text-xs font-semibold tracking-wider uppercase mb-2">
+              My Journey
+            </p>
+            <TextReveal as="h2" className="text-2xl sm:text-4xl font-bold text-white mb-2 sm:mb-3" stagger={45}>
+              Experience & Education
+            </TextReveal>
+            <ClipReveal delay={100}>
               <p className="text-gray-400 text-sm sm:text-[15px] mb-8 sm:mb-10 max-w-md">
                 Professional work and academic background — where I've grown and what I've delivered.
               </p>
-            </Reveal>
+            </ClipReveal>
 
             <div className="relative">
-              <div className="absolute left-[7px] top-2 bottom-2 w-px bg-gradient-to-b from-blue-500 via-blue-500/30 to-transparent" />
+              <DrawLine
+                vertical
+                className="absolute left-[7px] top-2 bottom-2 w-px bg-gradient-to-b from-blue-500 via-blue-500/30 to-transparent origin-top"
+              />
 
               <div className="space-y-7 sm:space-y-8">
                 {items.map((job, idx) => (
-                  <Reveal key={idx} from="left" delay={idx * 100}>
+                  <ClipReveal key={idx} delay={idx * 100} direction="left">
                     <div className="relative pl-10 group">
-                      <div className="absolute left-0 top-1.5 w-4 h-4 rounded-full bg-[#0a0e1a] border-2 border-blue-500 transition-all duration-300 group-hover:scale-125 group-hover:shadow-lg group-hover:shadow-blue-500/40" />
-
+                      <div className="absolute left-0 top-1.5 w-4 h-4 rounded-full bg-[#0a0e1a] border-2 border-blue-500 transition-all duration-400 group-hover:scale-150 group-hover:shadow-lg group-hover:shadow-blue-500/50" />
                       <div className="mb-1.5">
                         <div className="text-xs font-mono text-blue-400 mb-1">{job.period}</div>
                         <h3 className="text-sm sm:text-base font-semibold text-white mb-2 group-hover:text-blue-300 transition-colors">
@@ -53,35 +56,39 @@ export function Experience() {
                         <p className="text-sm text-gray-400 leading-relaxed">{job.description}</p>
                       ) : null}
                     </div>
-                  </Reveal>
+                  </ClipReveal>
                 ))}
               </div>
             </div>
           </div>
 
-          <Reveal from="right" delay={160} className="lg:col-span-2 flex items-center">
-            <div className="card-premium w-full p-6 sm:p-8 rounded-2xl bg-[#111827] border border-white/8 text-center">
-              <div className="w-12 h-12 sm:w-14 sm:h-14 mx-auto mb-4 sm:mb-5 rounded-2xl bg-blue-500/15 border border-blue-500/30 flex items-center justify-center text-blue-400 transition-transform duration-500 hover:scale-110">
-                <Send className="w-5 h-5 sm:w-6 sm:h-6" />
+          <div className="lg:col-span-2 flex items-center">
+            <TiltCard max={7} className="w-full">
+              <div className="card-premium w-full p-6 sm:p-8 rounded-2xl bg-[#111827] border border-white/8 text-center">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 mx-auto mb-4 sm:mb-5 rounded-2xl bg-blue-500/15 border border-blue-500/30 flex items-center justify-center text-blue-400 transition-transform duration-500 hover:scale-125 hover:rotate-12">
+                  <Send className="w-5 h-5 sm:w-6 sm:h-6" />
+                </div>
+                <p className="text-blue-400 text-xs font-semibold tracking-wider uppercase mb-2">
+                  Let's Work Together
+                </p>
+                <h3 className="text-lg sm:text-xl font-bold text-white mb-3">
+                  Have a project in mind?
+                </h3>
+                <p className="text-sm text-gray-400 mb-6 leading-relaxed">
+                  I'm always open to new opportunities, collaborations or just a friendly chat.
+                </p>
+                <Magnetic strength={0.25}>
+                  <a
+                    href="#contact"
+                    className="btn-shine inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm shadow-lg shadow-blue-600/25"
+                  >
+                    Get In Touch
+                    <ArrowRight className="w-4 h-4" />
+                  </a>
+                </Magnetic>
               </div>
-              <p className="text-blue-400 text-xs font-semibold tracking-wider uppercase mb-2">
-                Let's Work Together
-              </p>
-              <h3 className="text-lg sm:text-xl font-bold text-white mb-3">
-                Have a project in mind?
-              </h3>
-              <p className="text-sm text-gray-400 mb-6 leading-relaxed">
-                I'm always open to new opportunities, collaborations or just a friendly chat.
-              </p>
-              <a
-                href="#contact"
-                className="btn-shine inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm transition-all duration-300 shadow-lg shadow-blue-600/25 hover:-translate-y-0.5"
-              >
-                Get In Touch
-                <ArrowRight className="w-4 h-4" />
-              </a>
-            </div>
-          </Reveal>
+            </TiltCard>
+          </div>
         </div>
       </div>
     </section>
