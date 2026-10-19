@@ -6,8 +6,8 @@ export function Experience() {
   const items = Array.isArray(experience) ? experience : [];
 
   return (
-    <section id="experience" className="py-14 sm:py-20 bg-[#0d1220]/50 overflow-hidden">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+    <section id="experience" className="py-14 sm:py-20 bg-[#0d1220]/50 overflow-hidden section-ambient">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-12">
           <div className="lg:col-span-3">
             <Reveal from="left">
@@ -15,7 +15,7 @@ export function Experience() {
                 My Journey
               </p>
               <h2 className="text-2xl sm:text-4xl font-bold text-white mb-2 sm:mb-3">
-                Experience & Education
+                Experience & <span className="text-gradient">Education</span>
               </h2>
               <p className="text-gray-400 text-sm sm:text-[15px] mb-8 sm:mb-10 max-w-md">
                 Professional work and academic background — where I've grown and what I've delivered.
@@ -27,13 +27,15 @@ export function Experience() {
 
               <div className="space-y-7 sm:space-y-8">
                 {items.map((job, idx) => (
-                  <Reveal key={idx} from="left" delay={idx * 90}>
-                    <div className="relative pl-10">
-                      <div className="absolute left-0 top-1.5 w-4 h-4 rounded-full bg-[#0a0e1a] border-2 border-blue-500" />
+                  <Reveal key={idx} from="left" delay={idx * 100}>
+                    <div className="relative pl-10 group">
+                      <div className="absolute left-0 top-1.5 w-4 h-4 rounded-full bg-[#0a0e1a] border-2 border-blue-500 transition-all duration-300 group-hover:scale-125 group-hover:shadow-lg group-hover:shadow-blue-500/40" />
 
                       <div className="mb-1.5">
                         <div className="text-xs font-mono text-blue-400 mb-1">{job.period}</div>
-                        <h3 className="text-sm sm:text-base font-semibold text-white mb-2">{job.title}</h3>
+                        <h3 className="text-sm sm:text-base font-semibold text-white mb-2 group-hover:text-blue-300 transition-colors">
+                          {job.title}
+                        </h3>
                         {(job.tags || []).length > 0 && (
                           <div className="flex flex-wrap gap-1.5 mb-2">
                             {job.tags.map((tag) => (
@@ -58,8 +60,8 @@ export function Experience() {
           </div>
 
           <Reveal from="right" delay={160} className="lg:col-span-2 flex items-center">
-            <div className="w-full p-6 sm:p-8 rounded-2xl bg-[#111827] border border-white/8 text-center">
-              <div className="w-12 h-12 sm:w-14 sm:h-14 mx-auto mb-4 sm:mb-5 rounded-2xl bg-blue-500/15 border border-blue-500/30 flex items-center justify-center text-blue-400">
+            <div className="card-premium w-full p-6 sm:p-8 rounded-2xl bg-[#111827] border border-white/8 text-center">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 mx-auto mb-4 sm:mb-5 rounded-2xl bg-blue-500/15 border border-blue-500/30 flex items-center justify-center text-blue-400 transition-transform duration-500 hover:scale-110">
                 <Send className="w-5 h-5 sm:w-6 sm:h-6" />
               </div>
               <p className="text-blue-400 text-xs font-semibold tracking-wider uppercase mb-2">
@@ -73,7 +75,7 @@ export function Experience() {
               </p>
               <a
                 href="#contact"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm transition-colors shadow-lg shadow-blue-600/25"
+                className="btn-shine inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm transition-all duration-300 shadow-lg shadow-blue-600/25 hover:-translate-y-0.5"
               >
                 Get In Touch
                 <ArrowRight className="w-4 h-4" />

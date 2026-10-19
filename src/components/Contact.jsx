@@ -81,7 +81,7 @@ export function Contact() {
   const phoneHref = personal.phone ? `tel:${String(personal.phone).replace(/\s/g, "")}` : "#";
 
   return (
-    <section id="contact" className="py-14 sm:py-20 relative overflow-hidden">
+    <section id="contact" className="py-14 sm:py-20 relative overflow-hidden section-ambient">
       <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-blue-600/5 to-transparent pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
@@ -90,18 +90,20 @@ export function Contact() {
             <p className="text-blue-400 text-xs font-semibold tracking-wider uppercase mb-2">
               Contact
             </p>
-            <h2 className="text-2xl sm:text-4xl font-bold text-white mb-3 sm:mb-4">Let's Connect</h2>
+            <h2 className="text-2xl sm:text-4xl font-bold text-white mb-3 sm:mb-4">
+              Let's <span className="text-gradient">Connect</span>
+            </h2>
             <p className="text-gray-400 text-sm sm:text-[15px] mb-6 sm:mb-8 leading-relaxed">
               Feel free to reach out if you have a project in mind or just want to say hello!
             </p>
 
             <div className="space-y-4">
-              <a href={`mailto:${personal.email}`} className="flex items-center gap-3 text-sm text-gray-300 hover:text-blue-400 break-all">
+              <a href={`mailto:${personal.email}`} className="flex items-center gap-3 text-sm text-gray-300 hover:text-blue-400 break-all transition-all duration-300 hover:translate-x-1">
                 <Mail className="w-4 h-4 text-blue-400 shrink-0" />
                 {personal.email}
               </a>
               {personal.phone && (
-                <a href={phoneHref} className="flex items-center gap-3 text-sm text-gray-300 hover:text-blue-400">
+                <a href={phoneHref} className="flex items-center gap-3 text-sm text-gray-300 hover:text-blue-400 transition-all duration-300 hover:translate-x-1">
                   <Phone className="w-4 h-4 text-blue-400 shrink-0" />
                   {personal.phone}
                 </a>
@@ -114,13 +116,13 @@ export function Contact() {
           </Reveal>
 
           <Reveal from="right" delay={140} className="lg:col-span-3">
-            <div className="p-5 sm:p-8 rounded-2xl bg-[#111827] border border-white/8">
+            <div className="card-premium p-5 sm:p-8 rounded-2xl bg-[#111827] border border-white/8">
               {sent ? (
                 <div className="text-center py-10">
-                  <CheckCircle2 className="w-12 h-12 text-blue-400 mx-auto mb-4" />
+                  <CheckCircle2 className="w-12 h-12 text-blue-400 mx-auto mb-4 animate-pulse-glow" />
                   <h3 className="text-xl font-semibold text-white mb-2">Message sent!</h3>
                   <p className="text-gray-400 text-sm mb-6">I'll get back to you soon.</p>
-                  <button onClick={() => setSent(false)} className="text-sm text-blue-400 hover:text-blue-300">
+                  <button onClick={() => setSent(false)} className="text-sm text-blue-400 hover:text-blue-300 transition-colors">
                     Send another message
                   </button>
                 </div>
@@ -137,7 +139,7 @@ export function Contact() {
                       onChange={onChange}
                       placeholder="Your name"
                       required
-                      className="w-full px-4 py-3 rounded-lg bg-[#0a0e1a] border border-white/10 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors"
+                      className="w-full px-4 py-3 rounded-lg bg-[#0a0e1a] border border-white/10 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/30 transition-all duration-300"
                     />
                   </div>
                   <div>
@@ -149,7 +151,7 @@ export function Contact() {
                       onChange={onChange}
                       placeholder="Your email"
                       required
-                      className="w-full px-4 py-3 rounded-lg bg-[#0a0e1a] border border-white/10 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors"
+                      className="w-full px-4 py-3 rounded-lg bg-[#0a0e1a] border border-white/10 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/30 transition-all duration-300"
                     />
                   </div>
                   <div>
@@ -160,7 +162,7 @@ export function Contact() {
                       value={form.message}
                       onChange={onChange}
                       placeholder="Your message (optional)"
-                      className="w-full px-4 py-3 rounded-lg bg-[#0a0e1a] border border-white/10 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors resize-none"
+                      className="w-full px-4 py-3 rounded-lg bg-[#0a0e1a] border border-white/10 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/30 transition-all duration-300 resize-none"
                     />
                   </div>
                   {error && <p className="text-xs text-red-400">{error}</p>}
@@ -168,7 +170,7 @@ export function Contact() {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full py-3 rounded-lg bg-blue-600 hover:bg-blue-500 disabled:opacity-60 text-white font-semibold text-sm flex items-center justify-center gap-2 transition-colors shadow-lg shadow-blue-600/20"
+                    className="btn-shine w-full py-3 rounded-lg bg-blue-600 hover:bg-blue-500 disabled:opacity-60 text-white font-semibold text-sm flex items-center justify-center gap-2 transition-all duration-300 shadow-lg shadow-blue-600/20 hover:-translate-y-0.5"
                   >
                     {loading ? (
                       <><Loader2 className="w-4 h-4 animate-spin" /> Sending...</>
