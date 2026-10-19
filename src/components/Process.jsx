@@ -6,8 +6,8 @@ export function Process() {
   const meta = sections?.process || {};
 
   return (
-    <section id="process" className="py-14 sm:py-20 overflow-hidden">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+    <section id="process" className="py-14 sm:py-20 overflow-hidden section-ambient">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         <Reveal from="up">
           <div className="text-center mb-10 sm:mb-14">
             {meta.label ? (
@@ -17,7 +17,7 @@ export function Process() {
             ) : null}
             <h2 className="text-2xl sm:text-4xl font-bold text-white mb-3">
               {meta.heading || "How I Build"}{" "}
-              <span className="text-blue-400">{meta.headingHighlight || "Excellence"}</span>
+              <span className="text-gradient">{meta.headingHighlight || "Excellence"}</span>
             </h2>
             <p className="text-gray-400 max-w-2xl mx-auto text-sm sm:text-[15px] leading-relaxed">
               {meta.description ||
@@ -33,14 +33,14 @@ export function Process() {
             {steps.map((step, i) => {
               const isEven = i % 2 === 0;
               return (
-                <Reveal key={step.phase} from={isEven ? "left" : "right"} delay={Math.min(i * 50, 200)}>
+                <Reveal key={step.phase} from={isEven ? "left" : "right"} delay={Math.min(i * 70, 280)}>
                   <div
                     className={`relative flex flex-col lg:flex-row items-start gap-6 lg:gap-10 ${
                       isEven ? "lg:flex-row" : "lg:flex-row-reverse"
                     }`}
                   >
                     <div className="flex-1 lg:w-[calc(50%-2rem)]">
-                      <div className="rounded-2xl bg-[#111827] border border-white/8 p-5 sm:p-6 hover:border-blue-500/30 transition-colors">
+                      <div className="card-premium rounded-2xl bg-[#111827] border border-white/8 p-5 sm:p-6">
                         <div className="flex items-center gap-3 mb-3">
                           <span className="text-2xl sm:text-3xl font-bold text-blue-500/80 tabular-nums">
                             {step.phase}
@@ -79,7 +79,7 @@ export function Process() {
                       </div>
                     </div>
 
-                    <div className="hidden lg:flex absolute left-1/2 top-8 -translate-x-1/2 w-4 h-4 rounded-full bg-blue-500 border-4 border-[#0a0e1a] shadow-lg shadow-blue-500/30 z-10" />
+                    <div className="hidden lg:flex absolute left-1/2 top-8 -translate-x-1/2 w-4 h-4 rounded-full bg-blue-500 border-4 border-[#0a0e1a] shadow-lg shadow-blue-500/30 z-10 animate-pulse-glow" />
 
                     <div className="hidden lg:block flex-1 lg:w-[calc(50%-2rem)]" />
                   </div>

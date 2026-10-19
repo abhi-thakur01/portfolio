@@ -27,8 +27,8 @@ export function Skills() {
   );
 
   return (
-    <section id="skills" className="py-14 sm:py-20 overflow-hidden relative">
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-blue-600/5 rounded-full blur-[120px] pointer-events-none" />
+    <section id="skills" className="py-14 sm:py-20 overflow-hidden relative section-ambient">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-blue-600/5 rounded-full blur-[120px] pointer-events-none animate-pulse-glow" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         <Reveal from="up">
@@ -37,7 +37,7 @@ export function Skills() {
               My Skills
             </p>
             <h2 className="text-2xl sm:text-4xl font-bold text-white mb-3">
-              Technologies & Tools
+              Technologies & <span className="text-gradient">Tools</span>
             </h2>
             <p className="text-gray-400 max-w-xl mx-auto text-sm sm:text-[15px] leading-relaxed">
               Frontend code, CMS platforms, and version control tools I use daily.
@@ -55,9 +55,9 @@ export function Skills() {
                     key={tab.key}
                     type="button"
                     onClick={() => setActive(tab.key)}
-                    className={`relative px-4 sm:px-6 py-2.5 rounded-lg text-sm font-medium transition-all ${
+                    className={`relative px-4 sm:px-6 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 ${
                       isActive
-                        ? "bg-blue-600 text-white shadow-lg shadow-blue-600/25"
+                        ? "bg-blue-600 text-white shadow-lg shadow-blue-600/25 scale-105"
                         : "text-gray-400 hover:text-white"
                     }`}
                   >
@@ -78,15 +78,15 @@ export function Skills() {
 
         <div
           key={active}
-          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2.5 sm:gap-3 animate-[fadeIn_0.3s_ease]"
+          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2.5 sm:gap-3"
         >
           {visible.map((skill, i) => (
-            <Reveal key={skill.name} from="up" delay={Math.min(i * 35, 200)}>
+            <Reveal key={skill.name} from="scale" delay={Math.min(i * 40, 280)}>
               <div
-                className="group relative flex flex-col items-center gap-2.5 p-3.5 sm:p-4 rounded-xl bg-[#111827]/80 border border-white/[0.06] hover:border-white/15 transition-all duration-300 hover:-translate-y-0.5"
+                className="group relative flex flex-col items-center gap-2.5 p-3.5 sm:p-4 rounded-xl bg-[#111827]/80 border border-white/[0.06] transition-all duration-400 hover:-translate-y-1.5 hover:border-white/15"
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = `0 8px 24px ${skill.color}15`;
-                  e.currentTarget.style.borderColor = `${skill.color}35`;
+                  e.currentTarget.style.boxShadow = `0 12px 28px ${skill.color}18`;
+                  e.currentTarget.style.borderColor = `${skill.color}40`;
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.boxShadow = "none";
@@ -94,7 +94,7 @@ export function Skills() {
                 }}
               >
                 <div
-                  className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg flex items-center justify-center text-xs sm:text-sm font-bold transition-transform duration-300 group-hover:scale-110"
+                  className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg flex items-center justify-center text-xs sm:text-sm font-bold transition-transform duration-400 group-hover:scale-125 group-hover:rotate-3"
                   style={{
                     background: `linear-gradient(135deg, ${skill.color}22, ${skill.color}08)`,
                     color: skill.color,
@@ -103,7 +103,7 @@ export function Skills() {
                 >
                   {skill.name.slice(0, 2).toUpperCase()}
                 </div>
-                <span className="text-[11px] sm:text-xs font-medium text-gray-400 group-hover:text-white text-center leading-tight transition-colors">
+                <span className="text-[11px] sm:text-xs font-medium text-gray-400 group-hover:text-white text-center leading-tight transition-colors duration-300">
                   {skill.name}
                 </span>
               </div>
@@ -111,13 +111,6 @@ export function Skills() {
           ))}
         </div>
       </div>
-
-      <style>{`
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(6px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-      `}</style>
     </section>
   );
 }

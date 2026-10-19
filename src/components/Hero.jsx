@@ -42,13 +42,12 @@ function CountUp({ value, className }) {
   useEffect(() => {
     if (!started) return;
 
-    const duration = 1400;
+    const duration = 1600;
     const start = performance.now();
     let raf;
 
     const tick = (now) => {
       const t = Math.min((now - start) / duration, 1);
-      // ease-out cubic
       const eased = 1 - Math.pow(1 - t, 3);
       setDisplay(num * eased);
       if (t < 1) raf = requestAnimationFrame(tick);
@@ -81,8 +80,11 @@ export function Hero() {
     .toUpperCase();
 
   return (
-    <section id="home" className="relative pt-20 sm:pt-24 pb-8">
-      <div className="absolute top-10 right-0 w-[280px] sm:w-[420px] h-[280px] sm:h-[420px] bg-blue-600/15 rounded-full blur-[100px] pointer-events-none" />
+    <section id="home" className="relative pt-20 sm:pt-24 pb-8 overflow-hidden">
+      {/* Ambient floating orbs */}
+      <div className="absolute top-10 right-0 w-[280px] sm:w-[420px] h-[280px] sm:h-[420px] bg-blue-600/15 rounded-full blur-[100px] pointer-events-none animate-pulse-glow" />
+      <div className="absolute bottom-20 left-[-80px] w-[220px] h-[220px] bg-indigo-500/10 rounded-full blur-[80px] pointer-events-none animate-float" />
+      <div className="absolute top-1/3 left-1/4 w-[140px] h-[140px] bg-blue-400/8 rounded-full blur-[60px] pointer-events-none animate-float-delayed" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center min-h-0 lg:min-h-[68vh]">
@@ -92,7 +94,9 @@ export function Hero() {
             </p>
             <h1 className="text-3xl sm:text-5xl lg:text-[3.4rem] font-extrabold text-white leading-[1.15] mb-3">
               {personal.name?.split(" ")[0] || "Abhishek"}{" "}
-              <span className="text-blue-500">{personal.name?.split(" ").slice(1).join(" ") || "Thakur"}</span>
+              <span className="text-gradient">
+                {personal.name?.split(" ").slice(1).join(" ") || "Thakur"}
+              </span>
             </h1>
             <p className="text-base sm:text-xl text-gray-300 font-medium mb-4 sm:mb-5">
               {personal.role}
@@ -104,14 +108,14 @@ export function Hero() {
             <div className="flex flex-row flex-wrap items-center gap-3 mb-6 sm:mb-8">
               <a
                 href="#projects"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm transition-colors shadow-lg shadow-blue-600/30"
+                className="btn-shine inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm transition-all duration-300 shadow-lg shadow-blue-600/30 hover:shadow-blue-500/40 hover:-translate-y-0.5"
               >
                 {personal.ctaPrimary || "View My Projects"}
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
               </a>
               <a
                 href={personal.resumeUrl || "#"}
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg border border-white/15 text-gray-200 hover:border-blue-500/50 hover:text-white font-medium text-sm transition-colors"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg border border-white/15 text-gray-200 hover:border-blue-500/50 hover:text-white font-medium text-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/5"
               >
                 {personal.ctaSecondary || "Download Resume"}
                 <Download className="w-4 h-4" />
@@ -126,14 +130,15 @@ export function Hero() {
                 { href: `mailto:${personal.email}`, icon: Mail, label: "Email", show: !!personal.email },
               ]
                 .filter((s) => s.show)
-                .map(({ href, icon: Icon, label }) => (
+                .map(({ href, icon: Icon, label }, i) => (
                   <a
                     key={label}
                     href={href}
                     target={href.startsWith("http") ? "_blank" : undefined}
                     rel="noreferrer"
-                    className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:border-blue-500/50 hover:bg-blue-500/10 transition-all"
+                    className="icon-lift w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:border-blue-500/50 hover:bg-blue-500/10"
                     aria-label={label}
+                    style={{ transitionDelay: `${i * 40}ms` }}
                   >
                     <Icon className="w-4 h-4" />
                   </a>
@@ -142,21 +147,21 @@ export function Hero() {
           </Reveal>
 
           <Reveal from="right" delay={140} className="order-1 lg:order-2 flex justify-center lg:justify-end">
-            <div className="relative w-[200px] sm:w-[260px] md:w-[300px]">
-              <div className="absolute inset-0 scale-110 bg-blue-500/25 blur-[60px] rounded-full pointer-events-none" />
+            <div className="relative w-[200px] sm:w-[260px] md:w-[300px] group">
+              <div className="absolute inset-0 scale-110 bg-blue-500/25 blur-[60px] rounded-full pointer-events-none animate-pulse-glow" />
 
-              <div className="relative rounded-2xl p-[2px] bg-gradient-to-b from-blue-400/40 via-blue-600/20 to-transparent">
-                <div className="rounded-2xl overflow-hidden bg-[#0d1220] border border-blue-500/20 aspect-[3/4]">
+              <div className="relative rounded-2xl p-[2px] bg-gradient-to-b from-blue-400/40 via-blue-600/20 to-transparent transition-transform duration-500 group-hover:scale-[1.02]">
+                <div className="rounded-2xl overflow-hidden bg-[#0d1220] border border-blue-500/20 aspect-[3/4] transition-shadow duration-500 group-hover:shadow-2xl group-hover:shadow-blue-500/20">
                   {personal.photo ? (
                     <img
                       src={personal.photo}
                       alt={personal.name}
-                      className="w-full h-full object-cover object-top"
+                      className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                     />
                   ) : (
                     <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-b from-[#152033] to-[#0a0e1a] relative">
                       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.12),transparent_70%)]" />
-                      <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gradient-to-br from-blue-500/25 to-blue-600/10 border border-blue-400/30 flex items-center justify-center text-3xl sm:text-4xl font-bold text-blue-300 shadow-lg shadow-blue-500/10">
+                      <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gradient-to-br from-blue-500/25 to-blue-600/10 border border-blue-400/30 flex items-center justify-center text-3xl sm:text-4xl font-bold text-blue-300 shadow-lg shadow-blue-500/10 transition-transform duration-500 group-hover:scale-110">
                         {initials}
                       </div>
                       <p className="relative mt-4 text-sm font-medium text-gray-300">
@@ -176,8 +181,12 @@ export function Hero() {
         {stats.length > 0 && (
           <Reveal from="up" delay={240}>
             <div className="mt-10 sm:mt-14 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 py-6 sm:py-8 border-y border-white/5">
-              {stats.map((s) => (
-                <div key={s.label} className="text-center">
+              {stats.map((s, i) => (
+                <div
+                  key={s.label}
+                  className="text-center transition-transform duration-300 hover:-translate-y-1"
+                  style={{ transitionDelay: `${i * 50}ms` }}
+                >
                   <CountUp
                     value={s.value}
                     className="text-xl sm:text-3xl font-extrabold text-blue-400 mb-1 tabular-nums"

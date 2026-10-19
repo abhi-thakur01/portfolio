@@ -64,8 +64,8 @@ export function Projects() {
   const remaining = filtered.length - visible;
 
   return (
-    <section id="projects" className="py-14 sm:py-20 bg-[#0d1220]/50">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+    <section id="projects" className="py-14 sm:py-20 bg-[#0d1220]/50 section-ambient">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         <Reveal from="up">
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-6 sm:mb-8">
             <div>
@@ -102,10 +102,10 @@ export function Projects() {
                   aria-selected={isActive}
                   onClick={() => setActive(cat)}
                   className={
-                    "px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-medium border transition-all " +
+                    "px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-medium border transition-all duration-300 " +
                     (isActive
-                      ? "bg-blue-600 text-white border-blue-500 shadow-lg shadow-blue-600/25"
-                      : "bg-white/5 text-gray-400 border-white/10 hover:border-white/25 hover:text-gray-200")
+                      ? "bg-blue-600 text-white border-blue-500 shadow-lg shadow-blue-600/25 scale-105"
+                      : "bg-white/5 text-gray-400 border-white/10 hover:border-white/25 hover:text-gray-200 hover:scale-105")
                   }
                 >
                   {cat === "All" ? `All (${count})` : `${cat} (${count})`}
@@ -122,8 +122,8 @@ export function Projects() {
             const isExternal = project.link?.startsWith("http");
 
             return (
-              <Reveal key={project.id} from="up" delay={Math.min(i * 50, 300)}>
-                <article className="group h-full flex flex-col rounded-2xl bg-[#111827] border border-white/8 overflow-hidden hover:border-blue-500/40 hover:shadow-xl hover:shadow-blue-900/10 transition-all duration-300">
+              <Reveal key={project.id} from="up" delay={Math.min(i * 60, 320)}>
+                <article className="card-premium group h-full flex flex-col rounded-2xl bg-[#111827] border border-white/8 overflow-hidden">
                   <div
                     className={
                       "relative h-36 sm:h-40 flex items-center justify-center border-b border-white/5 overflow-hidden bg-gradient-to-br " +
@@ -134,11 +134,11 @@ export function Projects() {
                       <img
                         src={project.image}
                         alt={project.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
                         loading="lazy"
                       />
                     ) : (
-                      <div className="flex flex-col items-center gap-2">
+                      <div className="flex flex-col items-center gap-2 transition-transform duration-500 group-hover:scale-110">
                         <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center">
                           <Icon className={`w-7 h-7 ${meta.accent} opacity-80`} />
                         </div>
@@ -159,7 +159,7 @@ export function Projects() {
                   </div>
 
                   <div className="p-4 sm:p-5 flex flex-col flex-1">
-                    <h3 className="font-semibold text-white mb-1.5 group-hover:text-blue-400 transition-colors text-sm sm:text-base leading-snug">
+                    <h3 className="font-semibold text-white mb-1.5 group-hover:text-blue-400 transition-colors duration-300 text-sm sm:text-base leading-snug">
                       {project.title}
                     </h3>
 
@@ -186,7 +186,7 @@ export function Projects() {
                       href={project.link || "#"}
                       target={isExternal ? "_blank" : undefined}
                       rel={isExternal ? "noreferrer" : undefined}
-                      className="inline-flex items-center gap-1.5 text-sm text-blue-400 hover:text-blue-300 font-medium mt-auto"
+                      className="inline-flex items-center gap-1.5 text-sm text-blue-400 hover:text-blue-300 font-medium mt-auto transition-all duration-300 group-hover:gap-2.5"
                     >
                       {isExternal ? "View Live Site" : "View Project"}
                       <ExternalLink className="w-3.5 h-3.5" />
@@ -210,7 +210,7 @@ export function Projects() {
             <button
               type="button"
               onClick={() => setVisible((v) => v + PAGE_SIZE)}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/5 border border-white/10 text-sm font-medium text-gray-200 hover:bg-blue-600 hover:border-blue-500 hover:text-white transition-all shadow-sm"
+              className="btn-shine inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/5 border border-white/10 text-sm font-medium text-gray-200 hover:bg-blue-600 hover:border-blue-500 hover:text-white transition-all duration-300 shadow-sm hover:-translate-y-0.5"
             >
               Load More
               <span className="text-xs text-gray-400">(+{remaining} more)</span>
