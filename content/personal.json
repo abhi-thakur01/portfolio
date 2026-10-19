@@ -3,7 +3,7 @@
   "displayName": "Abhishek Thakur",
   "name": "Abhishek Thakur",
   "greeting": "Hi, I'm",
-  "role": "Junior Web Designer",
+  "role": "Web Designer",
   "secondaryRole": "WordPress & CMS Specialist",
   "shortIntro": "I build fast, pixel-perfect, and mobile-friendly websites.",
   "bio": "I build fast, pixel-perfect, and mobile-friendly websites with WordPress, Elementor, Beaver Builder, GoHighLevel, and clean modern code. Passionate about clean UI and continuous learning.",
@@ -39,7 +39,7 @@
     { "value": "15+", "label": "Technologies" }
   ],
   "agency": {
-    "role": "Junior Web Designer",
+    "role": "Web Designer",
     "company": "Gigsoft Pro",
     "period": "2025 – Present",
     "desc": "Building responsive sites for international clients across WordPress, GoHighLevel, and Square Online."

@@ -1,8 +1,8 @@
 {
   "websiteName": "Abhishek Thakur",
-  "websiteTitle": "Abhishek Thakur — Junior Web Designer | WordPress & CMS",
-  "metaTitle": "Abhishek Thakur — Junior Web Designer | WordPress & CMS",
-  "metaDescription": "Abhishek Thakur — Junior Web Designer specializing in WordPress, Elementor, Beaver Builder, GoHighLevel and responsive websites.",
+  "websiteTitle": "Abhishek Thakur — Web Designer | WordPress & CMS",
+  "metaTitle": "Abhishek Thakur — Web Designer | WordPress & CMS",
+  "metaDescription": "Abhishek Thakur — Web Designer specializing in WordPress, Elementor, Beaver Builder, GoHighLevel and responsive websites.",
   "favicon": "/favicon.svg",
   "siteLogo": "",
   "ogImage": "https://abhi-thakur-web.vercel.app/og-image.png",
@@ -39,7 +39,7 @@
     "showSocials": true
   },
   "footer": {
-    "tagline": "Junior Web Designer · WordPress & CMS Specialist · Agency Client Delivery at Gigsoft Pro.",
+    "tagline": "Web Designer · WordPress & CMS Specialist · Agency Client Delivery at Gigsoft Pro.",
     "copyright": "All rights reserved. Built with React & Tailwind.",
     "showSocials": true,
     "columns": []
