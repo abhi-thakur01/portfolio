@@ -1,16 +1,41 @@
-import { useMemo, useState } from "react";
-import { skillIcons } from "../data/content";
+import { useMemo, useState, useEffect } from "react";
+import { skillIcons, skillCategories } from "../data/content";
 import { TextReveal, Stagger, ClipReveal, MouseGlow } from "./motion";
-
-const TABS = [
-  { key: "Frontend", label: "Frontend" },
-  { key: "CMS", label: "CMS & Builders" },
-  { key: "Tools", label: "Tools" },
-];
 
 export function Skills() {
   const skills = Array.isArray(skillIcons) ? skillIcons : [];
-  const [active, setActive] = useState("Frontend");
+
+  const tabs = useMemo(() => {
+    const fromConfig = (Array.isArray(skillCategories) ? skillCategories : [])
+      .filter((c) => c && c.id)
+      .sort((a, b) => (a.order || 0) - (b.order || 0))
+      .map((c) => ({
+        key: String(c.id),
+        label: c.label || c.id,
+      }));
+
+    if (fromConfig.length) return fromConfig;
+
+    // Fallback: unique categories from skills
+    const seen = new Set();
+    const list = [];
+    skills.forEach((s) => {
+      const cat = s.category || "Other";
+      if (!seen.has(cat)) {
+        seen.add(cat);
+        list.push({ key: cat, label: cat });
+      }
+    });
+    return list.length ? list : [{ key: "Other", label: "Other" }];
+  }, [skills]);
+
+  const [active, setActive] = useState(tabs[0]?.key || "Frontend");
+
+  useEffect(() => {
+    if (!tabs.find((t) => t.key === active) && tabs[0]) {
+      setActive(tabs[0].key);
+    }
+  }, [tabs, active]);
 
   const counts = useMemo(() => {
     const c = {};
@@ -46,30 +71,36 @@ export function Skills() {
           </ClipReveal>
         </div>
 
-        <div className="flex justify-center mb-8 sm:mb-10">
-          <div className="inline-flex p-1 rounded-xl bg-white/[0.04] border border-white/[0.08]">
-            {TABS.map((tab) => {
-              const isActive = active === tab.key;
-              return (
-                <button
-                  key={tab.key}
-                  type="button"
-                  onClick={() => setActive(tab.key)}
-                  className={`relative px-4 sm:px-6 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 ${
-                    isActive
-                      ? "bg-blue-600 text-white shadow-lg shadow-blue-600/30 scale-105"
-                      : "text-gray-400 hover:text-white"
-                  }`}
-                >
-                  {tab.label}
-                  <span className={`ml-2 text-[11px] tabular-nums ${isActive ? "text-blue-200" : "text-gray-600"}`}>
-                    {counts[tab.key] || 0}
-                  </span>
-                </button>
-              );
-            })}
+        {tabs.length > 0 && (
+          <div className="flex justify-center mb-8 sm:mb-10">
+            <div className="inline-flex flex-wrap justify-center gap-1 p-1 rounded-xl bg-white/[0.04] border border-white/[0.08]">
+              {tabs.map((tab) => {
+                const isActive = active === tab.key;
+                return (
+                  <button
+                    key={tab.key}
+                    type="button"
+                    onClick={() => setActive(tab.key)}
+                    className={`relative px-4 sm:px-6 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 ${
+                      isActive
+                        ? "bg-blue-600 text-white shadow-lg shadow-blue-600/30 scale-105"
+                        : "text-gray-400 hover:text-white"
+                    }`}
+                  >
+                    {tab.label}
+                    <span
+                      className={`ml-2 text-[11px] tabular-nums ${
+                        isActive ? "text-blue-200" : "text-gray-600"
+                      }`}
+                    >
+                      {counts[tab.key] || 0}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
-        </div>
+        )}
 
         <Stagger
           key={active}
@@ -107,6 +138,10 @@ export function Skills() {
             </div>
           ))}
         </Stagger>
+
+        {visible.length === 0 && (
+          <p className="text-center text-sm text-gray-500 py-8">No skills in this tab yet.</p>
+        )}
       </div>
     </section>
   );

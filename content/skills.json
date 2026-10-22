@@ -1,4 +1,9 @@
 {
+  "categories": [
+    { "id": "Frontend", "label": "Frontend", "order": 1 },
+    { "id": "CMS", "label": "CMS & Builders", "order": 2 },
+    { "id": "Tools", "label": "Tools", "order": 3 }
+  ],
   "skillIcons": [
     { "name": "HTML5", "color": "#E34F26", "category": "Frontend" },
     { "name": "CSS3", "color": "#1572B6", "category": "Frontend" },
