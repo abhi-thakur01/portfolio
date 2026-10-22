@@ -97,6 +97,10 @@ export const projects = (Array.isArray(projectsJson?.items) ? projectsJson.items
     link: p.link || "#",
   }));
 
+export const skillCategories = Array.isArray(skillsJson?.categories)
+  ? skillsJson.categories
+  : [];
+
 export const skillIcons = (Array.isArray(skillsJson?.skillIcons) ? skillsJson.skillIcons : [])
   .filter((s) => s.active !== false)
   .map((s) => ({
