@@ -16,7 +16,6 @@ export function Skills() {
 
     if (fromConfig.length) return fromConfig;
 
-    // Fallback: unique categories from skills
     const seen = new Set();
     const list = [];
     skills.forEach((s) => {
@@ -123,14 +122,35 @@ export function Skills() {
               }}
             >
               <div
-                className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg flex items-center justify-center text-xs sm:text-sm font-bold transition-transform duration-500 group-hover:scale-125 group-hover:rotate-6"
+                className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg flex items-center justify-center text-xs sm:text-sm font-bold overflow-hidden transition-transform duration-500 group-hover:scale-125 group-hover:rotate-6"
                 style={{
-                  background: `linear-gradient(135deg, ${skill.color}28, ${skill.color}08)`,
+                  background: skill.image
+                    ? "rgba(255,255,255,0.06)"
+                    : `linear-gradient(135deg, ${skill.color}28, ${skill.color}08)`,
                   color: skill.color,
                   border: `1px solid ${skill.color}30`,
                 }}
               >
-                {skill.name.slice(0, 2).toUpperCase()}
+                {skill.image ? (
+                  <img
+                    src={skill.image}
+                    alt={skill.name}
+                    className="w-6 h-6 sm:w-7 sm:h-7 object-contain"
+                    loading="lazy"
+                    onError={(e) => {
+                      e.currentTarget.style.display = "none";
+                      const parent = e.currentTarget.parentElement;
+                      if (parent && !parent.querySelector(".skill-fallback")) {
+                        const span = document.createElement("span");
+                        span.className = "skill-fallback";
+                        span.textContent = skill.name.slice(0, 2).toUpperCase();
+                        parent.appendChild(span);
+                      }
+                    }}
+                  />
+                ) : (
+                  skill.name.slice(0, 2).toUpperCase()
+                )}
               </div>
               <span className="text-[11px] sm:text-xs font-medium text-gray-400 group-hover:text-white text-center leading-tight transition-colors duration-300">
                 {skill.name}

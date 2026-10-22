@@ -107,6 +107,7 @@ export const skillIcons = (Array.isArray(skillsJson?.skillIcons) ? skillsJson.sk
     name: s.name || "",
     color: s.color || "#3b82f6",
     category: s.category || "Other",
+    image: s.image || s.icon || s.logo || "",
   }));
 export const otherTools = Array.isArray(skillsJson?.otherTools) ? skillsJson.otherTools : [];
 
