@@ -1,28 +1,122 @@
 {
   "categories": [
-    { "id": "Frontend", "label": "Frontend", "order": 1 },
-    { "id": "CMS", "label": "CMS & Builders", "order": 2 },
-    { "id": "Tools", "label": "Tools", "order": 3 }
+    {
+      "id": "Frontend",
+      "label": "Frontend",
+      "order": 1
+    },
+    {
+      "id": "CMS",
+      "label": "CMS & Builders",
+      "order": 2
+    },
+    {
+      "id": "Tools",
+      "label": "Tools",
+      "order": 3
+    },
+    {
+      "id": "AI Tools",
+      "label": "New Tab",
+      "order": 4
+    }
   ],
   "skillIcons": [
-    { "name": "HTML5", "color": "#E34F26", "category": "Frontend" },
-    { "name": "CSS3", "color": "#1572B6", "category": "Frontend" },
-    { "name": "JavaScript", "color": "#F7DF1E", "category": "Frontend" },
-    { "name": "React", "color": "#61DAFB", "category": "Frontend" },
-    { "name": "Tailwind CSS", "color": "#06B6D4", "category": "Frontend" },
-    { "name": "Bootstrap", "color": "#7952B3", "category": "Frontend" },
-    { "name": "WordPress", "color": "#21759B", "category": "CMS" },
-    { "name": "Elementor", "color": "#92003B", "category": "CMS" },
-    { "name": "Beaver Builder", "color": "#1B4E8C", "category": "CMS" },
-    { "name": "Framer", "color": "#0055FF", "category": "CMS" },
-    { "name": "Webflow", "color": "#4353FF", "category": "CMS" },
-    { "name": "Shopify", "color": "#96BF48", "category": "CMS" },
-    { "name": "GoHighLevel", "color": "#FF6B35", "category": "CMS" },
-    { "name": "Square Online", "color": "#006AFF", "category": "CMS" },
-    { "name": "Wix", "color": "#0C6EFC", "category": "CMS" },
-    { "name": "Squarespace", "color": "#000000", "category": "CMS" },
-    { "name": "Git", "color": "#F05032", "category": "Tools" },
-    { "name": "GitHub", "color": "#E6EDF3", "category": "Tools" }
+    {
+      "name": "HTML5",
+      "color": "#E34F26",
+      "category": "Frontend"
+    },
+    {
+      "name": "CSS3",
+      "color": "#1572B6",
+      "category": "Frontend"
+    },
+    {
+      "name": "JavaScript",
+      "color": "#F7DF1E",
+      "category": "Frontend"
+    },
+    {
+      "name": "React",
+      "color": "#61DAFB",
+      "category": "Frontend"
+    },
+    {
+      "name": "Tailwind CSS",
+      "color": "#06B6D4",
+      "category": "Frontend"
+    },
+    {
+      "name": "Bootstrap",
+      "color": "#7952B3",
+      "category": "Frontend"
+    },
+    {
+      "name": "WordPress",
+      "color": "#21759B",
+      "category": "CMS"
+    },
+    {
+      "name": "Elementor",
+      "color": "#92003B",
+      "category": "CMS"
+    },
+    {
+      "name": "Beaver Builder",
+      "color": "#1B4E8C",
+      "category": "CMS"
+    },
+    {
+      "name": "Framer",
+      "color": "#0055FF",
+      "category": "CMS"
+    },
+    {
+      "name": "Webflow",
+      "color": "#4353FF",
+      "category": "CMS"
+    },
+    {
+      "name": "Shopify",
+      "color": "#96BF48",
+      "category": "CMS"
+    },
+    {
+      "name": "GoHighLevel",
+      "color": "#FF6B35",
+      "category": "CMS"
+    },
+    {
+      "name": "Square Online",
+      "color": "#006AFF",
+      "category": "CMS"
+    },
+    {
+      "name": "Wix",
+      "color": "#0C6EFC",
+      "category": "CMS"
+    },
+    {
+      "name": "Squarespace",
+      "color": "#000000",
+      "category": "CMS"
+    },
+    {
+      "name": "Git",
+      "color": "#F05032",
+      "category": "Tools"
+    },
+    {
+      "name": "GitHub",
+      "color": "#E6EDF3",
+      "category": "Tools"
+    },
+    {
+      "name": "Claude",
+      "color": "#3b82f6",
+      "category": "Tab4"
+    }
   ],
   "otherTools": []
 }
