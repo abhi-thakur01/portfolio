@@ -81,6 +81,10 @@
 
   var _draw = draw;
   draw = function () {
+    // Media mode has no D — always pass through to base draw
+    if (typeof MEDIA_MODE !== "undefined" && MEDIA_MODE) {
+      return _draw();
+    }
     var el = document.getElementById("editor");
     if (!el || !D) return;
     var k = key();
