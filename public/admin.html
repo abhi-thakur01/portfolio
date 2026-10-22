@@ -49,13 +49,24 @@ h1{font-size:26px;margin:5px 0}.sub{margin:0;color:var(--muted);font-size:13px}
 .chevron{transition:transform .15s;color:#64748b;flex-shrink:0}.item-card.open .chevron{transform:rotate(180deg)}
 .skill-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
 .skill-card{background:#0f172a;border:1px solid #1e293b;border-radius:12px;padding:12px;display:flex;align-items:center;gap:10px}
+.color-dot{width:14px;height:14px;border-radius:50%;flex-shrink:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;background:#0f172a;border:1px solid #1e293b;font-size:12px}
+.chip button{border:0;background:transparent;color:#f87171;cursor:pointer}
+.chip-add{display:flex;gap:8px;max-width:360px}
+.media-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px}
+.media-card{background:#0f172a;border:1px solid #1e293b;border-radius:12px;padding:10px;display:flex;flex-direction:column;gap:8px}
+.media-preview{height:100px;border-radius:8px;background:#0a0e1a;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.media-preview img{max-width:100%;max-height:100%;object-fit:contain}
+.media-file{font-size:12px;color:#94a3b8;font-weight:700}
+.media-name{font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.media-url{font-size:10px;color:#64748b;word-break:break-all}
+.media-actions{display:flex;gap:6px;flex-wrap:wrap}
 </style>
 </head>
 <body>
 <div id="root"></div>
 <script src="/admin-app.js"></script>
 <script src="/admin-process-extend.js"></script>
-<script src="/admin-cms-extra.js"></script>
-<script src="/admin-skills-image.js"></script>
 </body>
 </html>
