@@ -17,7 +17,7 @@
     },
     {
       "id": "AI Tools",
-      "label": "New Tab",
+      "label": "AI Tools",
       "order": 4
     }
   ],
@@ -113,9 +113,9 @@
       "category": "Tools"
     },
     {
-      "name": "Claude",
+      "name": "https://abhi-thakur-web.vercel.app/",
       "color": "#3b82f6",
-      "category": "Tab4"
+      "category": "AI Tools"
     }
   ],
   "otherTools": []
