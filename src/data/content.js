@@ -83,6 +83,10 @@ export const about = {
   interests: Array.isArray(aboutJson.interests) ? aboutJson.interests : [],
 };
 
+export const projectCategories = Array.isArray(projectsJson?.categories)
+  ? projectsJson.categories
+  : [];
+
 export const projects = (Array.isArray(projectsJson?.items) ? projectsJson.items : [])
   .filter((p) => p.active !== false)
   .sort((a, b) => (a.order || 0) - (b.order || 0))

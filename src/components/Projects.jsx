@@ -1,6 +1,6 @@
 import { useMemo, useState, useEffect } from "react";
 import { ExternalLink, FolderGit2, Globe, Layout, Code2, ShoppingBag, ChevronDown } from "lucide-react";
-import { projects } from "../data/content";
+import { projects, projectCategories } from "../data/content";
 import { TextReveal, TiltCard, Stagger, ClipReveal, MouseGlow } from "./motion";
 
 const PAGE_SIZE = 6;
@@ -42,8 +42,26 @@ export function Projects() {
   const [visible, setVisible] = useState(PAGE_SIZE);
 
   const categories = useMemo(() => {
-    const set = new Set(list.map((p) => p.category || "Other"));
-    return ["All", ...Array.from(set)];
+    const fromConfig = (Array.isArray(projectCategories) ? projectCategories : [])
+      .filter((c) => c && c.id)
+      .sort((a, b) => (a.order || 0) - (b.order || 0))
+      .map((c) => ({ key: String(c.id), label: c.label || c.id }));
+
+    if (fromConfig.length) {
+      return [{ key: "All", label: "All" }, ...fromConfig];
+    }
+
+    // Fallback: unique categories from projects
+    const seen = new Set();
+    const tabs = [{ key: "All", label: "All" }];
+    list.forEach((p) => {
+      const cat = p.category || "Other";
+      if (!seen.has(cat)) {
+        seen.add(cat);
+        tabs.push({ key: cat, label: cat });
+      }
+    });
+    return tabs;
   }, [list]);
 
   const filtered = useMemo(() => {
@@ -54,6 +72,12 @@ export function Projects() {
   useEffect(() => {
     setVisible(PAGE_SIZE);
   }, [active]);
+
+  useEffect(() => {
+    if (!categories.find((c) => c.key === active) && categories[0]) {
+      setActive(categories[0].key);
+    }
+  }, [categories, active]);
 
   const shown = filtered.slice(0, visible);
   const hasMore = visible < filtered.length;
@@ -91,16 +115,16 @@ export function Projects() {
 
         <Stagger className="flex flex-wrap gap-2 mb-8" delay={100} step={40} from="scale">
           {categories.map((cat) => {
-            const isActive = active === cat;
+            const isActive = active === cat.key;
             const count =
-              cat === "All"
+              cat.key === "All"
                 ? list.length
-                : list.filter((p) => (p.category || "Other") === cat).length;
+                : list.filter((p) => (p.category || "Other") === cat.key).length;
             return (
               <button
-                key={cat}
+                key={cat.key}
                 type="button"
-                onClick={() => setActive(cat)}
+                onClick={() => setActive(cat.key)}
                 className={
                   "px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-medium border transition-all duration-300 " +
                   (isActive
@@ -108,7 +132,7 @@ export function Projects() {
                     : "bg-white/5 text-gray-400 border-white/10 hover:border-white/25 hover:text-gray-200 hover:scale-105")
                 }
               >
-                {cat === "All" ? `All (${count})` : `${cat} (${count})`}
+                {cat.label} ({count})
               </button>
             );
           })}
