@@ -39,7 +39,6 @@ export function TextReveal({
       window.setTimeout(() => setReady(true), delay);
     };
 
-    // Safety: always show after 1.2s even if observer fails
     const fallback = window.setTimeout(show, 1200 + delay);
 
     const io = new IntersectionObserver(
@@ -78,7 +77,6 @@ export function TextReveal({
               className="inline-block will-change-transform"
               style={{
                 transform: ready ? "translateY(0)" : "translateY(105%)",
-                // Keep opacity 1 so text is never fully invisible if anim stalls
                 opacity: 1,
                 transition: `transform 0.8s ${EASE} ${ready ? i * stagger : 0}ms`,
               }}
@@ -92,7 +90,6 @@ export function TextReveal({
   );
 }
 
-/** Clip-path wipe — with forced visible fallback */
 export function ClipReveal({ children, className = "", delay = 0, direction = "up" }) {
   const ref = useRef(null);
 
@@ -153,7 +150,6 @@ export function ClipReveal({ children, className = "", delay = 0, direction = "u
   );
 }
 
-/** 3D perspective tilt on mouse move (desktop only feel) */
 export function TiltCard({ children, className = "", max = 10, glare = true }) {
   const ref = useRef(null);
   const frame = useRef(0);
@@ -162,7 +158,6 @@ export function TiltCard({ children, className = "", max = 10, glare = true }) {
     (e) => {
       const el = ref.current;
       if (!el || reduced()) return;
-      // Skip heavy tilt on coarse pointers (mobile)
       if (window.matchMedia("(pointer: coarse)").matches) return;
       cancelAnimationFrame(frame.current);
       frame.current = requestAnimationFrame(() => {
@@ -201,7 +196,6 @@ export function TiltCard({ children, className = "", max = 10, glare = true }) {
   );
 }
 
-/** Magnetic pull — desktop only */
 export function Magnetic({ children, className = "", strength = 0.35 }) {
   const ref = useRef(null);
 
@@ -234,7 +228,6 @@ export function Magnetic({ children, className = "", strength = 0.35 }) {
   );
 }
 
-/** Stagger children — with safety fallback */
 export function Stagger({
   children,
   className = "",
@@ -308,7 +301,6 @@ export function Stagger({
   );
 }
 
-/** Soft mouse glow — desktop only */
 export function MouseGlow({ className = "", color = "59, 130, 246" }) {
   const ref = useRef(null);
 
@@ -400,7 +392,8 @@ export function CountUp({ value, className = "", duration = 1600 }) {
   const str = String(value ?? "");
   const num = parseFloat(str.replace(/[^0-9.]/g, "")) || 0;
   const suffix = str.replace(/[0-9.]/g, "");
-  const decimals = str.includes(".") ? (str.split(".")[1].match(/\d/) || []).length : 0;
+  const decPart = (str.split(".")[1] || "").replace(/[^0-9]/g, "");
+  const decimals = decPart.length;
   const [display, setDisplay] = useState(0);
   const [on, setOn] = useState(false);
   const ref = useRef(null);
@@ -441,7 +434,7 @@ export function CountUp({ value, className = "", duration = 1600 }) {
   }, [on, num, duration]);
 
   const text =
-    decimals > 0 ? display.toFixed(Math.min(decimals, 1)) + suffix : Math.round(display) + suffix;
+    decimals > 0 ? display.toFixed(decimals) + suffix : Math.round(display) + suffix;
 
   return (
     <div ref={ref} className={className}>
