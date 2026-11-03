@@ -48,6 +48,10 @@
     {
       "value": "100%",
       "label": "Client Satisfaction"
+    },
+    {
+      "value": "8+",
+      "label": "Technologies"
     }
   ],
   "agency": {
