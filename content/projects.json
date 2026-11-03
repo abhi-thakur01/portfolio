@@ -120,8 +120,13 @@
     {
       "id": "project-1793702974768",
       "title": "Electric Scooty",
-      "description": "",
-      "tags": [],
+      "description": "Custom WordPress website for an electric scooter showroom, featuring dynamic scooter listings, pricing, specifications, and product details.",
+      "tags": [
+        "WordPress",
+        "Custom Theme",
+        "ACF",
+        "Responsive Design"
+      ],
       "category": "WordPress",
       "platform": "WordPress · Custom Theme",
       "image": "",
