@@ -29,14 +29,26 @@
   "behance": "",
   "dribbble": "",
   "youtube": "",
-  "photoSideText": ["Build", "Create", "Improve"],
+  "photoSideText": [
+    "Build",
+    "Create",
+    "Improve"
+  ],
   "ctaPrimary": "View My Projects",
   "ctaSecondary": "Download Resume",
   "stats": [
-    { "value": "1.6+", "label": "Years Experience" },
-    { "value": "40+", "label": "Live Client Sites" },
-    { "value": "100%", "label": "Client Satisfaction" },
-    { "value": "15+", "label": "Technologies" }
+    {
+      "value": "1.10+",
+      "label": "Years Experience"
+    },
+    {
+      "value": "15+",
+      "label": "Live Client Sites"
+    },
+    {
+      "value": "100%",
+      "label": "Client Satisfaction"
+    }
   ],
   "agency": {
     "role": "Web Designer",
