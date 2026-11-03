@@ -1,14 +1,26 @@
 {
   "categories": [
-    { "id": "WordPress", "label": "WordPress", "order": 1 },
-    { "id": "CMS", "label": "CMS", "order": 2 }
+    {
+      "id": "WordPress",
+      "label": "WordPress",
+      "order": 1
+    },
+    {
+      "id": "CMS",
+      "label": "CMS",
+      "order": 2
+    }
   ],
   "items": [
     {
       "id": "integr8-human-ai",
       "title": "Integr8 Human AI",
       "description": "Lead-generation site for a UK/EU AI consultancy with a gated executive-brief download and an integrated booking funnel.",
-      "tags": ["WordPress", "Beaver Builder", "Lead Generation"],
+      "tags": [
+        "WordPress",
+        "Beaver Builder",
+        "Lead Generation"
+      ],
       "category": "WordPress",
       "platform": "WordPress · Beaver Builder",
       "image": "",
@@ -19,7 +31,11 @@
       "id": "ascension-aminos",
       "title": "Ascension Aminos",
       "description": "End-to-end e-commerce store with product catalogue, COA documentation and secure checkout.",
-      "tags": ["WordPress", "Elementor", "WooCommerce"],
+      "tags": [
+        "WordPress",
+        "Elementor",
+        "WooCommerce"
+      ],
       "category": "WordPress",
       "platform": "WordPress · Elementor · WooCommerce",
       "image": "",
@@ -30,7 +46,11 @@
       "id": "service-resource-sr-gc",
       "title": "Service Resource (SR-GC)",
       "description": "Corporate website for a commercial construction and restoration firm — services, project portfolio, accreditations.",
-      "tags": ["Squarespace", "Corporate", "Portfolio"],
+      "tags": [
+        "Squarespace",
+        "Corporate",
+        "Portfolio"
+      ],
       "category": "CMS",
       "platform": "Squarespace",
       "image": "",
@@ -41,7 +61,11 @@
       "id": "matt-says",
       "title": "Matt Says",
       "description": "Content-heavy wine review platform with varietal-wise ranking archives, article templates and newsletter integration.",
-      "tags": ["WordPress", "Content Platform", "Newsletter"],
+      "tags": [
+        "WordPress",
+        "Content Platform",
+        "Newsletter"
+      ],
       "category": "WordPress",
       "platform": "WordPress",
       "image": "",
@@ -52,7 +76,11 @@
       "id": "ime-transcriptions",
       "title": "IME Transcriptions",
       "description": "Clean, fast-loading website for a medical-legal transcription provider.",
-      "tags": ["Framer", "Medical", "Fast Loading"],
+      "tags": [
+        "Framer",
+        "Medical",
+        "Fast Loading"
+      ],
       "category": "CMS",
       "platform": "Framer",
       "image": "",
@@ -63,7 +91,11 @@
       "id": "revived-kansas",
       "title": "Revived Kansas",
       "description": "Clean and responsive business website optimised for mobile users. Delivered as client work at Gigsoft Pro.",
-      "tags": ["Square Online", "Responsive Design", "Mobile Optimised"],
+      "tags": [
+        "Square Online",
+        "Responsive Design",
+        "Mobile Optimised"
+      ],
       "category": "CMS",
       "platform": "Square Online",
       "image": "",
@@ -74,12 +106,27 @@
       "id": "melanie-hoggan",
       "title": "Melanie Hoggan",
       "description": "Fully responsive WordPress site built with Beaver Builder, with custom sections and layouts for better engagement — international client.",
-      "tags": ["WordPress", "Beaver Builder", "Custom Layouts"],
+      "tags": [
+        "WordPress",
+        "Beaver Builder",
+        "Custom Layouts"
+      ],
       "category": "WordPress",
       "platform": "WordPress · Beaver Builder",
       "image": "",
       "link": "https://melaniehoggan.com/",
       "order": 7
+    },
+    {
+      "id": "project-1793702974768",
+      "title": "Electric Scooty",
+      "description": "",
+      "tags": [],
+      "category": "WordPress",
+      "platform": "WordPress · Custom Theme",
+      "image": "",
+      "link": "https://krishnascootywale.in/",
+      "order": 8
     }
   ]
 }
