@@ -1,8 +1,8 @@
 {
   "websiteName": "Abhishek Thakur",
-  "websiteTitle": "Abhishek Thakur — Web Designer | WordPress & CMS",
-  "metaTitle": "Abhishek Thakur — Web Designer | WordPress & CMS",
-  "metaDescription": "Abhishek Thakur — Web Designer specializing in WordPress, Elementor, Beaver Builder, GoHighLevel and responsive websites.",
+  "websiteTitle": "Abhishek Thakur — Web Designer | Open to Full-time Roles",
+  "metaTitle": "Abhishek Thakur — Web Designer | Open to Full-time Roles",
+  "metaDescription": "Abhishek Thakur is a full-time Web Designer at Gigsoft Pro, open to full-time roles. WordPress, Elementor, Beaver Builder, GoHighLevel and responsive websites.",
   "favicon": "/favicon.svg",
   "siteLogo": "",
   "ogImage": "https://abhi-thakur-web.vercel.app/og-image.png",
@@ -42,13 +42,13 @@
     "logoImage": "",
     "logoLink": "#home",
     "ctaText": "Download Resume",
-    "ctaUrl": "/media/1789384610153-Abhishek-Thakur.pdf",
+    "ctaUrl": "/media/1793705805758-Abhishek-Thakur-Resume.pdf",
     "ctaVisible": true,
     "sticky": true,
     "showSocials": true
   },
   "footer": {
-    "tagline": "Web Designer · WordPress & CMS Specialist · Agency Client Delivery at Gigsoft Pro.",
+    "tagline": "Web Designer · WordPress & CMS · Full-time at Gigsoft Pro.",
     "copyright": "All rights reserved. Built with React & Tailwind.",
     "showSocials": true,
     "columns": []
