@@ -91,7 +91,7 @@ export function Contact() {
             </TextReveal>
             <ClipReveal delay={100}>
               <p className="text-gray-400 text-sm sm:text-[15px] mb-6 sm:mb-8 leading-relaxed">
-                Feel free to reach out if you have a project in mind or just want to say hello!
+                Open to full-time roles. Hiring managers and recruiters can reach me here.
               </p>
             </ClipReveal>
 
@@ -158,7 +158,7 @@ export function Contact() {
                         type="email"
                         value={form.email}
                         onChange={onChange}
-                        placeholder="Your email"
+                        placeholder="Work email"
                         required
                         className="w-full px-4 py-3 rounded-lg bg-[#0a0e1a] border border-white/10 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/30 transition-all duration-300"
                       />
@@ -172,7 +172,7 @@ export function Contact() {
                         rows={5}
                         value={form.message}
                         onChange={onChange}
-                        placeholder="Your message (optional)"
+                        placeholder="Role, company, or a short note"
                         className="w-full px-4 py-3 rounded-lg bg-[#0a0e1a] border border-white/10 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/30 transition-all duration-300 resize-none"
                       />
                     </div>
