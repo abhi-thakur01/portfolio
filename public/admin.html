@@ -9,12 +9,23 @@
 :root{--bg:#0a0e1a;--panel:#0d1220;--card:#111827;--line:#1e293b;--text:#f1f5f9;--muted:#94a3b8;--blue:#3b82f6;--blue2:#60a5fa;--green:#34d399;--red:#f87171}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px Inter,system-ui,sans-serif}
 button,input,textarea,select{font:inherit}button{cursor:pointer}
-.app{min-height:100vh;display:grid;grid-template-columns:240px 1fr}
-.side{position:sticky;top:0;height:100vh;overflow:auto;padding:20px 14px;border-right:1px solid var(--line);background:var(--panel)}
+.app{min-height:100vh;display:grid;grid-template-columns:268px 1fr}
+.side{position:sticky;top:0;height:100vh;overflow:auto;padding:20px 12px;border-right:1px solid var(--line);background:var(--panel)}
 .brand{font-size:18px;font-weight:800;padding:8px 10px 20px}.blue{color:var(--blue2)}
 .group{font-size:10px;text-transform:uppercase;letter-spacing:.14em;color:#64748b;padding:14px 10px 7px}
 .nav button{display:block;width:100%;text-align:left;background:transparent;border:1px solid transparent;color:#94a3b8;padding:10px 11px;border-radius:10px;margin:2px 0}
 .nav button:hover,.nav button.active{background:#111827;border-color:#1e293b;color:var(--blue2)}
+.nav-row{display:flex;align-items:center;gap:6px;margin:2px 0}
+.nav-row .navbtn{flex:1;min-width:0;margin:0}
+.navlabel{flex:1;color:#94a3b8;padding:8px 4px 8px 11px;font-size:14px}
+.switch{width:36px;height:20px;border-radius:999px;border:0;background:#334155;position:relative;flex-shrink:0;padding:0}
+.switch.on{background:#2563eb}
+.switch i{position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;display:block;transition:left .15s}
+.switch.on i{left:18px}
+.page-vis{display:flex;align-items:center;gap:10px;margin-top:8px;color:#94a3b8;font-size:13px}
+.nav button.switch{width:36px;height:20px;padding:0;margin:0;border-radius:999px;display:inline-block;flex:0 0 36px}
+.nav button.switch:hover{background:#334155;color:#fff;border-color:transparent}
+.nav button.switch.on,.nav button.switch.on:hover{background:#2563eb;color:#fff}
 .main{padding:28px 34px 60px;min-width:0}
 .top{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;margin-bottom:20px;flex-wrap:wrap}
 .eyebrow{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue2)}
@@ -35,7 +46,7 @@ h1{font-size:26px;margin:5px 0}.sub{margin:0;color:var(--muted);font-size:13px}
 .login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
 .login-card{width:100%;max-width:420px;background:#111827;border:1px solid var(--line);border-radius:20px;padding:40px 32px;text-align:center}
 .login-card h1{margin:0 0 10px;font-size:28px}.login-card .sub{margin:0 0 28px;line-height:1.5}.login-card .btn.primary{width:100%;padding:14px 18px;font-size:15px}
-.mobile{display:none}@media(max-width:900px){.app{grid-template-columns:1fr}.side{position:fixed;z-index:20;left:-270px;width:250px;transition:.2s}.side.open{left:0}.mobile{display:inline-flex}.main{padding:20px}.top{flex-direction:column}}
+.mobile{display:none}@media(max-width:900px){.app{grid-template-columns:1fr}.side{position:fixed;z-index:20;left:-290px;width:280px;transition:.2s}.side.open{left:0}.mobile{display:inline-flex}.main{padding:20px}.top{flex-direction:column}}
 .item-toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap}
 .item-count{color:var(--muted);font-size:13px}.item-list{display:flex;flex-direction:column;gap:12px}
 .item-card{background:#0f172a;border:1px solid #1e293b;border-radius:14px;overflow:hidden}.item-card.open{border-color:#3b82f6}
@@ -70,5 +81,6 @@ h1{font-size:26px;margin:5px 0}.sub{margin:0;color:var(--muted);font-size:13px}
 <script src="/admin-process-extend.js"></script>
 <script src="/admin-sections-extend.js"></script>
 <script src="/admin-projects-extend.js"></script>
+<script src="/admin-visibility.js?v=1"></script>
 </body>
 </html>
