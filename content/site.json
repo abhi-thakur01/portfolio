@@ -10,7 +10,16 @@
   "primaryEmail": "thakurabhi8925@gmail.com",
   "primaryPhone": "+91 82192 88267",
   "canonicalUrl": "https://abhi-thakur-web.vercel.app/",
-  "sectionOrder": ["hero", "about", "projects", "skills", "experience", "process", "faqs", "contact"],
+  "sectionOrder": [
+    "hero",
+    "about",
+    "projects",
+    "skills",
+    "experience",
+    "process",
+    "faqs",
+    "contact"
+  ],
   "sectionVisibility": {
     "hero": true,
     "about": true,
@@ -24,7 +33,7 @@
     "testimonials": false,
     "education": false,
     "certifications": false,
-    "faqs": true,
+    "faqs": false,
     "contact": true,
     "footer": true
   },
