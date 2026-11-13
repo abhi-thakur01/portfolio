@@ -168,23 +168,38 @@ export const testimonials = {
 
 export const sections = sectionsJson || {};
 
-export const navLinks = (Array.isArray(navJson?.links) ? navJson.links : [])
+const SECTION_BY_HREF = {
+  "#home": "hero",
+  "#about": "about",
+  "#projects": "projects",
+  "#skills": "skills",
+  "#experience": "experience",
+  "#process": "process",
+  "#faqs": "faqs",
+  "#contact": "contact",
+};
+
+const fallbackLinks = [
+  { href: "#home", label: "Home", active: true, order: 1 },
+  { href: "#about", label: "About", active: true, order: 2 },
+  { href: "#projects", label: "Projects", active: true, order: 3 },
+  { href: "#skills", label: "Skills", active: true, order: 4 },
+  { href: "#experience", label: "Experience", active: true, order: 5 },
+  { href: "#process", label: "Process", active: true, order: 6 },
+  { href: "#faqs", label: "FAQ", active: true, order: 7 },
+  { href: "#contact", label: "Contact", active: true, order: 8 },
+];
+
+const sourceLinks = Array.isArray(navJson?.links) && navJson.links.length ? navJson.links : fallbackLinks;
+
+export const navLinks = sourceLinks
   .filter((l) => l.active !== false)
+  .filter((l) => {
+    const key = SECTION_BY_HREF[l.href];
+    return !key || isSectionVisible(key);
+  })
   .sort((a, b) => (a.order || 0) - (b.order || 0))
   .map((l) => ({
     href: l.href || "#",
     label: l.label || "Link",
   }));
-
-if (!navLinks.length) {
-  navLinks.push(
-    { href: "#home", label: "Home" },
-    { href: "#about", label: "About" },
-    { href: "#projects", label: "Projects" },
-    { href: "#skills", label: "Skills" },
-    { href: "#experience", label: "Experience" },
-    { href: "#process", label: "Process" },
-    { href: "#faqs", label: "FAQ" },
-    { href: "#contact", label: "Contact" }
-  );
-}
