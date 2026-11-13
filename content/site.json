@@ -28,7 +28,7 @@
     "skills": true,
     "experience": true,
     "services": false,
-    "process": true,
+    "process": false,
     "blog": false,
     "testimonials": false,
     "education": false,
