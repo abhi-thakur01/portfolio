@@ -5,9 +5,9 @@
   "greeting": "Hi, I'm",
   "role": "Web Designer",
   "secondaryRole": "WordPress & CMS Specialist",
-  "shortIntro": "I build fast, pixel-perfect, and mobile-friendly websites.",
-  "bio": "I build fast, pixel-perfect, and mobile-friendly websites with WordPress, Elementor, Beaver Builder, GoHighLevel, and clean modern code. Passionate about clean UI and continuous learning.",
-  "aboutMe": "I'm Abhishek Thakur — a Web Designer focused on building modern, responsive and user-friendly websites. With 1.6+ years of experience and 40+ live client websites, I've worked across WordPress, Elementor, Beaver Builder, Framer, Squarespace, Wix and more.",
+  "shortIntro": "Full-time Web Designer. I build fast, pixel-perfect, and mobile-friendly websites.",
+  "bio": "Full-time Web Designer at Gigsoft Pro. I build fast, responsive websites with WordPress, Elementor, Beaver Builder, GoHighLevel, and clean modern code.",
+  "aboutMe": "I'm Abhishek Thakur, a Web Designer working full-time at Gigsoft Pro. I ship responsive websites for the company using WordPress, Elementor, Beaver Builder, GoHighLevel and Square Online.",
   "photo": "",
   "photoAlt": "Abhishek Thakur profile photo",
   "photoPosition": "right",
@@ -16,11 +16,11 @@
   "email": "thakurabhi8925@gmail.com",
   "phone": "+91 82192 88267",
   "whatsapp": "",
-  "location": "India — Available Worldwide (Remote)",
+  "location": "India — Open to Remote",
   "websiteUrl": "https://abhi-thakur-web.vercel.app",
   "availabilityStatus": "available",
-  "availability": "Available for Freelance & Full-time Roles",
-  "workingHours": "Full-time / Remote",
+  "availability": "Open to full-time roles",
+  "workingHours": "Full-time",
   "github": "https://github.com/abhi-thakur01",
   "linkedin": "https://linkedin.com/in/abhi-thakur01",
   "twitter": "",
@@ -43,11 +43,11 @@
     },
     {
       "value": "15+",
-      "label": "Live Client Sites"
+      "label": "Websites Delivered"
     },
     {
-      "value": "100%",
-      "label": "Client Satisfaction"
+      "value": "Full-time",
+      "label": "Current Role"
     },
     {
       "value": "8+",
@@ -58,6 +58,6 @@
     "role": "Web Designer",
     "company": "Gigsoft Pro",
     "period": "2025 – Present",
-    "desc": "Building responsive sites for international clients across WordPress, GoHighLevel, and Square Online."
+    "desc": "Full-time Web Designer building responsive sites for the company's international clients on WordPress, GoHighLevel, and Square Online."
   }
 }
