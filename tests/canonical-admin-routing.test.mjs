@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
+import { existsSync } from "node:fs";
 import { test } from "node:test";
 import { loadModule } from "./helpers/load-module.mjs";
 
@@ -11,10 +12,13 @@ function read(path) {
 test("Vercel defines canonical /admin/ redirects without conflicting rewrites", () => {
   const config = JSON.parse(read("vercel.json"));
   assert.ok(Array.isArray(config.redirects));
-  assert.deepEqual(
-    config.redirects.map((item) => [item.source, item.destination]),
-    [["/admin", "/admin/"], ["/admin.html", "/admin/"]]
-  );
+  assert.ok(config.redirects.some((item) => item.source === "/admin" && item.destination === "/admin/"));
+  assert.ok(config.redirects.some((item) => item.source === "/admin.html" && item.destination === "/admin/"));
+  assert.ok(config.redirects.some((item) => item.source === "/admin-v2.html" && item.destination === "/admin/"));
+  assert.ok(config.redirects.some((item) => item.source === "/cms2.js" && item.destination === "/admin/"));
+  assert.ok(config.redirects.some((item) => item.source === "/admin-a.js" && item.destination === "/admin/"));
+  assert.ok(config.redirects.some((item) => item.source === "/admin-skills-image.js" && item.destination === "/admin/"));
+  assert.ok(config.redirects.some((item) => item.source === "/api/admin/files" && item.destination === "/admin/"));
   assert.ok(!config.rewrites?.some((item) => ["/admin", "/admin/", "/admin.html"].includes(item.source)));
 });
 
@@ -53,6 +57,18 @@ test("OAuth callback and logout destinations remain canonical", () => {
 
   const logout = read("api/admin/logout.ts");
   assert.match(logout, /res\.setHeader\("Location", "\/admin\/"\)/);
+});
+
+test("retired legacy CMS files and API are absent", () => {
+  for (const path of [
+    "public/admin-v2.html",
+    "public/cms2.js",
+    "public/admin-a.js",
+    "public/admin-skills-image.js",
+    "api/admin/files.ts",
+  ]) {
+    assert.equal(existsSync(new URL(path, root)), false, `${path} should be retired`);
+  }
 });
 
 test("logout GET returns the canonical admin route in a mocked handler", async () => {

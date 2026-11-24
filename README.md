@@ -20,7 +20,8 @@ Modern, fast, SEO-optimized portfolio for Junior Web Designer & WordPress/CMS Sp
 - ✅ Projects already have graceful image placeholders (add real screenshots later in `content/projects.json` + `/public/`)
 
 ### CMS / Admin
-- Existing admin/CMS related files (`api/admin/*`, `public/admin*`) left untouched so you can continue using or refining them.
+- The canonical CMS is available at `/admin/`.
+- Legacy CMS entry points redirect to `/admin/`.
 
 ### Still recommended later
 - Add real project screenshots (`image` field in projects.json)
@@ -67,6 +68,8 @@ public/
   og-image.png
   robots.txt, sitemap.xml, manifest.json
   media/          # resume PDF etc.
+  admin/
+    index.html     # canonical CMS shell
 src/
   components/     # Hero, About, Projects, Skills, Experience, Services, Process, FAQ, Contact, Footer
   data/content.js # Loads all JSON

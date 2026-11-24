@@ -57,6 +57,36 @@
       "source": "/admin.html",
       "destination": "/admin/",
       "permanent": true
+    },
+    {
+      "source": "/admin-v2.html",
+      "destination": "/admin/",
+      "permanent": true
+    },
+    {
+      "source": "/admin-v2",
+      "destination": "/admin/",
+      "permanent": true
+    },
+    {
+      "source": "/cms2.js",
+      "destination": "/admin/",
+      "permanent": true
+    },
+    {
+      "source": "/admin-a.js",
+      "destination": "/admin/",
+      "permanent": true
+    },
+    {
+      "source": "/admin-skills-image.js",
+      "destination": "/admin/",
+      "permanent": true
+    },
+    {
+      "source": "/api/admin/files",
+      "destination": "/admin/",
+      "permanent": true
     }
   ]
 }

@@ -26,7 +26,16 @@ export default defineConfig({
       configureServer(server) {
         server.middlewares.use((req, res, next) => {
           const pathname = (req.url || "").split("?")[0];
-          if (pathname === "/admin" || pathname === "/admin.html") {
+          if (
+            pathname === "/admin" ||
+            pathname === "/admin.html" ||
+            pathname === "/admin-v2.html" ||
+            pathname === "/admin-v2" ||
+            pathname === "/cms2.js" ||
+            pathname === "/admin-a.js" ||
+            pathname === "/admin-skills-image.js" ||
+            pathname === "/api/admin/files"
+          ) {
             res.statusCode = 308;
             res.setHeader("Location", "/admin/");
             res.end();
@@ -38,7 +47,16 @@ export default defineConfig({
       configurePreviewServer(server) {
         server.middlewares.use((req, res, next) => {
           const pathname = (req.url || "").split("?")[0];
-          if (pathname === "/admin" || pathname === "/admin.html") {
+          if (
+            pathname === "/admin" ||
+            pathname === "/admin.html" ||
+            pathname === "/admin-v2.html" ||
+            pathname === "/admin-v2" ||
+            pathname === "/cms2.js" ||
+            pathname === "/admin-a.js" ||
+            pathname === "/admin-skills-image.js" ||
+            pathname === "/api/admin/files"
+          ) {
             res.statusCode = 308;
             res.setHeader("Location", "/admin/");
             res.end();
