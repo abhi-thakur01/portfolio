@@ -175,7 +175,7 @@ export default defineConfig({
         );
         html = html.replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/gi, "");
         const script = `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`;
-        html = html.replace(/<\/head>/i, `${twitter}\n${script}\n</head>`);
+        html = html.replace(/<\/head>/i, `${script}\n</head>`);
         return html;
       },
     },
