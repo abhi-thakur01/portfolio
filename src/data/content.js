@@ -12,6 +12,10 @@ import testimonialsJson from "../../content/testimonials.json";
 import caseStudiesJson from "../../content/case-studies.json";
 import blogJson from "../../content/blog.json";
 import seoJson from "../../content/seo.json";
+import educationJson from "../../content/education.json";
+import certificationsJson from "../../content/certifications.json";
+import rolesJson from "../../content/roles.json";
+import addressesJson from "../../content/addresses.json";
 
 import serviceWordpress from "../../content/services/wordpress.json";
 import serviceCms from "../../content/services/cms.json";
@@ -201,6 +205,21 @@ export const blog = {
 
 export const seo = seoJson || {};
 export const sections = sectionsJson || {};
+
+export const education = {
+  items: (Array.isArray(educationJson?.items) ? educationJson.items : [])
+    .filter((item) => item.active !== false)
+    .sort((a, b) => (a.order || 0) - (b.order || 0)),
+};
+
+export const certifications = {
+  items: (Array.isArray(certificationsJson?.items) ? certificationsJson.items : [])
+    .filter((item) => item.active !== false)
+    .sort((a, b) => (a.order || 0) - (b.order || 0)),
+};
+
+export const roles = Array.isArray(rolesJson?.roles) ? rolesJson.roles : [];
+export const addresses = Array.isArray(addressesJson?.addresses) ? addressesJson.addresses : [];
 
 const SECTION_BY_HREF = {
   "#home": "hero",

@@ -94,6 +94,56 @@ function validateProjectContent(value: any, currentValue: any) {
   }
 }
 
+function validateItemCollection(value: any, currentValue: any, path: string) {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    throw new Error(`${path} must contain a JSON object`);
+  }
+  if (!Array.isArray(value.items)) {
+    throw new Error(`${path} items must be an array`);
+  }
+
+  const ids = new Set<string>();
+  for (const item of value.items) {
+    if (!item || typeof item !== "object" || Array.isArray(item)) {
+      throw new Error(`Each item in ${path} must be an object`);
+    }
+    if (typeof item.id !== "string" || !item.id.trim()) {
+      throw new Error(`Each item in ${path} requires a non-empty id`);
+    }
+    if (ids.has(item.id)) throw new Error(`Duplicate id in ${path}: ${item.id}`);
+    ids.add(item.id);
+    if (item.active !== undefined && typeof item.active !== "boolean") {
+      throw new Error(`Item ${item.id} active must be true or false`);
+    }
+    if (item.order !== undefined && (typeof item.order !== "number" || !Number.isFinite(item.order))) {
+      throw new Error(`Item ${item.id} order must be a number`);
+    }
+  }
+
+  if (currentValue?.items && Array.isArray(currentValue.items)) {
+    const existingIds = new Set<string>(
+      currentValue.items
+        .map((item: any) => item?.id)
+        .filter((id: any): id is string => typeof id === "string" && id.length > 0)
+    );
+    for (const existingId of existingIds) {
+      if (!ids.has(existingId)) throw new Error(`Existing id cannot be removed from ${path}: ${existingId}`);
+    }
+  }
+}
+
+function validateSimpleArrayCollection(value: any, key: "roles" | "addresses", path: string) {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    throw new Error(`${path} must contain a JSON object`);
+  }
+  if (!Array.isArray(value[key])) {
+    throw new Error(`${path} ${key} must be an array`);
+  }
+  if (value[key].some((entry: any) => typeof entry !== "string")) {
+    throw new Error(`${path} ${key} must contain only strings`);
+  }
+}
+
 export default async function handler(req: any, res: any) {
   const session = getSession(req);
   if (!session?.token) {
@@ -145,6 +195,30 @@ export default async function handler(req: any, res: any) {
           throw new Error("Unable to validate the existing projects.json");
         }
         validateProjectContent(parsedContent, currentContent);
+      }
+      if (path === "content/education.json" || path === "content/certifications.json") {
+        try {
+          currentContent = JSON.parse(Buffer.from(currentData.content.replace(/\n/g, ""), "base64").toString("utf8"));
+        } catch {
+          throw new Error(`Unable to validate the existing ${path}`);
+        }
+        validateItemCollection(parsedContent, currentContent, path);
+      }
+      if (path === "content/roles.json") {
+        try {
+          currentContent = JSON.parse(Buffer.from(currentData.content.replace(/\n/g, ""), "base64").toString("utf8"));
+        } catch {
+          throw new Error("Unable to validate the existing content/roles.json");
+        }
+        validateSimpleArrayCollection(parsedContent, "roles", path);
+      }
+      if (path === "content/addresses.json") {
+        try {
+          currentContent = JSON.parse(Buffer.from(currentData.content.replace(/\n/g, ""), "base64").toString("utf8"));
+        } catch {
+          throw new Error("Unable to validate the existing content/addresses.json");
+        }
+        validateSimpleArrayCollection(parsedContent, "addresses", path);
       }
       const response = await fetch(url, {
         method: "PUT",

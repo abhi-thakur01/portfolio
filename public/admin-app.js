@@ -16,6 +16,10 @@ const S=[
 {n:"CMS Service",p:"content/services/cms.json"},
 {n:"Responsive Service",p:"content/services/responsive.json"},
 {n:"Maintenance Service",p:"content/services/maintenance.json"},
+{n:"Education",p:"content/education.json"},
+{n:"Certifications",p:"content/certifications.json"},
+{n:"Roles",p:"content/roles.json"},
+{n:"Addresses",p:"content/addresses.json"},
 {n:"Site Settings",p:"content/site.json"}
 ];
 let A="",D=null,O=null,MEDIA_MODE=false,MEDIA_FILES=[],BASE_SHA="",IS_DIRTY=false,SAVING=false;
