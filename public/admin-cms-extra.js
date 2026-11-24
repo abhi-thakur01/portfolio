@@ -117,6 +117,7 @@
         F("Cover image URL", '<input class="control" data-x="posts.' + i + '.coverImage" value="' + esc(p.coverImage || "") + '">') +
         '<div class="grid2">' +
         F("Active", '<input type="checkbox" data-active="posts.' + i + '.active"' + (p.active !== false ? " checked" : "") + ' style="width:18px;height:18px">') +
+        F("Featured", '<input type="checkbox" data-bool="posts.' + i + '.featured"' + (p.featured === true ? " checked" : "") + ' style="width:18px;height:18px">') +
         F("Order", '<input class="control" data-num="posts.' + i + '.order" value="' + esc(p.order != null ? p.order : i + 1) + '" type="number">') +
         "</div>" +
         '</div></div>'
@@ -153,6 +154,12 @@
   };
 
   function bindExtra() {
+    document.querySelectorAll("[data-bool]").forEach(function (x) {
+      x.onchange = function () {
+        setPath(x.getAttribute("data-bool"), x.checked);
+        dirty();
+      };
+    });
     document.querySelectorAll("[data-active]").forEach(function (x) {
       x.onchange = function () {
         setPath(x.getAttribute("data-active"), x.checked);

@@ -121,12 +121,16 @@ export function Blog() {
               key={post.id}
               className="card-premium group flex flex-col rounded-2xl bg-[#111827] border border-white/8 overflow-hidden"
             >
-              <div className="h-32 bg-gradient-to-br from-blue-600/15 to-transparent border-b border-white/5 flex items-start justify-between p-4">
-                <span className="text-[10px] font-semibold uppercase tracking-wider text-blue-300 bg-blue-500/15 border border-blue-500/25 px-2 py-0.5 rounded-md">
+              <div className="relative h-32 bg-gradient-to-br from-blue-600/15 to-transparent border-b border-white/5 flex items-start justify-between p-4 overflow-hidden">
+                {post.coverImage && (
+                  <img src={post.coverImage} alt={`Cover image for ${post.title}`} className="absolute inset-0 w-full h-full object-cover" loading="lazy" decoding="async" width={800} height={450} />
+                )}
+                <div className="absolute inset-0 bg-gradient-to-br from-[#0d1220]/45 to-transparent" />
+                <span className="relative z-10 text-[10px] font-semibold uppercase tracking-wider text-blue-300 bg-blue-500/15 border border-blue-500/25 px-2 py-0.5 rounded-md">
                   {post.category}
                 </span>
                 {post.featured && (
-                  <span className="text-[10px] text-amber-300/90">Featured</span>
+                  <span className="relative z-10 text-[10px] text-amber-300/90">Featured</span>
                 )}
               </div>
               <div className="p-5 flex flex-col flex-1">

@@ -129,6 +129,7 @@ test("active Projects CMS supports complete project fields and server preservati
   ]) {
     assert.match(extension, new RegExp(field.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
   }
+  assert.match(extension, /ORIGINAL_PROJECT_IDS\[p\.id\] \|\| PERSISTED_PROJECT_IDS\[p\.id\]/);
 
   const loader = readFileSync(new URL("../src/data/content.js", import.meta.url), "utf8");
   assert.match(loader, /detailDescription:\s*p\.detailDescription/);

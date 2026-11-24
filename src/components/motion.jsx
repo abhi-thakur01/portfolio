@@ -63,34 +63,48 @@ export function TextReveal({
     };
   }, [delay]);
 
-  const text = typeof children === "string" ? children : String(children ?? "");
+  const isPlainText = typeof children === "string" || typeof children === "number";
+  const text = isPlainText ? String(children ?? "") : "";
   const parts = mode === "lines" ? text.split("\n") : text.split(/(\s+)/);
 
   return (
-    <Tag ref={ref} className={className}>
-      {parts.map((part, i) => {
-        if (mode === "words" && /^\s+$/.test(part)) {
-          return <span key={i}>{part}</span>;
-        }
-        return (
-          <span
-            key={i}
-            className="inline-block overflow-hidden align-bottom"
-            style={{ verticalAlign: "bottom" }}
-          >
-            <span
-              className="inline-block will-change-transform"
-              style={{
-                transform: ready ? "translateY(0)" : "translateY(105%)",
-                opacity: 1,
-                transition: `transform 0.8s ${EASE} ${ready ? i * stagger : 0}ms`,
-              }}
-            >
-              {part}
-            </span>
-          </span>
-        );
-      })}
+    <Tag
+      ref={ref}
+      className={className}
+      style={
+        isPlainText
+          ? undefined
+          : {
+              transform: ready ? "translateY(0)" : "translateY(0.5em)",
+              transition: `transform 0.8s ${EASE} ${ready ? delay : 0}ms`,
+            }
+      }
+    >
+      {isPlainText
+        ? parts.map((part, i) => {
+            if (mode === "words" && /^\s+$/.test(part)) {
+              return <span key={i}>{part}</span>;
+            }
+            return (
+              <span
+                key={i}
+                className="inline-block overflow-hidden align-bottom"
+                style={{ verticalAlign: "bottom" }}
+              >
+                <span
+                  className="inline-block will-change-transform"
+                  style={{
+                    transform: ready ? "translateY(0)" : "translateY(105%)",
+                    opacity: 1,
+                    transition: `transform 0.8s ${EASE} ${ready ? i * stagger : 0}ms`,
+                  }}
+                >
+                  {part}
+                </span>
+              </span>
+            );
+          })
+        : children}
     </Tag>
   );
 }

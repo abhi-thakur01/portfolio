@@ -1,9 +1,10 @@
 import { useRef, useState } from "react";
 import { Mail, Phone, MapPin, Send, Loader2, CheckCircle2 } from "lucide-react";
-import { personal } from "../data/content";
+import { personal, sections } from "../data/content";
 import { TextReveal, ClipReveal, TiltCard, Magnetic, MouseGlow } from "./motion";
 
 export function Contact() {
+  const meta = sections?.contact || {};
   const submitting = useRef(false);
   const [form, setForm] = useState({ name: "", email: "", message: "", website: "" });
   const [loading, setLoading] = useState(false);
@@ -82,17 +83,20 @@ export function Contact() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12">
           <div className="lg:col-span-2">
-            <p className="text-blue-400 text-xs font-semibold tracking-wider uppercase mb-2">Contact</p>
+            <p className="text-blue-400 text-xs font-semibold tracking-wider uppercase mb-2">{meta.label || "Contact"}</p>
             <TextReveal as="h2" className="text-2xl sm:text-4xl font-bold text-white mb-3 sm:mb-4" stagger={50}>
-              Let's Connect
+              {meta.heading || "Let's Connect"}{" "}
+              {meta.headingHighlight && <span className="text-blue-400">{meta.headingHighlight}</span>}
             </TextReveal>
             <ClipReveal delay={100}>
               <p className="text-gray-400 text-sm sm:text-[15px] mb-6 sm:mb-8 leading-relaxed">
-                Open to full-time roles. Hiring managers and recruiters can reach me here.
+                {meta.description || "Open to full-time roles. Hiring managers and recruiters can reach me here."}
               </p>
             </ClipReveal>
 
             <div className="space-y-4">
+              <h3 className="text-sm font-semibold text-white">{meta.sidebarTitle || "Get In Touch"}</h3>
+              {meta.availabilityText && <p className="text-sm text-gray-400 leading-relaxed">{meta.availabilityText}</p>}
               <a
                 href={`mailto:${personal.email}`}
                 className="flex items-center gap-3 text-sm text-gray-300 hover:text-blue-400 break-all transition-all duration-300 hover:translate-x-1.5"
@@ -122,8 +126,8 @@ export function Contact() {
                 {sent ? (
                   <div className="text-center py-10" role="status" aria-live="polite">
                     <CheckCircle2 className="w-12 h-12 text-blue-400 mx-auto mb-4 animate-pulse-glow" />
-                    <h3 className="text-xl font-semibold text-white mb-2">Message sent!</h3>
-                    <p className="text-gray-400 text-sm mb-6">I'll get back to you soon.</p>
+                    <h3 className="text-xl font-semibold text-white mb-2">{meta.successTitle || "Message sent!"}</h3>
+                    <p className="text-gray-400 text-sm mb-6">{meta.successMessage || "I'll get back to you soon."}</p>
                     <button onClick={() => setSent(false)} className="text-sm text-blue-400 hover:text-blue-300 transition-colors">
                       Send another message
                     </button>
@@ -197,7 +201,7 @@ export function Contact() {
                           </>
                         ) : (
                           <>
-                            <Send className="w-4 h-4" /> Send Message
+                            <Send className="w-4 h-4" /> {meta.submitLabel || "Send Message"}
                           </>
                         )}
                       </button>

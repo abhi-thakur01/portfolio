@@ -1,9 +1,10 @@
 import { ArrowRight, Send } from "lucide-react";
-import { experience } from "../data/content";
+import { experience, sections } from "../data/content";
 import { TextReveal, ClipReveal, TiltCard, Magnetic, DrawLine, MouseGlow } from "./motion";
 
 export function Experience() {
   const items = Array.isArray(experience) ? experience : [];
+  const meta = sections?.experience || {};
 
   return (
     <section id="experience" className="py-14 sm:py-20 bg-[#0d1220]/50 overflow-hidden section-ambient">
@@ -12,14 +13,15 @@ export function Experience() {
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-12">
           <div className="lg:col-span-3">
             <p className="text-blue-400 text-xs font-semibold tracking-wider uppercase mb-2">
-              My Journey
+              {meta.label || "My Journey"}
             </p>
             <TextReveal as="h2" className="text-2xl sm:text-4xl font-bold text-white mb-2 sm:mb-3" stagger={45}>
-              Experience & Education
+              {meta.heading || "Experience &"}{" "}
+              <span className="text-blue-400">{meta.headingHighlight || "Education"}</span>
             </TextReveal>
             <ClipReveal delay={100}>
               <p className="text-gray-400 text-sm sm:text-[15px] mb-8 sm:mb-10 max-w-md">
-                Professional work and academic background — where I've grown and what I've delivered.
+                {meta.description || "Professional work and academic background — where I've grown and what I've delivered."}
               </p>
             </ClipReveal>
 
@@ -69,20 +71,20 @@ export function Experience() {
                   <Send className="w-5 h-5 sm:w-6 sm:h-6" />
                 </div>
                 <p className="text-blue-400 text-xs font-semibold tracking-wider uppercase mb-2">
-                  Let's Work Together
+                  {meta.ctaTitle || "Let's Work Together"}
                 </p>
                 <h3 className="text-lg sm:text-xl font-bold text-white mb-3">
-                  Have a project in mind?
+                  {meta.ctaHeading || "Have a project in mind?"}
                 </h3>
                 <p className="text-sm text-gray-400 mb-6 leading-relaxed">
-                  I'm always open to new opportunities, collaborations or just a friendly chat.
+                  {meta.ctaDescription || "I'm always open to new opportunities, collaborations or just a friendly chat."}
                 </p>
                 <Magnetic strength={0.25}>
                   <a
                     href="#contact"
                     className="btn-shine inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm shadow-lg shadow-blue-600/25"
                   >
-                    Get In Touch
+                    {meta.ctaButton || "Get In Touch"}
                     <ArrowRight className="w-4 h-4" />
                   </a>
                 </Magnetic>

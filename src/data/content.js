@@ -5,6 +5,7 @@ import projectsJson from "../../content/projects.json";
 import skillsJson from "../../content/skills.json";
 import experienceJson from "../../content/experience.json";
 import navJson from "../../content/nav.json";
+import socialsJson from "../../content/socials.json";
 import siteJson from "../../content/site.json";
 import processJson from "../../content/process.json";
 import faqsJson from "../../content/faqs.json";
@@ -83,6 +84,15 @@ export const personal = {
 
 export const hero = resolveHeroContent(heroJson, personal);
 
+export const socialLinks = (Array.isArray(socialsJson?.items) ? socialsJson.items : [])
+  .filter((item) => item.active !== false)
+  .sort((a, b) => (a.order || 0) - (b.order || 0))
+  .map((item) => ({
+    ...item,
+    url: item.id === "email" ? (personal.email ? `mailto:${personal.email}` : "") : item.url || "",
+  }))
+  .filter((item) => item.url);
+
 export const about = {
   heading: "A little about me",
   paragraphs: [],
@@ -113,7 +123,7 @@ export const projects = (Array.isArray(projectsJson?.items) ? projectsJson.items
     category: p.category || "Other",
     platform: p.platform || p.category || "Web",
     image: p.image || "",
-    link: p.link || "#",
+    link: p.link ?? "",
     active: p.active !== false,
     order: p.order,
     highlights: Array.isArray(p.highlights) ? p.highlights : [],
@@ -127,12 +137,14 @@ export const skillCategories = Array.isArray(skillsJson?.categories)
   : [];
 
 export const skillIcons = (Array.isArray(skillsJson?.skillIcons) ? skillsJson.skillIcons : [])
-  .filter((s) => s.active !== false)
-  .map((s) => ({
+  .map((skill, index) => ({ skill, index }))
+  .filter(({ skill }) => skill.active !== false)
+  .sort((a, b) => (a.skill.order ?? a.index + 1) - (b.skill.order ?? b.index + 1))
+  .map(({ skill: s }) => ({
     name: s.name || "",
     color: s.color || "#3b82f6",
     category: s.category || "Other",
-    image: s.image || s.icon || s.logo || "",
+    image: Object.prototype.hasOwnProperty.call(s, "image") ? s.image || "" : s.icon || s.logo || "",
   }));
 export const otherTools = Array.isArray(skillsJson?.otherTools) ? skillsJson.otherTools : [];
 
@@ -176,8 +188,8 @@ export const processSteps = (Array.isArray(processJson?.steps) ? processJson.ste
 );
 
 export const faqs = (Array.isArray(faqsJson?.faqs) ? faqsJson.faqs : []).map((f) => ({
-  q: f.q || f.question || "",
-  a: f.a || f.answer || "",
+  q: f.q ?? f.question ?? "",
+  a: f.a ?? f.answer ?? "",
 }));
 
 export const testimonials = {
@@ -234,6 +246,10 @@ const SECTION_BY_HREF = {
   "#process": "process",
   "#faqs": "faqs",
   "#contact": "contact",
+  "#services": "services",
+  "#case-studies": "case-studies",
+  "#blog": "blog",
+  "#testimonials": "testimonials",
 };
 
 const fallbackLinks = [
@@ -247,7 +263,7 @@ const fallbackLinks = [
   { href: "#contact", label: "Contact", active: true, order: 8 },
 ];
 
-const sourceLinks = Array.isArray(navJson?.links) && navJson.links.length ? navJson.links : fallbackLinks;
+const sourceLinks = Array.isArray(navJson?.links) ? navJson.links : fallbackLinks;
 
 export const navLinks = sourceLinks
   .filter((l) => l.active !== false)

@@ -10,6 +10,7 @@ export function Process() {
       <MouseGlow color="59, 130, 246" />
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         <div className="text-center mb-10 sm:mb-14">
+          {meta.label && <p className="text-blue-400 text-xs font-semibold tracking-wider uppercase mb-2">{meta.label}</p>}
           <TextReveal as="h2" className="text-2xl sm:text-4xl font-bold text-white mb-3" stagger={50}>
             {(meta.heading || "How I Build") + " " + (meta.headingHighlight || "Excellence")}
           </TextReveal>

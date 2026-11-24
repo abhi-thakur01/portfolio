@@ -1,5 +1,6 @@
-import { Download, Github, Linkedin, Mail, Twitter, ArrowRight } from "lucide-react";
-import { personal, hero } from "../data/content";
+import { Download, ArrowRight } from "lucide-react";
+import { personal, hero, socialLinks } from "../data/content";
+import { getSocialIcon } from "../utils/socialIcons";
 import { Magnetic, ClipReveal, MouseGlow, CountUp, Stagger } from "./motion";
 
 export function Hero() {
@@ -28,6 +29,13 @@ export function Hero() {
             <p className="text-blue-500 dark:text-blue-400 text-xs font-semibold tracking-[0.22em] uppercase mb-3 sm:mb-4">
               {hero.greeting || personal.greeting || "Hi, I'm"}
             </p>
+
+            {hero.statusPill && (
+              <p className="inline-flex items-center gap-2 rounded-full border border-blue-500/25 bg-blue-500/10 px-3 py-1 text-[11px] font-medium text-blue-300 mb-3">
+                <span className="h-1.5 w-1.5 rounded-full bg-blue-400" />
+                {hero.statusPill}
+              </p>
+            )}
 
             <h1 className="text-3xl sm:text-5xl lg:text-[3.4rem] font-extrabold text-[var(--text-strong)] leading-[1.15] mb-3">
               {first}{" "}
@@ -68,26 +76,22 @@ export function Hero() {
             </Stagger>
 
             <Stagger className="flex items-center gap-3" delay={280} step={50} from="scale">
-              {[
-                { href: personal.github, icon: Github, label: "GitHub", show: !!personal.github },
-                { href: personal.linkedin, icon: Linkedin, label: "LinkedIn", show: !!personal.linkedin },
-                { href: personal.twitter || "#", icon: Twitter, label: "Twitter", show: !!personal.twitter },
-                { href: `mailto:${personal.email}`, icon: Mail, label: "Email", show: !!personal.email },
-              ]
-                .filter((s) => s.show)
-                .map(({ href, icon: Icon, label }) => (
-                  <Magnetic key={label} strength={0.4}>
+              {socialLinks.map((social) => {
+                const Icon = getSocialIcon(social.icon);
+                return (
+                  <Magnetic key={social.id || social.platform} strength={0.4}>
                     <a
-                      href={href}
-                      target={href.startsWith("http") ? "_blank" : undefined}
-                      rel="noreferrer"
+                      href={social.url}
+                      target={social.newTab ? "_blank" : undefined}
+                      rel={social.newTab ? "noreferrer" : undefined}
                       className="icon-lift w-10 h-10 rounded-full bg-[var(--chip-bg)] border border-[var(--border-strong)] flex items-center justify-center text-[var(--text-muted)] hover:text-blue-600 hover:border-blue-500/50 hover:bg-blue-500/10"
-                      aria-label={label}
+                      aria-label={social.label || social.platform}
                     >
                       <Icon className="w-4 h-4" />
                     </a>
                   </Magnetic>
-                ))}
+                );
+              })}
             </Stagger>
           </div>
 

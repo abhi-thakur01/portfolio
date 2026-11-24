@@ -18,6 +18,7 @@
     "content/services/maintenance.json": "services",
   };
   var SITE = null;
+  var SITE_SHA = "";
 
   function visOn(key) {
     if (!SITE || !SITE.sectionVisibility) return true;
@@ -38,33 +39,46 @@
   }
 
   async function loadSite() {
-    try {
-      var d = await api("/api/admin/content?path=" + encodeURIComponent("content/site.json"));
-      SITE = JSON.parse(d.content);
-      if (!SITE.sectionVisibility) SITE.sectionVisibility = {};
-    } catch (e) {
-      SITE = { sectionVisibility: {} };
-    }
+    var d = await api("/api/admin/content?path=" + encodeURIComponent("content/site.json"));
+    SITE = JSON.parse(d.content);
+    SITE_SHA = d.sha || "";
+    if (!SITE.sectionVisibility) SITE.sectionVisibility = {};
   }
 
   async function toggleVis(key) {
-    if (!SITE) await loadSite();
-    var next = SITE.sectionVisibility[key] === false;
-    SITE.sectionVisibility[key] = next;
-    if (typeof A !== "undefined" && A === "content/site.json" && D) {
-      if (!D.sectionVisibility) D.sectionVisibility = {};
-      D.sectionVisibility[key] = next;
-      SITE = D;
+    if (!SITE) {
+      try {
+        await loadSite();
+      } catch (error) {
+        st(error.message, "error");
+        return;
+      }
     }
-    render();
-    st(next ? "Showing section..." : "Hiding section...");
+    var editingSite = typeof A !== "undefined" && A === "content/site.json" && D;
+    var payload = JSON.parse(JSON.stringify(editingSite ? D : SITE));
+    if (!payload.sectionVisibility) payload.sectionVisibility = {};
+    var next = payload.sectionVisibility[key] === false;
+    payload.sectionVisibility[key] = next;
+    var sha = editingSite ? BASE_SHA : SITE_SHA;
+    if (!sha) {
+      st("Reload Site Settings before changing section visibility.", "error");
+      return;
+    }
     try {
-      var payload = typeof A !== "undefined" && A === "content/site.json" && D ? D : SITE;
-      await api("/api/admin/content?path=" + encodeURIComponent("content/site.json"), {
+      st(next ? "Showing section..." : "Hiding section...");
+      var result = await api("/api/admin/content?path=" + encodeURIComponent("content/site.json"), {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ content: JSON.stringify(payload, null, 2) }),
+        body: JSON.stringify({ content: JSON.stringify(payload, null, 2), sha: sha }),
       });
+      SITE = payload;
+      SITE_SHA = result.sha || sha;
+      if (editingSite) {
+        D = payload;
+        BASE_SHA = SITE_SHA;
+        markClean();
+      }
+      render();
       st(
         next ? "Section is visible. Site will rebuild." : "Section is hidden. Site will rebuild.",
         "success"
@@ -127,10 +141,24 @@
   var _load = load;
   load = async function (p) {
     await _load(p);
-    if (p === "content/site.json" && D) SITE = D;
+    if (p === "content/site.json" && D) {
+      SITE = D;
+      SITE_SHA = BASE_SHA;
+    }
+  };
+
+  var _save = save;
+  save = async function () {
+    await _save();
+    if (A === "content/site.json" && D && !IS_DIRTY) {
+      SITE = D;
+      SITE_SHA = BASE_SHA;
+    }
   };
 
   loadSite().then(function () {
     if (document.querySelector(".nav")) render();
+  }).catch(function (error) {
+    st(error.message, "error");
   });
 })();

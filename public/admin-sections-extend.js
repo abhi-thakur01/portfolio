@@ -28,22 +28,48 @@
   }
 
   function uiSec() {
-    var blocks = ["skills", "process", "work", "faqs", "contact", "footer"];
+    var blocks = ["skills", "services", "process", "work", "experience", "faqs", "contact", "footer"];
     var html = "";
     blocks.forEach(function (b) {
       if (!D[b]) D[b] = {};
       var s = D[b];
       html += '<div class="section-block"><div class="section-title">' + b.toUpperCase() + "</div>";
       if (b === "footer") {
-        html += F("Tagline", fieldInput(b + ".tagline", s.tagline, 1));
-        html += F("Copyright", fieldInput(b + ".copyright", s.copyright));
+        html += '<p class="status">Footer tagline and copyright are managed in Site Settings.</p>';
       } else {
-        html += F("Label", fieldInput(b + ".label", s.label));
+        var defaults = {
+          skills: { heading: "Technologies &", headingHighlight: "Tools", description: "Frontend code, CMS platforms, and version control tools I use daily." },
+          services: { heading: "Services Built for", headingHighlight: "Real Business Growth", description: "End-to-end web design and CMS development tailored to help your brand look polished, load instantly, and turn visitors into clients." },
+          process: { heading: "How I Build", headingHighlight: "Excellence", description: "A battle-tested workflow shaped by real client projects — keeping you informed, on schedule, and thrilled with the final website." },
+          work: { heading: "Featured", headingHighlight: "Projects", description: "Live client sites and personal builds across WordPress, CMS platforms and React." },
+          experience: { heading: "Experience &", headingHighlight: "Education", description: "Professional work and academic background — where I've grown and what I've delivered." },
+          faqs: { heading: "Frequently Asked", headingHighlight: "Questions", description: "Everything you need to know about working together, project delivery, and post-launch support." },
+          contact: { heading: "Let's Connect", headingHighlight: "About Opportunities", description: "Open to full-time roles. Hiring managers and recruiters can reach me here." }
+        };
+        var fallback = defaults[b] || {};
+        html += F("Label", fieldInput(b + ".label", s.label || ""));
         html += '<div class="grid2">' +
-          F("Heading", fieldInput(b + ".heading", s.heading)) +
-          F("Heading highlight", fieldInput(b + ".headingHighlight", s.headingHighlight)) +
+          F("Heading", fieldInput(b + ".heading", s.heading || fallback.heading)) +
+          F("Heading highlight", fieldInput(b + ".headingHighlight", s.headingHighlight || fallback.headingHighlight)) +
           "</div>";
-        html += F("Description", fieldInput(b + ".description", s.description, 1));
+        html += F("Description", fieldInput(b + ".description", s.description || fallback.description, 1));
+        if (b === "skills") {
+          html += F("Tag cloud label", fieldInput(b + ".tagCloudLabel", s.tagCloudLabel || "Interactive Tech Tags (Click to Highlight)"));
+          html += F("Other tools label", fieldInput(b + ".toolsLabel", s.toolsLabel || "Platforms & Technologies I Build On"));
+        }
+        if (b === "services") {
+          html += F("Request button", fieldInput(b + ".ctaLabel", s.ctaLabel || "Request This Service"));
+          html += F("Deliverables label", fieldInput(b + ".deliverablesLabel", s.deliverablesLabel || "Deliverables:"));
+        }
+        if (b === "work") {
+          html += F("Hire CTA", fieldInput(b + ".hireCta", s.hireCta || "Hire for Your Team"));
+        }
+        if (b === "experience") {
+          html += F("CTA title", fieldInput(b + ".ctaTitle", s.ctaTitle || "Let's Work Together"));
+          html += F("CTA heading", fieldInput(b + ".ctaHeading", s.ctaHeading || "Have a project in mind?"));
+          html += F("CTA description", fieldInput(b + ".ctaDescription", s.ctaDescription || "I'm always open to new opportunities, collaborations or just a friendly chat.", 1));
+          html += F("CTA button", fieldInput(b + ".ctaButton", s.ctaButton || "Get In Touch"));
+        }
         if (b === "contact") {
           html += F("Sidebar title", fieldInput(b + ".sidebarTitle", s.sidebarTitle));
           html += F("Availability text", fieldInput(b + ".availabilityText", s.availabilityText, 1));
@@ -86,7 +112,7 @@
       })
       .join("");
     return (
-      '<div class="item-toolbar"><div class="item-count"><strong>' +
+      '<p class="status" style="margin-bottom:12px">CMS-only content: these feature records are not rendered by the public portfolio or used as SEO metadata.</p><div class="item-toolbar"><div class="item-count"><strong>' +
       D.features.length +
       '</strong> features</div><button type="button" class="btn primary" id="addSeoFeat">+ Add Feature</button></div><div class="item-list">' +
       list +

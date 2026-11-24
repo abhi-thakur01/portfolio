@@ -59,6 +59,7 @@ export function Services() {
 
                   {service.deliverables?.length > 0 && (
                     <ul className="space-y-2 mb-5">
+                      {meta.deliverablesLabel && <li className="text-xs font-semibold text-gray-300">{meta.deliverablesLabel}</li>}
                       {service.deliverables.slice(0, 4).map((d) => (
                         <li key={d} className="flex items-start gap-2 text-xs text-gray-400">
                           <Check className="w-3.5 h-3.5 text-blue-400 shrink-0 mt-0.5" />

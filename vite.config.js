@@ -70,6 +70,7 @@ export default defineConfig({
         const site = JSON.parse(readFileSync(path.resolve(__dirname, "content/site.json"), "utf8"));
         const personal = JSON.parse(readFileSync(path.resolve(__dirname, "content/personal.json"), "utf8"));
         const projects = JSON.parse(readFileSync(path.resolve(__dirname, "content/projects.json"), "utf8"));
+        const socials = JSON.parse(readFileSync(path.resolve(__dirname, "content/socials.json"), "utf8"));
         const escapeHtml = (value) => String(value || "").replace(/&/g, "&amp;").replace(/"/g, "&quot;");
         const absoluteUrl = (value, fallbackOrigin) => {
           if (!value) return "";
@@ -124,7 +125,10 @@ export default defineConfig({
           url: canonical,
           jobTitle: personal.role || "",
           email: personal.email || "",
-          sameAs: [personal.github, personal.linkedin].filter((value) => typeof value === "string" && /^https?:/.test(value)),
+          sameAs: (Array.isArray(socials.items) ? socials.items : [])
+            .filter((item) => item.active !== false && typeof item.url === "string" && /^https?:/i.test(item.url))
+            .sort((a, b) => (a.order || 0) - (b.order || 0))
+            .map((item) => item.url),
         };
         const website = {
           "@type": "WebSite",

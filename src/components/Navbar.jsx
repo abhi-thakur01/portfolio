@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Menu, X, Download, Sun, Moon } from "lucide-react";
-import { navLinks, personal } from "../data/content";
+import { navLinks, personal, site } from "../data/content";
 import { useTheme } from "../context/ThemeContext";
 
 export function Navbar() {
@@ -99,7 +99,7 @@ export function Navbar() {
             href={personal.resumeUrl || "#"}
             className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full border border-blue-500/50 text-blue-400 text-sm font-medium hover:bg-blue-500/10 transition-colors"
           >
-            Resume
+            {site.header?.ctaText || "Resume"}
             <Download className="w-3.5 h-3.5" />
           </a>
 
@@ -138,7 +138,7 @@ export function Navbar() {
             href={personal.resumeUrl || "#"}
             className="inline-flex items-center gap-2 mt-2 px-4 py-2 rounded-full border border-blue-500/50 text-blue-400 text-sm"
           >
-            Download Resume <Download className="w-3.5 h-3.5" />
+            {site.header?.ctaText || "Download Resume"} <Download className="w-3.5 h-3.5" />
           </a>
         </nav>
       )}

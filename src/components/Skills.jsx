@@ -1,9 +1,11 @@
 import { useMemo, useState, useEffect } from "react";
-import { skillIcons, skillCategories } from "../data/content";
+import { skillIcons, skillCategories, otherTools, sections } from "../data/content";
 import { TextReveal, Stagger, ClipReveal, MouseGlow } from "./motion";
 
 export function Skills() {
   const skills = Array.isArray(skillIcons) ? skillIcons : [];
+  const tools = Array.isArray(otherTools) ? otherTools : [];
+  const meta = sections?.skills || {};
 
   const tabs = useMemo(() => {
     const fromConfig = (Array.isArray(skillCategories) ? skillCategories : [])
@@ -58,18 +60,22 @@ export function Skills() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         <div className="text-center mb-8 sm:mb-10">
           <p className="text-blue-400 text-xs font-semibold tracking-wider uppercase mb-2">
-            My Skills
+            {meta.label || "My Skills"}
           </p>
           <TextReveal as="h2" className="text-2xl sm:text-4xl font-bold text-white mb-3" stagger={50}>
-            Technologies & Tools
+            {meta.heading || "Technologies &"}{" "}
+            <span className="text-blue-400">{meta.headingHighlight || "Tools"}</span>
           </TextReveal>
           <ClipReveal delay={150}>
             <p className="text-gray-400 max-w-xl mx-auto text-sm sm:text-[15px] leading-relaxed">
-              Frontend code, CMS platforms, and version control tools I use daily.
+              {meta.description || "Frontend code, CMS platforms, and version control tools I use daily."}
             </p>
           </ClipReveal>
         </div>
 
+        {meta.tagCloudLabel && (
+          <p className="text-center text-[11px] text-gray-500 mb-3">{meta.tagCloudLabel}</p>
+        )}
         {tabs.length > 0 && (
           <div className="flex justify-center mb-8 sm:mb-10">
             <div className="inline-flex flex-wrap justify-center gap-1 p-1 rounded-xl bg-white/[0.04] border border-white/[0.08]">
@@ -164,6 +170,18 @@ export function Skills() {
 
         {visible.length === 0 && (
           <p className="text-center text-sm text-gray-500 py-8">No skills in this tab yet.</p>
+        )}
+        {tools.length > 0 && (
+          <div className="mt-8 text-center">
+            <p className="text-xs text-gray-500 mb-3">{meta.toolsLabel || "Other tools"}</p>
+            <div className="flex flex-wrap justify-center gap-2">
+              {tools.map((tool) => (
+                <span key={tool} className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-gray-400">
+                  {tool}
+                </span>
+              ))}
+            </div>
+          </div>
         )}
       </div>
     </section>

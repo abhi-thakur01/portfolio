@@ -12,6 +12,43 @@
     "melanie-hoggan": true,
     "project-1793702974768": true
   };
+  var PERSISTED_PROJECT_IDS = Object.create(null);
+
+  function rememberProjectIds(items) {
+    PERSISTED_PROJECT_IDS = Object.create(null);
+    (items || []).forEach(function (item) {
+      if (item && item.id) PERSISTED_PROJECT_IDS[item.id] = true;
+    });
+  }
+
+  var _loadProjects = load;
+  load = async function (path) {
+    await _loadProjects(path);
+    if (path === "content/projects.json" && D) {
+      rememberProjectIds(D.items);
+      draw();
+    }
+  };
+
+  window.addEventListener("cms-content-published", function (event) {
+    if (event.detail.path !== "content/projects.json") return;
+    rememberProjectIds(event.detail.content.items);
+    draw();
+  });
+
+  document.addEventListener("click", function (event) {
+    var button = event.target.closest("[data-rm]");
+    if (!button || !/^categories\.\d+$/.test(button.getAttribute("data-rm") || "")) return;
+    var match = button.getAttribute("data-rm").match(/^categories\.(\d+)$/);
+    var category = D && D.categories && D.categories[Number(match[1])];
+    if (!category) return;
+    var entries = A.indexOf("projects") >= 0 ? D.items : A.indexOf("skills") >= 0 ? D.skillIcons : [];
+    if ((entries || []).some(function (item) { return item.category === category.id; })) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      alert("Move the items out of this category before deleting it.");
+    }
+  }, true);
 
   var _uiPrj = uiPrj;
   uiPrj = function () {
@@ -104,7 +141,7 @@
           esc(p.category || "") +
           '</span></div></div><div class="item-actions" onclick="event.stopPropagation()"><button type="button" class="btn danger sm" data-rm="items.' +
           i +
-          (ORIGINAL_PROJECT_IDS[p.id] ? '" disabled title="Existing project IDs are protected">Protected</button></div>' : '">Del</button></div>') +
+          ((ORIGINAL_PROJECT_IDS[p.id] || PERSISTED_PROJECT_IDS[p.id]) ? '" disabled title="Published project IDs are protected">Protected</button></div>' : '">Del</button></div>') +
           '<svg class="chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div><div class="item-body">' +
           '<div class="grid2">' +
           F("Title", '<input class="control" data-x="items.' + i + '.title" value="' + esc(p.title || "") + '">') +
@@ -114,7 +151,7 @@
           F("Link", '<input class="control" data-x="items.' + i + '.link" value="' + esc(p.link || "") + '">') +
           "</div>" +
           '<div class="grid2">' +
-          F("Project ID", ORIGINAL_PROJECT_IDS[p.id]
+          F("Project ID", ORIGINAL_PROJECT_IDS[p.id] || PERSISTED_PROJECT_IDS[p.id]
             ? '<input class="control" value="' + esc(p.id || "") + '" readonly>'
             : '<input class="control" data-x="items.' + i + '.id" value="' + esc(p.id || "") + '">') +
           F("Display URL", '<input class="control" data-x="items.' + i + '.url" value="' + esc(p.url || "") + '" placeholder="example.com">') +

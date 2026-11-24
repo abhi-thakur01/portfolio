@@ -52,7 +52,7 @@ test("public hero identity follows Personal and configured CTA links reach the c
   assert.equal(publicHero.mainHeading, "Updated Display Name");
   assert.equal(publicHero.bio, "Updated bio");
   assert.equal(publicHero.button1Url, "#work");
-  assert.equal(publicHero.button2Url, "#resume");
+  assert.equal(publicHero.button2Url, "/resume.pdf");
   assert.match(component, /href=\{hero\.button1Url \|\| "#projects"\}/);
 });
 
