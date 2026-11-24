@@ -1,5 +1,5 @@
 import { Download, Github, Linkedin, Mail, Twitter, ArrowRight } from "lucide-react";
-import { personal } from "../data/content";
+import { personal, hero } from "../data/content";
 import { Magnetic, ClipReveal, MouseGlow, CountUp, Stagger } from "./motion";
 
 export function Hero() {
@@ -11,8 +11,9 @@ export function Hero() {
     .slice(0, 2)
     .toUpperCase();
 
-  const first = personal.name?.split(" ")[0] || "Abhishek";
-  const rest = personal.name?.split(" ").slice(1).join(" ") || "Thakur";
+  const name = hero.mainHeading || personal.name || "Abhishek Thakur";
+  const first = name?.split(" ")[0] || "Abhishek";
+  const rest = name?.split(" ").slice(1).join(" ") || "Thakur";
 
   return (
     <section id="home" className="relative pt-20 sm:pt-24 pb-8 overflow-hidden">
@@ -25,7 +26,7 @@ export function Hero() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center min-h-0 lg:min-h-[68vh]">
           <div className="order-2 lg:order-1">
             <p className="text-blue-500 dark:text-blue-400 text-xs font-semibold tracking-[0.22em] uppercase mb-3 sm:mb-4">
-              {personal.greeting || "Hi, I'm"}
+              {hero.greeting || personal.greeting || "Hi, I'm"}
             </p>
 
             <h1 className="text-3xl sm:text-5xl lg:text-[3.4rem] font-extrabold text-[var(--text-strong)] leading-[1.15] mb-3">
@@ -35,13 +36,13 @@ export function Hero() {
 
             <ClipReveal delay={80} direction="up">
               <p className="text-base sm:text-xl text-[var(--text-muted)] font-medium mb-4 sm:mb-5">
-                {personal.role}
+                {hero.highlightedText || personal.role}
               </p>
             </ClipReveal>
 
             <ClipReveal delay={140} direction="up">
               <p className="text-[var(--text-muted)] leading-relaxed max-w-md mb-6 sm:mb-8 text-sm sm:text-[15px]">
-                {personal.bio}
+                {hero.bio || personal.bio}
               </p>
             </ClipReveal>
 
@@ -51,16 +52,16 @@ export function Hero() {
                   href="#projects"
                   className="btn-shine inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm shadow-lg shadow-blue-600/25 hover:shadow-blue-500/40 transition-shadow"
                 >
-                  {personal.ctaPrimary || "View My Projects"}
+                  {hero.button1Text || personal.ctaPrimary || "View My Projects"}
                   <ArrowRight className="w-4 h-4" />
                 </a>
               </Magnetic>
               <Magnetic strength={0.25}>
                 <a
-                  href={personal.resumeUrl || "#"}
+                  href={hero.button2Url || personal.resumeUrl || "#"}
                   className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg border border-[var(--border-strong)] text-[var(--text-strong)] hover:border-blue-500/50 hover:text-blue-600 font-medium text-sm hover:bg-blue-500/5 transition-colors"
                 >
-                  {personal.ctaSecondary || "Download Resume"}
+                  {hero.button2Text || personal.ctaSecondary || "Download Resume"}
                   <Download className="w-4 h-4" />
                 </a>
               </Magnetic>

@@ -1,4 +1,5 @@
 import personalJson from "../../content/personal.json";
+import heroJson from "../../content/hero.json";
 import aboutJson from "../../content/about.json";
 import projectsJson from "../../content/projects.json";
 import skillsJson from "../../content/skills.json";
@@ -51,6 +52,24 @@ export function isSectionVisible(key) {
   return site.sectionVisibility?.[key] !== false;
 }
 
+export function resolvePersonalName(source = {}) {
+  const displayName =
+    source.displayName ||
+    source.name ||
+    source.fullName ||
+    "Abhishek Thakur";
+  const fullName =
+    source.fullName ||
+    source.displayName ||
+    source.name ||
+    displayName;
+  return {
+    fullName,
+    displayName,
+    name: displayName,
+  };
+}
+
 export const personal = {
   name: "Abhishek Thakur",
   role: "Web Designer",
@@ -71,12 +90,24 @@ export const personal = {
   ctaSecondary: "Download Resume",
   stats: [],
   ...personalJson,
-  name: personalJson.displayName || personalJson.fullName || personalJson.name || "Abhishek Thakur",
+  ...resolvePersonalName(personalJson),
   photoSideText:
     Array.isArray(personalJson.photoSideText) && personalJson.photoSideText.length
       ? personalJson.photoSideText
       : ["Build", "Create", "Improve"],
   stats: Array.isArray(personalJson.stats) ? personalJson.stats : [],
+};
+
+export const hero = {
+  statusPill: heroJson.statusPill || heroJson.badgeText || "",
+  greeting: heroJson.greeting || personal.greeting || "Hi, I'm",
+  mainHeading: heroJson.mainHeading || personal.name,
+  highlightedText: heroJson.highlightedText || heroJson.bioHighlight || personal.role,
+  bio: personal.bio,
+  button1Text: heroJson.button1Text || heroJson.ctaPrimary || personal.ctaPrimary,
+  button1Url: heroJson.button1Url || "#projects",
+  button2Text: heroJson.button2Text || heroJson.ctaSecondary || personal.ctaSecondary,
+  button2Url: heroJson.button2Url || personal.resumeUrl || "#",
 };
 
 export const about = {

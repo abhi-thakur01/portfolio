@@ -57,7 +57,11 @@ export function Navbar() {
         <a href="#home" className="flex items-center gap-1.5 font-bold text-lg text-[var(--text-strong)] tracking-tight">
           <span className="text-blue-400 font-mono text-base">&lt;/&gt;</span>
           <span>
-            Abhishek<span className="text-blue-400">Thakur</span>
+            {(() => {
+              const nameParts = String(personal.name || "Abhishek Thakur").trim().split(/\s+/);
+              if (nameParts.length < 2) return personal.name;
+              return <>{nameParts[0]}<span className="text-blue-400">{nameParts.slice(1).join(" ")}</span></>;
+            })()}
           </span>
         </a>
 
