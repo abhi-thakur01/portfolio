@@ -94,22 +94,50 @@ npm run preview  # preview dist
 2. Framework: Vite
 3. Build command: `npm run build`
 4. Output: `dist`
-5. Env vars (optional):
-   - `RESEND_API_KEY` — from https://resend.com (free 100/day)
-   - `CONTACT_TO_EMAIL` — your email (default: thakurabhi8925@gmail.com)
-   - `CONTACT_FROM_EMAIL` — from address (optional)
+5. Required **server-only** contact environment variables (see [.env.example](./.env.example)):
 
-If `RESEND_API_KEY` not set, form still works and logs to Vercel logs.
+   | Variable | Purpose |
+   | --- | --- |
+   | `RESEND_API_KEY` | Resend API key with permission to send email. |
+   | `CONTACT_TO_EMAIL` | Inbox that receives portfolio enquiries. |
+   | `CONTACT_FROM_EMAIL` | Sender address on a domain verified with Resend; optionally `Portfolio <address@domain>`. |
+   | `CONTACT_ALLOWED_ORIGIN` | Exact permitted website origin, e.g. `https://abhi-thakur-web.vercel.app`, without a trailing slash or path. |
+   | `UPSTASH_REDIS_REST_URL` | HTTPS REST endpoint of an Upstash Redis database shared by the API instances. |
+   | `UPSTASH_REDIS_REST_TOKEN` | Read/write REST token for that database. |
+
+Set these in the appropriate Vercel environment. Never use a `VITE_` prefix for secrets, embed them in browser code, or commit real values. Missing settings return an unavailable response; messages are not silently logged or forwarded to another email service.
+
+Setup references: [Resend send-email API](https://resend.com/docs/api-reference/emails/send-email), [Upstash Redis REST API](https://upstash.com/docs/redis/features/restapi).
 
 ---
 
 ## 📧 Contact Form Flow
 
-Frontend (`Contact.jsx`) → `fetch('/api/contact')` → `api/contact.ts`
-- Honeypot field `website` blocks bots
-- Validates name, email, message length
-- If Resend key present: sends HTML email
-- Else: logs to console (visible in Vercel > Logs)
+Frontend ([Contact.jsx](./src/components/Contact.jsx)) → `POST /api/contact` → [contact.ts](./api/contact.ts) → Resend.
+
+- Browser and API validate trimmed names (2–100 characters), email addresses (up to 254 characters), and required messages (10–5,000 characters).
+- The API accepts JSON only, limits request size to 32 KiB, and rejects malformed/non-string fields.
+- The hidden `website` honeypot returns a generic success without sending email.
+- Only `CONTACT_ALLOWED_ORIGIN` is accepted. Other or missing browser origins are rejected; CORS is not an authentication mechanism for non-browser clients.
+- A Redis Lua operation atomically enforces **5 valid submission attempts per IP per 10-minute fixed window** across instances. Attempts are counted before delivery, including provider failures. Preflight, invalid input and honeypot requests do not consume email quota.
+- Limited requests return `429` with `Retry-After`. Missing configuration or unavailable rate limiting returns `503`; sending is never allowed without the limiter.
+- The limiter uses a keyed hash instead of storing raw IPs. In Vercel it trusts the platform-managed `x-forwarded-for` header; locally it uses the socket IP. See [Vercel request headers](https://vercel.com/docs/headers/request-headers).
+- Resend must confirm acceptance with an email ID before success is returned. Provider failures return a generic error without exposing credentials or provider response bodies. There is no FormSubmit fallback.
+- The existing form shows loading, success, and error states, prevents duplicate in-flight submissions, and retains entered text after errors.
+
+### Local verification
+
+`npm run dev` and `npm run preview` serve the Vite frontend only; they do not execute Vercel's API functions. To try the full form locally, run the project with Vercel CLI's `vercel dev`, provide the server environment variables, and set `CONTACT_ALLOWED_ORIGIN` to the exact local origin shown by that server (commonly `http://localhost:3000`). Use an isolated Redis database/environment for local testing.
+
+Run the focused contact tests, TypeScript check, and production build:
+
+```bash
+node --test tests/contact*.test.mjs
+node node_modules/typescript/bin/tsc --noEmit
+npm run build
+```
+
+The tests mock Resend and Redis; they do not send email or require real secrets. Real delivery still requires the configured Resend sender/domain and Redis database.
 
 ---
 

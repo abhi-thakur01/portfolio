@@ -1,76 +1,73 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Mail, Phone, MapPin, Send, Loader2, CheckCircle2 } from "lucide-react";
 import { personal } from "../data/content";
 import { TextReveal, ClipReveal, TiltCard, Magnetic, MouseGlow } from "./motion";
 
-const TO_EMAIL = personal.email || "thakurabhi8925@gmail.com";
-
 export function Contact() {
+  const submitting = useRef(false);
   const [form, setForm] = useState({ name: "", email: "", message: "", website: "" });
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState("");
-  const [info, setInfo] = useState("");
 
   const onChange = (e) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     setError("");
-    setInfo("");
   };
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    if (!form.name.trim()) {
-      setError("Name is required.");
+    if (submitting.current) return;
+
+    const name = form.name.trim();
+    const email = form.email.trim();
+    const message = form.message.trim();
+
+    if (name.length < 2 || name.length > 100 || /[\r\n\u0000]/.test(name)) {
+      setError("Name must be between 2 and 100 characters.");
       return;
     }
-    if (!form.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) {
+    if (email.length > 254 || !/^[^\s@<>"]+@[^\s@<>"]+\.[^\s@<>"]+$/.test(email)) {
       setError("Valid email is required.");
       return;
     }
+    if (message.length < 10 || message.length > 5000) {
+      setError("Message must be between 10 and 5,000 characters.");
+      return;
+    }
+
+    submitting.current = true;
     setLoading(true);
     setError("");
-    setInfo("");
+    const controller = new AbortController();
+    const timeout = window.setTimeout(() => controller.abort(), 20000);
     try {
-      if (form.website && form.website.trim() !== "") {
-        setSent(true);
-        return;
-      }
-
-      const res = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(TO_EMAIL)}`, {
+      const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
-          name: form.name.trim(),
-          email: form.email.trim(),
-          message: form.message.trim() || "(No message)",
-          _subject: `Portfolio message from ${form.name.trim()}`,
-          _template: "table",
-          _captcha: "false",
-          _replyto: form.email.trim(),
-        }),
+        body: JSON.stringify({ name, email, message, website: form.website }),
+        signal: controller.signal,
       });
 
-      const data = await res.json().catch(() => ({}));
-      const ok = data.success === true || data.success === "true";
-      const msg = String(data.message || "");
-      const needsActivate = /activat|confirm/i.test(msg);
-
-      if (ok) {
-        setSent(true);
-        setForm({ name: "", email: "", message: "", website: "" });
-        return;
+      const data = await res.json().catch(() => null);
+      if (!res.ok || data?.success !== true) {
+        throw new Error(
+          (typeof data?.error === "string" && data.error) ||
+            (res.status === 429 ? "Too many messages. Please try again later." : "Could not send your message. Please try again.")
+        );
       }
 
-      if (needsActivate) {
-        setInfo("First-time setup: check Gmail (Inbox/Spam) for FormSubmit and click Confirm. Then send again.");
-        return;
-      }
-
-      throw new Error(msg || "Failed to send");
+      setSent(true);
+      setForm({ name: "", email: "", message: "", website: "" });
     } catch (err) {
-      setError(err.message || `Could not send. Email me at ${TO_EMAIL}`);
+      setError(
+        err.name === "AbortError"
+          ? "The request timed out. Please try again or email me directly."
+          : err.message || `Could not send. Email me at ${personal.email}`
+      );
     } finally {
+      window.clearTimeout(timeout);
+      submitting.current = false;
       setLoading(false);
     }
   };
@@ -123,7 +120,7 @@ export function Contact() {
             <TiltCard max={5}>
               <div className="card-premium p-5 sm:p-8 rounded-2xl bg-[#111827] border border-white/8">
                 {sent ? (
-                  <div className="text-center py-10">
+                  <div className="text-center py-10" role="status" aria-live="polite">
                     <CheckCircle2 className="w-12 h-12 text-blue-400 mx-auto mb-4 animate-pulse-glow" />
                     <h3 className="text-xl font-semibold text-white mb-2">Message sent!</h3>
                     <p className="text-gray-400 text-sm mb-6">I'll get back to you soon.</p>
@@ -132,16 +129,20 @@ export function Contact() {
                     </button>
                   </div>
                 ) : (
-                  <form onSubmit={onSubmit} className="space-y-4" noValidate>
+                  <form onSubmit={onSubmit} className="space-y-4" noValidate aria-busy={loading} aria-describedby={error ? "contact-error" : undefined}>
                     <div className="hidden" aria-hidden="true">
                       <input name="website" value={form.website} onChange={onChange} tabIndex={-1} autoComplete="off" />
                     </div>
                     <div>
-                      <label className="block text-xs text-gray-400 mb-1.5">
+                      <label htmlFor="contact-name" className="block text-xs text-gray-400 mb-1.5">
                         Name <span className="text-blue-400">*</span>
                       </label>
                       <input
+                        id="contact-name"
                         name="name"
+                        autoComplete="name"
+                        minLength={2}
+                        maxLength={100}
                         value={form.name}
                         onChange={onChange}
                         placeholder="Your name"
@@ -150,12 +151,15 @@ export function Contact() {
                       />
                     </div>
                     <div>
-                      <label className="block text-xs text-gray-400 mb-1.5">
+                      <label htmlFor="contact-email" className="block text-xs text-gray-400 mb-1.5">
                         Email <span className="text-blue-400">*</span>
                       </label>
                       <input
+                        id="contact-email"
                         name="email"
                         type="email"
+                        autoComplete="email"
+                        maxLength={254}
                         value={form.email}
                         onChange={onChange}
                         placeholder="Work email"
@@ -164,20 +168,23 @@ export function Contact() {
                       />
                     </div>
                     <div>
-                      <label className="block text-xs text-gray-400 mb-1.5">
-                        Message <span className="text-gray-600">(optional)</span>
+                      <label htmlFor="contact-message" className="block text-xs text-gray-400 mb-1.5">
+                        Message <span className="text-gray-600">(10+ characters)</span>
                       </label>
                       <textarea
+                        id="contact-message"
                         name="message"
                         rows={5}
+                        required
+                        minLength={10}
+                        maxLength={5000}
                         value={form.message}
                         onChange={onChange}
                         placeholder="Role, company, or a short note"
                         className="w-full px-4 py-3 rounded-lg bg-[#0a0e1a] border border-white/10 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/30 transition-all duration-300 resize-none"
                       />
                     </div>
-                    {error && <p className="text-xs text-red-400">{error}</p>}
-                    {info && <p className="text-xs text-blue-300">{info}</p>}
+                    {error && <p id="contact-error" role="alert" className="text-xs text-red-400">{error}</p>}
                     <Magnetic strength={0.15} className="w-full">
                       <button
                         type="submit"
