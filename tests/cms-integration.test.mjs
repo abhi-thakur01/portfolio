@@ -10,7 +10,7 @@ function read(relativePath) {
 }
 
 test("active admin loads all integrated collection editors", () => {
-  const html = read("public/admin.html");
+  const html = read("public/admin/index.html");
   for (const script of [
     "admin-app.js",
     "admin-process-extend.js",

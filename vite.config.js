@@ -22,6 +22,33 @@ export default defineConfig({
     react(),
     tailwindcss(),
     {
+      name: "canonical-admin-routes",
+      configureServer(server) {
+        server.middlewares.use((req, res, next) => {
+          const pathname = (req.url || "").split("?")[0];
+          if (pathname === "/admin" || pathname === "/admin.html") {
+            res.statusCode = 308;
+            res.setHeader("Location", "/admin/");
+            res.end();
+            return;
+          }
+          next();
+        });
+      },
+      configurePreviewServer(server) {
+        server.middlewares.use((req, res, next) => {
+          const pathname = (req.url || "").split("?")[0];
+          if (pathname === "/admin" || pathname === "/admin.html") {
+            res.statusCode = 308;
+            res.setHeader("Location", "/admin/");
+            res.end();
+            return;
+          }
+          next();
+        });
+      },
+    },
+    {
       name: "portfolio-cms-seo",
       transformIndexHtml(html) {
         const site = JSON.parse(readFileSync(path.resolve(__dirname, "content/site.json"), "utf8"));

@@ -14,7 +14,7 @@ export default async function handler(req: any, res: any) {
 
   if (req.method === "GET") {
     res.statusCode = 302;
-    res.setHeader("Location", "/admin.html");
+    res.setHeader("Location", "/admin/");
     res.end();
     return;
   }

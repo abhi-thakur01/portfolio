@@ -9,7 +9,7 @@ function read(path) {
 }
 
 test("active CMS registers Education, Certifications, Roles and Addresses", () => {
-  const html = read("public/admin.html");
+  const html = read("public/admin/index.html");
   assert.match(html, /admin-remaining-editors\.js/);
 
   const app = read("public/admin-app.js");

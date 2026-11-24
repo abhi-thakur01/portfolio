@@ -59,7 +59,7 @@ export default async function handler(req: any, res: any) {
       `cms_session=${session}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=28800`,
     ]);
     res.setHeader("Content-Type", "text/html; charset=utf-8");
-    res.status(200).end(`<!doctype html><html><body><script>window.location.replace('/admin/');</script><p>Login successful. Redirecting…</p></body></html>`);
+    res.status(200).end(`<!doctype html><html><head><meta http-equiv="refresh" content="0;url=/admin/"></head><body><script>window.location.replace('/admin/');</script><p>Login successful. Redirecting…</p></body></html>`);
   } catch (error: any) {
     res.status(500).send(error?.message || "CMS authorization failed.");
   }

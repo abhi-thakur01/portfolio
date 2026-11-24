@@ -10,7 +10,7 @@ function publicFile(name) {
 }
 
 test("active admin scripts load and pass JavaScript syntax checks", () => {
-  const adminHtml = readFileSync(publicFile("admin.html"), "utf8");
+  const adminHtml = readFileSync(new URL("../public/admin/index.html", import.meta.url), "utf8");
   const scripts = [...adminHtml.matchAll(/<script\s+src="([^"]+)"/g)]
     .map((match) => match[1].split("?")[0]);
 
@@ -27,7 +27,7 @@ test("active admin scripts load and pass JavaScript syntax checks", () => {
 });
 
 test("Section Headings and SEO Features registrations remain in the active extension", () => {
-  const adminHtml = readFileSync(publicFile("admin.html"), "utf8");
+  const adminHtml = readFileSync(new URL("../public/admin/index.html", import.meta.url), "utf8");
   assert.match(adminHtml, /src="\/admin-sections-extend\.js"/);
 
   const sections = readFileSync(publicFile("admin-sections-extend.js"), "utf8");
