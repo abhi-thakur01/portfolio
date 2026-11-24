@@ -12,13 +12,18 @@ export function CustomCursor() {
     setOn(true);
 
     let x = 0, y = 0, rx = 0, ry = 0;
-    let raf;
+    let raf = 0;
+    let running = false;
 
     const move = (e) => {
       x = e.clientX;
       y = e.clientY;
       if (dot.current) {
         dot.current.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+      }
+      if (!running) {
+        running = true;
+        raf = requestAnimationFrame(tick);
       }
     };
 
@@ -28,7 +33,11 @@ export function CustomCursor() {
       if (ring.current) {
         ring.current.style.transform = `translate3d(${rx}px, ${ry}px, 0)`;
       }
-      raf = requestAnimationFrame(tick);
+      if (Math.abs(x - rx) > 0.2 || Math.abs(y - ry) > 0.2) {
+        raf = requestAnimationFrame(tick);
+      } else {
+        running = false;
+      }
     };
 
     const over = (e) => {

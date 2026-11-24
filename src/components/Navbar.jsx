@@ -11,19 +11,26 @@ export function Navbar() {
   const menuButtonRef = useRef(null);
 
   useEffect(() => {
+    let frame = 0;
     const onScroll = () => {
-      setScrolled(window.scrollY > 20);
-      const sections = navLinks.map((l) => l.href.replace("#", ""));
-      for (const id of [...sections].reverse()) {
-        const el = document.getElementById(id);
-        if (el && window.scrollY >= el.offsetTop - 120) {
-          setActive(`#${id}`);
-          break;
+      if (frame) cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        setScrolled(window.scrollY > 20);
+        const sections = navLinks.map((l) => l.href.replace("#", ""));
+        for (const id of [...sections].reverse()) {
+          const el = document.getElementById(id);
+          if (el && window.scrollY >= el.offsetTop - 120) {
+            setActive(`#${id}`);
+            break;
+          }
         }
-      }
+      });
     };
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (frame) cancelAnimationFrame(frame);
+    };
   }, []);
 
   useEffect(() => {

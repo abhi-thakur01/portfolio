@@ -137,6 +137,9 @@ export function Skills() {
                     alt={skill.name}
                     className="w-6 h-6 sm:w-7 sm:h-7 object-contain"
                     loading="lazy"
+                    decoding="async"
+                    width={28}
+                    height={28}
                     onError={(e) => {
                       e.currentTarget.style.display = "none";
                       const parent = e.currentTarget.parentElement;

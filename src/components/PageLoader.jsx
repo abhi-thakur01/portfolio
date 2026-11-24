@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export function PageLoader() {
   const [show, setShow] = useState(true);
@@ -34,23 +34,32 @@ export function PageLoader() {
 }
 
 export function ScrollProgress() {
-  const [p, setP] = useState(0);
+  const barRef = useRef(null);
 
   useEffect(() => {
+    let frame = 0;
     const onScroll = () => {
-      const h = document.documentElement.scrollHeight - window.innerHeight;
-      setP(h > 0 ? (window.scrollY / h) * 100 : 0);
+      if (frame) cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const h = document.documentElement.scrollHeight - window.innerHeight;
+        const p = h > 0 ? (window.scrollY / h) * 100 : 0;
+        if (barRef.current) barRef.current.style.width = `${p}%`;
+      });
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (frame) cancelAnimationFrame(frame);
+    };
   }, []);
 
   return (
     <div className="fixed top-0 left-0 right-0 z-[60] h-[2px] bg-transparent pointer-events-none">
       <div
+        ref={barRef}
         className="h-full bg-gradient-to-r from-blue-600 via-blue-400 to-indigo-400 transition-[width] duration-150 ease-out"
-        style={{ width: `${p}%` }}
+        style={{ width: "0%" }}
       />
     </div>
   );

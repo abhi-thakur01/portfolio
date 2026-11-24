@@ -162,6 +162,9 @@ export function Projects() {
                         alt={`Project preview for ${project.title}`}
                         className="w-full h-full object-cover"
                         loading="lazy"
+                        decoding="async"
+                        width={800}
+                        height={450}
                       />
                     ) : (
                       <div className="flex flex-col items-center gap-2 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-2">

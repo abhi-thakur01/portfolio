@@ -78,7 +78,15 @@ function Detail({ item, onClose }) {
           </p>
 
           {item.coverImage ? (
-            <img src={item.coverImage} alt={`${item.title} case study cover`} className="w-full rounded-xl mb-6 border border-white/10" />
+            <img
+              src={item.coverImage}
+              alt={`${item.title} case study cover`}
+              className="w-full rounded-xl mb-6 border border-white/10"
+              loading="lazy"
+              decoding="async"
+              width={800}
+              height={450}
+            />
           ) : (
             <div className="h-40 rounded-xl mb-6 bg-gradient-to-br from-blue-600/20 to-indigo-900/20 border border-white/10 flex items-center justify-center text-gray-500 text-sm">
               Cover image (add in CMS)

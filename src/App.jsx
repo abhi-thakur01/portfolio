@@ -6,16 +6,18 @@ import { Skills } from "./components/Skills";
 import { Experience } from "./components/Experience";
 import { Process } from "./components/Process";
 import { FAQ } from "./components/FAQ";
-import { Services } from "./components/Services";
-import { CaseStudies } from "./components/CaseStudies";
-import { Blog } from "./components/Blog";
-import { Testimonials } from "./components/Testimonials";
 import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
 import { PageLoader, ScrollProgress } from "./components/PageLoader";
 import { CustomCursor } from "./components/CustomCursor";
 import { isSectionVisible, site } from "./data/content";
 import { getVisibleSectionOrder } from "./utils/sectionOrder";
+import { lazy, Suspense } from "react";
+
+const Services = lazy(() => import("./components/Services").then((module) => ({ default: module.Services })));
+const CaseStudies = lazy(() => import("./components/CaseStudies").then((module) => ({ default: module.CaseStudies })));
+const Blog = lazy(() => import("./components/Blog").then((module) => ({ default: module.Blog })));
+const Testimonials = lazy(() => import("./components/Testimonials").then((module) => ({ default: module.Testimonials })));
 
 const SECTION_COMPONENTS = {
   hero: Hero,
@@ -43,7 +45,11 @@ export default function App() {
       <main id="main-content" tabIndex={-1}>
         {getVisibleSectionOrder(site.sectionOrder, site.sectionVisibility).map((key) => {
           const Component = SECTION_COMPONENTS[key];
-          return <Component key={key} />;
+          return (
+            <Suspense key={key} fallback={null}>
+              <Component />
+            </Suspense>
+          );
         })}
       </main>
       {isSectionVisible("footer") && <Footer />}

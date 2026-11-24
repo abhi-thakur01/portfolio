@@ -325,12 +325,16 @@ export function MouseGlow({ className = "", color = "59, 130, 246" }) {
     if (window.matchMedia("(pointer: coarse)").matches) return;
     const parent = el.parentElement;
     if (!parent) return;
+    let frame = 0;
 
     const onMove = (e) => {
-      const r = parent.getBoundingClientRect();
-      el.style.left = `${e.clientX - r.left}px`;
-      el.style.top = `${e.clientY - r.top}px`;
-      el.style.opacity = "1";
+      if (frame) cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const r = parent.getBoundingClientRect();
+        el.style.left = `${e.clientX - r.left}px`;
+        el.style.top = `${e.clientY - r.top}px`;
+        el.style.opacity = "1";
+      });
     };
     const onLeave = () => {
       el.style.opacity = "0";
@@ -341,6 +345,7 @@ export function MouseGlow({ className = "", color = "59, 130, 246" }) {
     return () => {
       parent.removeEventListener("mousemove", onMove);
       parent.removeEventListener("mouseleave", onLeave);
+      if (frame) cancelAnimationFrame(frame);
     };
   }, []);
 

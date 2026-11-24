@@ -100,6 +100,8 @@ export function Hero() {
                       src={personal.photo}
                       alt={personal.photoAlt || `${personal.name} profile photo`}
                       className="w-full h-full object-cover object-top"
+                      width={300}
+                      height={400}
                     />
                   ) : (
                     <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-b from-[#152033] to-[#0a0e1a] relative">

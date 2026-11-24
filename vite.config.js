@@ -92,7 +92,7 @@ export default defineConfig({
           /^(https?):\/\//i.test(ogImageCandidate) &&
           !/localhost|127\.0\.0\.1/i.test(ogImageCandidate)
           ? ogImageCandidate
-          : "https://abhi-thakur-web.vercel.app/og-image.png";
+          : "https://abhi-thakur-web.vercel.app/og-image.webp";
         const author = personal.displayName || personal.fullName || personal.name || "";
 
         html = html.replace(/<title>[\s\S]*?<\/title>/i, `<title>${title}</title>`);
@@ -103,6 +103,9 @@ export default defineConfig({
         html = html.replace(/<meta property="og:description"[^>]*>/i, `<meta property="og:description" content="${escapeHtml(description)}" />`);
         html = html.replace(/<meta property="og:url"[^>]*>/i, canonical ? `<meta property="og:url" content="${canonical}" />` : "");
         if (ogImage) html = html.replace(/<meta property="og:image"[^>]*>/i, `<meta property="og:image" content="${ogImage}" />`);
+        html = html.replace(/<meta property="og:image:width"[^>]*>/gi, '<meta property="og:image:width" content="1424" />');
+        html = html.replace(/<meta property="og:image:height"[^>]*>/gi, '<meta property="og:image:height" content="752" />');
+        html = html.replace(/<meta property="og:image:alt"[^>]*>/gi, '<meta property="og:image:alt" content="Abhishek Thakur — Web Designer" />');
 
         const twitter = [
           '<meta name="twitter:card" content="summary_large_image" />',
