@@ -41,6 +41,11 @@ export function TextReveal({
 
     const fallback = window.setTimeout(show, 1200 + delay);
 
+    if (typeof IntersectionObserver === "undefined") {
+      show();
+      return () => window.clearTimeout(fallback);
+    }
+
     const io = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) return;
@@ -125,6 +130,11 @@ export function ClipReveal({ children, className = "", delay = 0, direction = "u
     };
 
     const fallback = window.setTimeout(reveal, 1400 + delay);
+
+    if (typeof IntersectionObserver === "undefined") {
+      reveal();
+      return () => window.clearTimeout(fallback);
+    }
 
     const io = new IntersectionObserver(
       ([entry]) => {
@@ -277,6 +287,11 @@ export function Stagger({
 
     const fallback = window.setTimeout(run, 1500 + delay);
 
+    if (typeof IntersectionObserver === "undefined") {
+      run();
+      return () => window.clearTimeout(fallback);
+    }
+
     const io = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) return;
@@ -369,6 +384,12 @@ export function DrawLine({ className = "", vertical = true, delay = 200 }) {
     };
 
     const fallback = window.setTimeout(run, 1600 + delay);
+
+    if (typeof IntersectionObserver === "undefined") {
+      run();
+      return () => window.clearTimeout(fallback);
+    }
+
     const io = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) return;
@@ -401,6 +422,15 @@ export function CountUp({ value, className = "", duration = 1600 }) {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    if (reduced()) {
+      setOn(true);
+      setDisplay(num);
+      return;
+    }
+    if (typeof IntersectionObserver === "undefined") {
+      setOn(true);
+      return;
+    }
     const io = new IntersectionObserver(
       ([e]) => {
         if (e.isIntersecting) {
@@ -420,6 +450,10 @@ export function CountUp({ value, className = "", duration = 1600 }) {
 
   useEffect(() => {
     if (!on) return;
+    if (reduced()) {
+      setDisplay(num);
+      return;
+    }
     const start = performance.now();
     let raf;
     const tick = (now) => {

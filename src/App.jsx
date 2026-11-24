@@ -35,11 +35,12 @@ const SECTION_COMPONENTS = {
 export default function App() {
   return (
     <div className="min-h-screen bg-[var(--bg)] text-[var(--text)]">
+      <a href="#main-content" className="skip-link">Skip to main content</a>
       <PageLoader />
       <ScrollProgress />
       <CustomCursor />
       <Navbar />
-      <main>
+      <main id="main-content" tabIndex={-1}>
         {getVisibleSectionOrder(site.sectionOrder, site.sectionVisibility).map((key) => {
           const Component = SECTION_COMPONENTS[key];
           return <Component key={key} />;

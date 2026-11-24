@@ -5,8 +5,9 @@ export function PageLoader() {
   const [out, setOut] = useState(false);
 
   useEffect(() => {
-    const t1 = window.setTimeout(() => setOut(true), 700);
-    const t2 = window.setTimeout(() => setShow(false), 1100);
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const t1 = window.setTimeout(() => setOut(true), reduce ? 0 : 700);
+    const t2 = window.setTimeout(() => setShow(false), reduce ? 50 : 1100);
     return () => {
       window.clearTimeout(t1);
       window.clearTimeout(t2);

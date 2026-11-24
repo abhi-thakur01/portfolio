@@ -38,10 +38,23 @@ export function Reveal({
     el.style.filter = start.filter;
     el.style.willChange = "opacity, transform, filter";
 
+    const revealFallback = window.setTimeout(() => {
+      el.style.opacity = "1";
+      el.style.transform = "translate3d(0, 0, 0) scale(1)";
+      el.style.filter = "none";
+      el.style.willChange = "auto";
+    }, 1600 + delay);
+
+    if (typeof IntersectionObserver === "undefined") {
+      revealFallback;
+      return () => window.clearTimeout(revealFallback);
+    }
+
     const io = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) return;
         if (once) io.disconnect();
+        window.clearTimeout(revealFallback);
 
         window.setTimeout(() => {
           el.style.transition = [
@@ -63,7 +76,10 @@ export function Reveal({
     );
 
     io.observe(el);
-    return () => io.disconnect();
+    return () => {
+      window.clearTimeout(revealFallback);
+      io.disconnect();
+    };
   }, [from, delay, duration, once]);
 
   const start = FROM[from] || FROM.up;

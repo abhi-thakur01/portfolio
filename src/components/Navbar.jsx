@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Menu, X, Download, Sun, Moon } from "lucide-react";
 import { navLinks, personal } from "../data/content";
 import { useTheme } from "../context/ThemeContext";
@@ -8,6 +8,7 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState("#home");
   const { theme, toggle } = useTheme();
+  const menuButtonRef = useRef(null);
 
   useEffect(() => {
     const onScroll = () => {
@@ -24,6 +25,18 @@ export function Navbar() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (event) => {
+      if (event.key === "Escape") {
+        setOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [open]);
 
   return (
     <header
@@ -51,6 +64,7 @@ export function Navbar() {
                   ? "text-blue-400 font-medium"
                   : "text-[var(--text-muted)] hover:text-[var(--text-strong)]"
               }`}
+              aria-current={active === link.href ? "page" : undefined}
             >
               {link.label}
               {active === link.href && (
@@ -79,9 +93,13 @@ export function Navbar() {
           </a>
 
           <button
+            ref={menuButtonRef}
             onClick={() => setOpen(!open)}
             className="lg:hidden p-2 text-[var(--text-muted)] hover:text-[var(--text-strong)]"
             aria-label="Toggle menu"
+            aria-expanded={open}
+            aria-controls="mobile-navigation"
+            type="button"
           >
             {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -89,13 +107,18 @@ export function Navbar() {
       </div>
 
       {open && (
-        <div className="lg:hidden bg-[var(--panel)] border-b border-[var(--border)] px-4 py-4 space-y-1">
+        <nav
+          id="mobile-navigation"
+          className="lg:hidden bg-[var(--panel)] border-b border-[var(--border)] px-4 py-4 space-y-1"
+          aria-label="Mobile navigation"
+        >
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
               onClick={() => setOpen(false)}
               className="block py-2.5 text-[var(--text-muted)] hover:text-blue-400 text-sm"
+              aria-current={active === link.href ? "page" : undefined}
             >
               {link.label}
             </a>
@@ -106,7 +129,7 @@ export function Navbar() {
           >
             Download Resume <Download className="w-3.5 h-3.5" />
           </a>
-        </div>
+        </nav>
       )}
     </header>
   );

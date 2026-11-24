@@ -1,16 +1,43 @@
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState, useEffect, useRef } from "react";
 import { ArrowRight, ArrowLeft, X, Clock } from "lucide-react";
 import { blog } from "../data/content";
 import { TextReveal, ClipReveal, Stagger, MouseGlow } from "./motion";
 
 function PostDetail({ post, onClose }) {
+  const dialogRef = useRef(null);
+  const previousFocusRef = useRef(document.activeElement);
+
   useEffect(() => {
-    const onKey = (e) => e.key === "Escape" && onClose();
+    const onKey = (event) => {
+      if (event.key === "Escape") {
+        onClose();
+        return;
+      }
+      if (event.key !== "Tab" || !dialogRef.current) return;
+      const focusable = [...dialogRef.current.querySelectorAll(
+        'a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      )].filter((element) => !element.hasAttribute("hidden"));
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
     window.addEventListener("keydown", onKey);
     document.body.style.overflow = "hidden";
+    const first = dialogRef.current?.querySelector(
+      'button:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])'
+    );
+    first?.focus();
     return () => {
       window.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
+      previousFocusRef.current?.focus?.();
     };
   }, [onClose]);
 
@@ -19,7 +46,13 @@ function PostDetail({ post, onClose }) {
   return (
     <div className="fixed inset-0 z-[80] flex items-end sm:items-center justify-center p-0 sm:p-6">
       <button type="button" className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={onClose} aria-label="Close" />
-      <div className="relative w-full max-w-2xl max-h-[92vh] overflow-y-auto rounded-t-2xl sm:rounded-2xl bg-[#111827] border border-white/10 shadow-2xl">
+      <div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="blog-post-title"
+        className="relative w-full max-w-2xl max-h-[92vh] overflow-y-auto rounded-t-2xl sm:rounded-2xl bg-[#111827] border border-white/10 shadow-2xl"
+      >
         <div className="sticky top-0 z-10 flex items-center justify-between px-5 py-4 border-b border-white/10 bg-[#111827]/95 backdrop-blur">
           <button type="button" onClick={onClose} className="inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-white">
             <ArrowLeft className="w-4 h-4" /> Back
@@ -30,7 +63,7 @@ function PostDetail({ post, onClose }) {
         </div>
         <article className="p-5 sm:p-8">
           <p className="text-blue-400 text-xs font-semibold tracking-wider uppercase mb-2">{post.category}</p>
-          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">{post.title}</h2>
+          <h2 id="blog-post-title" className="text-2xl sm:text-3xl font-bold text-white mb-3">{post.title}</h2>
           <div className="flex flex-wrap items-center gap-3 text-xs text-gray-500 mb-6">
             <span>{post.author}</span>
             <span>·</span>
@@ -111,6 +144,7 @@ export function Blog() {
                 <button
                   type="button"
                   onClick={() => setOpenId(post.id)}
+                  aria-haspopup="dialog"
                   className="inline-flex items-center gap-1.5 text-sm text-blue-400 hover:text-blue-300 font-medium mt-auto"
                 >
                   Read post <ArrowRight className="w-3.5 h-3.5" />

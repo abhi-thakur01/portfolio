@@ -1,16 +1,42 @@
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState, useEffect, useRef } from "react";
 import { ArrowRight, ArrowLeft, ExternalLink, X } from "lucide-react";
 import { caseStudies } from "../data/content";
 import { TextReveal, ClipReveal, TiltCard, Stagger, MouseGlow } from "./motion";
 
 function Detail({ item, onClose }) {
+  const dialogRef = useRef(null);
+  const previousFocusRef = useRef(document.activeElement);
+
   useEffect(() => {
-    const onKey = (e) => e.key === "Escape" && onClose();
+    const onKey = (event) => {
+      if (event.key === "Escape") {
+        onClose();
+        return;
+      }
+      if (event.key !== "Tab" || !dialogRef.current) return;
+      const focusable = [...dialogRef.current.querySelectorAll(
+        'a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      )].filter((element) => !element.hasAttribute("hidden"));
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
     window.addEventListener("keydown", onKey);
     document.body.style.overflow = "hidden";
+    dialogRef.current?.querySelector(
+      'button:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])'
+    )?.focus();
     return () => {
       window.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
+      previousFocusRef.current?.focus?.();
     };
   }, [onClose]);
 
@@ -22,7 +48,13 @@ function Detail({ item, onClose }) {
         onClick={onClose}
         aria-label="Close"
       />
-      <div className="relative w-full max-w-3xl max-h-[92vh] overflow-y-auto rounded-t-2xl sm:rounded-2xl bg-[#111827] border border-white/10 shadow-2xl">
+      <div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="case-study-title"
+        className="relative w-full max-w-3xl max-h-[92vh] overflow-y-auto rounded-t-2xl sm:rounded-2xl bg-[#111827] border border-white/10 shadow-2xl"
+      >
         <div className="sticky top-0 z-10 flex items-center justify-between gap-3 px-5 py-4 border-b border-white/10 bg-[#111827]/95 backdrop-blur">
           <button
             type="button"
@@ -40,7 +72,7 @@ function Detail({ item, onClose }) {
           <p className="text-blue-400 text-xs font-semibold tracking-wider uppercase mb-2">
             {item.category} · {item.year}
           </p>
-          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">{item.title}</h2>
+          <h2 id="case-study-title" className="text-2xl sm:text-3xl font-bold text-white mb-2">{item.title}</h2>
           <p className="text-sm text-gray-400 mb-6">
             {item.client} · {item.role}
           </p>
@@ -157,6 +189,7 @@ export function CaseStudies() {
                   <button
                     type="button"
                     onClick={() => setOpenId(item.id)}
+                    aria-haspopup="dialog"
                     className="inline-flex items-center gap-1.5 text-sm text-blue-400 hover:text-blue-300 font-medium mt-auto"
                   >
                     View case study <ArrowRight className="w-3.5 h-3.5" />
