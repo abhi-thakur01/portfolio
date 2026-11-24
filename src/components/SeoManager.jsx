@@ -28,6 +28,8 @@ export function SeoManager() {
     setMeta('meta[name="author"]', "content", personal.name || "");
     setMeta('meta[name="robots"]', "content", "index, follow");
     setMeta('meta[property="og:type"]', "content", "website");
+    setMeta('meta[property="og:locale"]', "content", "en_US");
+    setMeta('meta[property="og:site_name"]', "content", site.websiteName || personal.name || "");
     setMeta('meta[property="og:url"]', "content", canonical);
     setMeta('meta[property="og:title"]', "content", title);
     setMeta('meta[property="og:description"]', "content", description);
@@ -36,6 +38,7 @@ export function SeoManager() {
     setMeta('meta[name="twitter:title"]', "content", title);
     setMeta('meta[name="twitter:description"]', "content", description);
     setMeta('meta[name="twitter:image"]', "content", ogImage);
+    setMeta('meta[name="twitter:url"]', "content", canonical);
 
     let canonicalLink = document.querySelector('link[rel="canonical"]');
     if (!canonicalLink) {

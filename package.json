@@ -8,7 +8,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "test:cms": "node --test tests/cms-smoke.test.mjs tests/cms-save-safety.test.mjs tests/media-api-safety.test.mjs tests/remaining-cms-editors.test.mjs tests/canonical-admin-routing.test.mjs",
-    "test:integration": "node --test tests/cms-integration.test.mjs",
+    "test:integration": "node --test tests/cms-integration.test.mjs tests/seo-readiness.test.mjs",
     "test:all": "node --test tests/*.test.mjs"
   },
   "dependencies": {

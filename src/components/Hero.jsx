@@ -98,7 +98,7 @@ export function Hero() {
                   {personal.photo ? (
                     <img
                       src={personal.photo}
-                      alt={personal.name}
+                      alt={personal.photoAlt || `${personal.name} profile photo`}
                       className="w-full h-full object-cover object-top"
                     />
                   ) : (

@@ -159,7 +159,7 @@ export function Projects() {
                     {project.image ? (
                       <img
                         src={project.image}
-                        alt={project.title}
+                        alt={`Project preview for ${project.title}`}
                         className="w-full h-full object-cover"
                         loading="lazy"
                       />

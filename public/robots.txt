@@ -1,3 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /admin/
+Disallow: /admin.html
+Disallow: /admin-v2.html
+Disallow: /api/
 Sitemap: https://abhi-thakur-web.vercel.app/sitemap.xml
