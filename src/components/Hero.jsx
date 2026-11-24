@@ -49,7 +49,7 @@ export function Hero() {
             <Stagger className="flex flex-row flex-wrap items-center gap-3 mb-6 sm:mb-8" delay={200} step={70}>
               <Magnetic strength={0.25}>
                 <a
-                  href="#projects"
+                  href={hero.button1Url || "#projects"}
                   className="btn-shine inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm shadow-lg shadow-blue-600/25 hover:shadow-blue-500/40 transition-shadow"
                 >
                   {hero.button1Text || personal.ctaPrimary || "View My Projects"}

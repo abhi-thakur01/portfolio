@@ -22,6 +22,7 @@ import serviceWordpress from "../../content/services/wordpress.json";
 import serviceCms from "../../content/services/cms.json";
 import serviceMaintenance from "../../content/services/maintenance.json";
 import serviceResponsive from "../../content/services/responsive.json";
+import { resolveHeroContent, resolvePersonalName } from "./personalMapping";
 
 export const site = {
   sectionVisibility: {
@@ -52,24 +53,6 @@ export function isSectionVisible(key) {
   return site.sectionVisibility?.[key] !== false;
 }
 
-export function resolvePersonalName(source = {}) {
-  const displayName =
-    source.displayName ||
-    source.name ||
-    source.fullName ||
-    "Abhishek Thakur";
-  const fullName =
-    source.fullName ||
-    source.displayName ||
-    source.name ||
-    displayName;
-  return {
-    fullName,
-    displayName,
-    name: displayName,
-  };
-}
-
 export const personal = {
   name: "Abhishek Thakur",
   role: "Web Designer",
@@ -98,17 +81,7 @@ export const personal = {
   stats: Array.isArray(personalJson.stats) ? personalJson.stats : [],
 };
 
-export const hero = {
-  statusPill: heroJson.statusPill || heroJson.badgeText || "",
-  greeting: heroJson.greeting || personal.greeting || "Hi, I'm",
-  mainHeading: heroJson.mainHeading || personal.name,
-  highlightedText: heroJson.highlightedText || heroJson.bioHighlight || personal.role,
-  bio: personal.bio,
-  button1Text: heroJson.button1Text || heroJson.ctaPrimary || personal.ctaPrimary,
-  button1Url: heroJson.button1Url || "#projects",
-  button2Text: heroJson.button2Text || heroJson.ctaSecondary || personal.ctaSecondary,
-  button2Url: heroJson.button2Url || personal.resumeUrl || "#",
-};
+export const hero = resolveHeroContent(heroJson, personal);
 
 export const about = {
   heading: "A little about me",

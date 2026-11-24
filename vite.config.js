@@ -79,7 +79,7 @@ export default defineConfig({
             return "";
           }
         };
-        const title = site.metaTitle || site.websiteTitle || personal.fullName || personal.name || "Portfolio";
+        const title = site.metaTitle || site.websiteTitle || personal.displayName || personal.fullName || personal.name || "Portfolio";
         const description = site.metaDescription || "";
         const configuredCanonical = site.canonicalUrl || personal.websiteUrl || "";
         const canonicalCandidate = absoluteUrl(configuredCanonical, "https://abhi-thakur-web.vercel.app");

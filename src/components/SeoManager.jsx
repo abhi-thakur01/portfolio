@@ -19,7 +19,7 @@ function setMeta(selector, attribute, value) {
 
 export function SeoManager() {
   useEffect(() => {
-    const title = site.metaTitle || site.websiteTitle || "Abhishek Thakur";
+    const title = site.metaTitle || site.websiteTitle || personal.name || "Portfolio";
     const description = site.metaDescription || "";
     const canonical = site.canonicalUrl || "";
     const ogImage = site.ogImage || "";
