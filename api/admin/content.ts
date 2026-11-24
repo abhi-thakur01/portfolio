@@ -31,6 +31,10 @@ function repo() {
   return process.env.GITHUB_REPO || "abhi-thakur01/portfolio";
 }
 
+function branch() {
+  return (process.env.GITHUB_BRANCH || "main").trim() || "main";
+}
+
 function validateProjectContent(value: any, currentValue: any) {
   if (!value || typeof value !== "object" || Array.isArray(value)) throw new Error("projects.json must contain a JSON object");
   if (!Array.isArray(value.categories)) throw new Error("projects.json categories must be an array");
@@ -99,10 +103,10 @@ export default async function handler(req: any, res: any) {
     return;
   }
 
-  const url = `https://api.github.com/repos/${repo()}/contents/${path}`;
+  const url = `https://api.github.com/repos/${repo()}/contents/${encodeURIComponent(path).replace(/%2F/g, "/")}`;
   try {
     if (req.method === "GET") {
-      const response = await fetch(url, { headers: apiHeaders(session.token) });
+      const response = await fetch(`${url}?ref=${encodeURIComponent(branch())}`, { headers: apiHeaders(session.token) });
       const data: any = await response.json();
       if (!response.ok) { res.status(response.status).json({ error: data.message || "GitHub request failed" }); return; }
       const content = Buffer.from(data.content.replace(/\n/g, ""), "base64").toString("utf8");
@@ -113,10 +117,22 @@ export default async function handler(req: any, res: any) {
     if (req.method === "PUT") {
       const body = typeof req.body === "string" ? JSON.parse(req.body) : req.body || {};
       const content = String(body.content || "");
+      const submittedSha = typeof body.sha === "string" ? body.sha : "";
       const parsedContent = JSON.parse(content);
-      const current = await fetch(url, { headers: apiHeaders(session.token) });
+      const current = await fetch(`${url}?ref=${encodeURIComponent(branch())}`, { headers: apiHeaders(session.token) });
       const currentData: any = await current.json();
       if (!current.ok) { res.status(current.status).json({ error: currentData.message || "Unable to read current file" }); return; }
+      if (!submittedSha) {
+        res.status(409).json({ error: "Save conflict: reload this content before publishing.", code: "STALE_SAVE" });
+        return;
+      }
+      if (submittedSha !== currentData.sha) {
+        res.status(409).json({
+          error: "Save conflict: this file changed on GitHub. Reload the latest content before publishing.",
+          code: "STALE_SAVE",
+        });
+        return;
+      }
       let currentContent: any = null;
       if (path === "content/projects.json") {
         try {
@@ -129,11 +145,11 @@ export default async function handler(req: any, res: any) {
       const response = await fetch(url, {
         method: "PUT",
         headers: { ...apiHeaders(session.token), "Content-Type": "application/json" },
-        body: JSON.stringify({ message: `cms: update ${path.replace("content/", "")}`, content: Buffer.from(content, "utf8").toString("base64"), sha: currentData.sha, branch: process.env.GITHUB_BRANCH || "main" }),
+        body: JSON.stringify({ message: `cms: update ${path.replace("content/", "")}`, content: Buffer.from(content, "utf8").toString("base64"), sha: currentData.sha, branch: branch() }),
       });
       const data: any = await response.json();
       if (!response.ok) { res.status(response.status).json({ error: data.message || "GitHub update failed" }); return; }
-      res.status(200).json({ success: true, commit: data.commit?.sha || null });
+      res.status(200).json({ success: true, commit: data.commit?.sha || null, sha: data.content?.sha || currentData.sha });
       return;
     }
 

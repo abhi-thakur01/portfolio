@@ -46,6 +46,16 @@ test("CMS HTML escaping covers attribute-sensitive characters", () => {
   assert.match(app, /replace\(\/>\//);
 });
 
+test("active CMS tracks dirty state and blocks duplicate publishes", () => {
+  const app = readFileSync(publicFile("admin-app.js"), "utf8");
+  assert.match(app, /beforeunload/);
+  assert.match(app, /IS_DIRTY\s*=\s*true/);
+  assert.match(app, /SAVING\s*=\s*true/);
+  assert.match(app, /if\(MEDIA_MODE\|\|!D\|\|SAVING\)return/);
+  assert.match(app, /BASE_SHA=d\.sha/);
+  assert.match(app, /sha:BASE_SHA/);
+});
+
 test("projects.json preserves existing IDs and does not add GoHighLevel automatically", () => {
   const projectsUrl = new URL("../content/projects.json", import.meta.url);
   const projects = JSON.parse(readFileSync(projectsUrl, "utf8"));
