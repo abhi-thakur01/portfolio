@@ -17,6 +17,7 @@ function getSession(req: any) {
 }
 
 const repo = () => process.env.GITHUB_REPO || "abhi-thakur01/portfolio";
+const branch = () => (process.env.GITHUB_BRANCH || "main").trim() || "main";
 const headers = (token: string) => ({
   Authorization: `Bearer ${token}`,
   Accept: "application/vnd.github+json",
@@ -24,13 +25,77 @@ const headers = (token: string) => ({
   "User-Agent": "portfolio-cms",
 });
 
-const ALLOWED_DATA_URL =
-  /^data:(image\/(png|jpeg|jpg|webp|gif)|application\/pdf);base64,/i;
+const MAX_MEDIA_BYTES = 3 * 1024 * 1024;
+const DATA_URL =
+  /^data:(image\/(?:png|jpeg|jpg|webp|gif)|application\/pdf);base64,([A-Za-z0-9+/]*={0,2})$/i;
+
+function safeName(name: string) {
+  return name
+    .normalize("NFKC")
+    .replace(/[^A-Za-z0-9._-]/g, "-")
+    .replace(/\.{2,}/g, "-")
+    .replace(/^[-.]+|[-.]+$/g, "")
+    .slice(0, 120);
+}
+
+function validMediaType(name: string, mime: string, bytes: Buffer) {
+  const lower = name.toLowerCase();
+  if (mime === "image/png" && lower.endsWith(".png") &&
+    bytes.subarray(0, 8).equals(Buffer.from([137,80,78,71,13,10,26,10]))) return "png";
+  if ((mime === "image/jpeg" || mime === "image/jpg") && /\.jpe?g$/i.test(lower) &&
+    bytes[0] === 255 && bytes[1] === 216 && bytes[2] === 255) return "jpg";
+  if (mime === "image/gif" && /\.gif$/i.test(lower) &&
+    (bytes.subarray(0, 6).toString("ascii") === "GIF87a" || bytes.subarray(0, 6).toString("ascii") === "GIF89a")) return "gif";
+  if (mime === "image/webp" && /\.webp$/i.test(lower) &&
+    bytes.subarray(0, 4).toString("ascii") === "RIFF" &&
+    bytes.subarray(8, 12).toString("ascii") === "WEBP") return "webp";
+  if (mime === "application/pdf" && /\.pdf$/i.test(lower) &&
+    bytes.subarray(0, 5).toString("ascii") === "%PDF-") return "pdf";
+  return null;
+}
+
+function safeMediaPath(path: string) {
+  return /^public\/media\/[A-Za-z0-9][A-Za-z0-9._/-]*$/.test(path) &&
+    !path.includes("..") &&
+    path.startsWith("public/media/");
+}
+
+async function listContentReferences(token: string): Promise<string[]> {
+  const refs: string[] = [];
+  async function walk(folder: string) {
+    const r = await fetch(
+      `https://api.github.com/repos/${repo()}/contents/${folder}?ref=${encodeURIComponent(branch())}`,
+      { headers: headers(token) }
+    );
+    const data: any = await r.json();
+    if (!r.ok) return;
+    for (const item of Array.isArray(data) ? data : []) {
+      if (item.type === "dir") await walk(item.path);
+      if (item.type === "file" && /\.json$/i.test(item.name)) {
+        const file = await fetch(
+          `https://api.github.com/repos/${repo()}/contents/${item.path}?ref=${encodeURIComponent(branch())}`,
+          { headers: headers(token) }
+        );
+        const meta: any = await file.json();
+        if (file.ok && typeof meta.content === "string") {
+          const text = Buffer.from(meta.content.replace(/\n/g, ""), "base64").toString("utf8");
+          refs.push(text);
+          try {
+            const parsed = JSON.parse(text);
+            refs.push(JSON.stringify(parsed));
+          } catch {}
+        }
+      }
+    }
+  }
+  await walk("content");
+  return refs;
+}
 
 export default async function handler(req: any, res: any) {
   const session = getSession(req);
   if (!session?.token) return res.status(401).json({ error: "Unauthorized" });
-  const base = `https://api.github.com/repos/${repo()}/contents/public/media`;
+  const base = `https://api.github.com/repos/${repo()}/contents/public/media?ref=${encodeURIComponent(branch())}`;
 
   try {
     if (req.method === "GET") {
@@ -52,24 +117,61 @@ export default async function handler(req: any, res: any) {
 
     if (req.method === "POST") {
       const body = typeof req.body === "string" ? JSON.parse(req.body) : req.body || {};
-      const name = String(body.name || "").replace(/[^A-Za-z0-9._-]/g, "-").slice(0, 120);
+      const name = safeName(String(body.name || ""));
       const dataUrl = String(body.dataUrl || "");
-      if (!name || !ALLOWED_DATA_URL.test(dataUrl)) {
-        return res.status(400).json({ error: "Use PNG, JPG, WEBP, GIF, or PDF (max 8 MB)." });
+      const match = dataUrl.match(DATA_URL);
+      if (!name || !match) {
+        return res.status(400).json({ error: "Use PNG, JPG, WEBP, GIF, or PDF. SVG uploads are not supported." });
       }
       const encoded = dataUrl.split(",")[1];
-      const size = Buffer.byteLength(encoded || "", "base64");
-      if (!encoded || size > 8 * 1024 * 1024) {
-        return res.status(413).json({ error: "File is too large. Keep it under 8 MB." });
+      const bytes = Buffer.from(encoded || "", "base64");
+      if (!encoded || bytes.length === 0) {
+        return res.status(400).json({ error: "Malformed file content." });
       }
-      const path = `public/media/${Date.now()}-${name}`;
-      const r = await fetch(`https://api.github.com/repos/${repo()}/contents/${path}`, {
+      if (bytes.length > MAX_MEDIA_BYTES) {
+        return res.status(413).json({ error: "File is too large. The effective upload limit is 3 MB." });
+      }
+      const mime = match[1].toLowerCase();
+      if (!validMediaType(name, mime, bytes)) {
+        return res.status(400).json({ error: "File content does not match its MIME type or extension." });
+      }
+
+      const replacePath = typeof body.replacePath === "string" ? body.replacePath : "";
+      let sha: string | undefined;
+      if (replacePath) {
+        if (!safeMediaPath(replacePath)) return res.status(400).json({ error: "Invalid replacement media path." });
+        if (body.confirmReplace !== true) return res.status(409).json({ error: "Confirm replacement before overwriting an existing file.", code: "CONFIRM_REPLACE" });
+        if (typeof body.sha !== "string" || !body.sha) return res.status(409).json({ error: "A media SHA is required to replace a file.", code: "STALE_MEDIA" });
+        const current = await fetch(
+          `https://api.github.com/repos/${repo()}/contents/${replacePath}?ref=${encodeURIComponent(branch())}`,
+          { headers: headers(session.token) }
+        );
+        const currentData: any = await current.json();
+        if (!current.ok) return res.status(current.status).json({ error: currentData.message || "Media file not found." });
+        if (body.sha !== currentData.sha) {
+          return res.status(409).json({ error: "Media changed on GitHub. Reload the media library before replacing it.", code: "STALE_MEDIA" });
+        }
+        sha = currentData.sha;
+      }
+
+      const path = replacePath || `public/media/${Date.now()}-${name}`;
+      if (!replacePath) {
+        const existing = await fetch(
+          `https://api.github.com/repos/${repo()}/contents/${path}?ref=${encodeURIComponent(branch())}`,
+          { headers: headers(session.token) }
+        );
+        if (existing.status !== 404) {
+          return res.status(409).json({ error: "A file with this generated path already exists.", code: "MEDIA_CONFLICT" });
+        }
+      }
+      const r = await fetch(`https://api.github.com/repos/${repo()}/contents/${replacePath || path}`, {
         method: "PUT",
         headers: { ...headers(session.token), "Content-Type": "application/json" },
         body: JSON.stringify({
           message: `cms: upload media ${name}`,
-          content: encoded,
-          branch: process.env.GITHUB_BRANCH || "main",
+          content: bytes.toString("base64"),
+          branch: branch(),
+          ...(sha ? { sha } : {}),
         }),
       });
       const result: any = await r.json();
@@ -84,21 +186,35 @@ export default async function handler(req: any, res: any) {
 
     if (req.method === "DELETE") {
       const path = String(req.query?.path || (typeof req.body === "object" && req.body?.path) || "");
-      if (!/^public\/media\/[A-Za-z0-9._/-]+$/.test(path) || path.includes("..")) {
+      if (!safeMediaPath(path)) {
         return res.status(400).json({ error: "Invalid media path" });
       }
-      const r = await fetch(`https://api.github.com/repos/${repo()}/contents/${path}`, {
-        headers: headers(session.token),
-      });
+      const r = await fetch(
+        `https://api.github.com/repos/${repo()}/contents/${path}?ref=${encodeURIComponent(branch())}`,
+        { headers: headers(session.token) }
+      );
       const current: any = await r.json();
       if (!r.ok) return res.status(r.status).json({ error: current.message || "Media not found" });
+      const submittedSha =
+        typeof req.body === "object" && req.body && typeof req.body.sha === "string"
+          ? req.body.sha
+          : "";
+      if (!submittedSha) return res.status(409).json({ error: "A media SHA is required to delete a file.", code: "STALE_MEDIA" });
+      if (submittedSha !== current.sha) {
+        return res.status(409).json({ error: "Media changed on GitHub. Reload the media library before deleting it.", code: "STALE_MEDIA" });
+      }
+      const refs = await listContentReferences(session.token);
+      const mediaUrl = `/${path.replace(/^public\//, "")}`;
+      if (refs.some((text) => text.includes(path) || text.includes(mediaUrl))) {
+        return res.status(409).json({ error: "This media file is referenced by portfolio content and cannot be deleted.", code: "MEDIA_REFERENCED" });
+      }
       const del = await fetch(`https://api.github.com/repos/${repo()}/contents/${path}`, {
         method: "DELETE",
         headers: { ...headers(session.token), "Content-Type": "application/json" },
         body: JSON.stringify({
           message: `cms: delete media ${path.split("/").pop()}`,
-          sha: current.sha,
-          branch: process.env.GITHUB_BRANCH || "main",
+          sha: submittedSha,
+          branch: branch(),
         }),
       });
       const result: any = await del.json();

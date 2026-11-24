@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test:cms": "node --test tests/cms-smoke.test.mjs tests/cms-save-safety.test.mjs",
+    "test:cms": "node --test tests/cms-smoke.test.mjs tests/cms-save-safety.test.mjs tests/media-api-safety.test.mjs",
     "test:integration": "node --test tests/cms-integration.test.mjs",
     "test:all": "node --test tests/*.test.mjs"
   },

@@ -56,6 +56,16 @@ test("active CMS tracks dirty state and blocks duplicate publishes", () => {
   assert.match(app, /sha:BASE_SHA/);
 });
 
+test("active media controls enforce the 3 MB supported-type limit", () => {
+  const app = readFileSync(publicFile("admin-app.js"), "utf8");
+  assert.match(app, /MEDIA_MAX_BYTES=3\*1024\*1024/);
+  assert.match(app, /SVG uploads are disabled/);
+  assert.match(app, /accept="\.png,/);
+  assert.match(app, /confirmReplace/);
+  assert.match(app, /data-delsha/);
+  assert.match(app, /body:JSON\.stringify\(\{path:path,sha:sha\}\)/);
+});
+
 test("projects.json preserves existing IDs and does not add GoHighLevel automatically", () => {
   const projectsUrl = new URL("../content/projects.json", import.meta.url);
   const projects = JSON.parse(readFileSync(projectsUrl, "utf8"));
