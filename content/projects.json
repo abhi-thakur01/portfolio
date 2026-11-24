@@ -16,6 +16,7 @@
       "id": "integr8-human-ai",
       "title": "Integr8 Human AI",
       "description": "Lead-generation site for a UK/EU AI consultancy with a gated executive-brief download and an integrated booking funnel.",
+      "active": true,
       "tags": [
         "WordPress",
         "Beaver Builder",
@@ -31,6 +32,7 @@
       "id": "ascension-aminos",
       "title": "Ascension Aminos",
       "description": "End-to-end e-commerce store with product catalogue, COA documentation and secure checkout.",
+      "active": true,
       "tags": [
         "WordPress",
         "Elementor",
@@ -46,6 +48,7 @@
       "id": "service-resource-sr-gc",
       "title": "Service Resource (SR-GC)",
       "description": "Corporate website for a commercial construction and restoration firm — services, project portfolio, accreditations.",
+      "active": true,
       "tags": [
         "Squarespace",
         "Corporate",
@@ -61,6 +64,7 @@
       "id": "matt-says",
       "title": "Matt Says",
       "description": "Content-heavy wine review platform with varietal-wise ranking archives, article templates and newsletter integration.",
+      "active": true,
       "tags": [
         "WordPress",
         "Content Platform",
@@ -76,6 +80,7 @@
       "id": "ime-transcriptions",
       "title": "IME Transcriptions",
       "description": "Clean, fast-loading website for a medical-legal transcription provider.",
+      "active": true,
       "tags": [
         "Framer",
         "Medical",
@@ -91,6 +96,32 @@
       "id": "revived-kansas",
       "title": "Revived Kansas",
       "description": "Clean and responsive business website optimised for mobile users. Delivered as client work at Gigsoft Pro.",
+      "detailDescription": "A clean, responsive business site built on Square Online, with the layout tuned for mobile users so the experience holds up on any device. Delivered as client work at Gigsoft Pro.",
+      "url": "revivedkansas.info",
+      "detailCategory": "Client Work",
+      "detailTags": [
+        "Square Online",
+        "Responsive Design",
+        "Mobile Optimised",
+        "Client Project"
+      ],
+      "highlights": [
+        "Square Online Storefront",
+        "Mobile-Optimized UX",
+        "Fast Load Speed"
+      ],
+      "metrics": {
+        "label": "Mobile Score",
+        "value": "98/100"
+      },
+      "previewColor": "from-amber-500/20 via-yellow-500/10 to-transparent",
+      "features": [
+        "Custom product showcase grid with fluid filters",
+        "Seamless mobile checkout experience via Square",
+        "Adaptive typography calibrated for readability",
+        "Zero layout shift (CLS < 0.02)"
+      ],
+      "active": true,
       "tags": [
         "Square Online",
         "Responsive Design",
@@ -106,6 +137,32 @@
       "id": "melanie-hoggan",
       "title": "Melanie Hoggan",
       "description": "Fully responsive WordPress site built with Beaver Builder, with custom sections and layouts for better engagement — international client.",
+      "detailDescription": "A fully responsive WordPress site built with Beaver Builder, with custom sections and layouts aimed at better engagement — a polished result for an international client.",
+      "url": "melaniehoggan.com",
+      "detailCategory": "Client Work",
+      "detailTags": [
+        "WordPress",
+        "Beaver Builder",
+        "Custom Layouts",
+        "International Client"
+      ],
+      "highlights": [
+        "WordPress & Beaver Builder",
+        "Bespoke Section Designs",
+        "High Conversion CTAs"
+      ],
+      "metrics": {
+        "label": "Client Rating",
+        "value": "5.0 ★"
+      },
+      "previewColor": "from-yellow-500/20 via-amber-600/10 to-transparent",
+      "features": [
+        "Custom Beaver Builder modular section library",
+        "Streamlined contact capture with instant validation",
+        "Cross-browser testing across Safari, Chrome, and iOS",
+        "SEO-ready permalink & schema structure"
+      ],
+      "active": true,
       "tags": [
         "WordPress",
         "Beaver Builder",
@@ -121,6 +178,7 @@
       "id": "project-1793702974768",
       "title": "Electric Scooty",
       "description": "Custom WordPress website for an electric scooter showroom, featuring dynamic scooter listings, pricing, specifications, and product details.",
+      "active": true,
       "tags": [
         "WordPress",
         "Custom Theme",

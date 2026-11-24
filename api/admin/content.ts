@@ -31,6 +31,61 @@ function repo() {
   return process.env.GITHUB_REPO || "abhi-thakur01/portfolio";
 }
 
+function validateProjectContent(value: any, currentValue: any) {
+  if (!value || typeof value !== "object" || Array.isArray(value)) throw new Error("projects.json must contain a JSON object");
+  if (!Array.isArray(value.categories)) throw new Error("projects.json categories must be an array");
+  if (!Array.isArray(value.items)) throw new Error("projects.json items must be an array");
+
+  const ids = new Set<string>();
+  for (const category of value.categories) {
+    if (!category || typeof category !== "object") throw new Error("Each project category must be an object");
+    if (typeof category.id !== "string" || !category.id.trim()) throw new Error("Each project category requires an id");
+    if (typeof category.label !== "string") throw new Error("Each project category requires a label");
+  }
+
+  for (const item of value.items) {
+    if (!item || typeof item !== "object" || Array.isArray(item)) throw new Error("Each project must be an object");
+    if (typeof item.id !== "string" || !item.id.trim()) throw new Error("Each project requires a non-empty id");
+    if (ids.has(item.id)) throw new Error(`Duplicate project id: ${item.id}`);
+    ids.add(item.id);
+    for (const key of ["title", "description", "category", "platform", "image", "link"]) {
+      if (typeof item[key] !== "string") throw new Error(`Project ${item.id} requires a string ${key}`);
+    }
+    if (!Array.isArray(item.tags) || item.tags.some((tag: any) => typeof tag !== "string")) {
+      throw new Error(`Project ${item.id} tags must be an array of strings`);
+    }
+    if (item.order !== undefined && (typeof item.order !== "number" || !Number.isFinite(item.order))) {
+      throw new Error(`Project ${item.id} order must be a number`);
+    }
+    if (item.active !== undefined && typeof item.active !== "boolean") {
+      throw new Error(`Project ${item.id} active must be true or false`);
+    }
+    for (const key of ["detailDescription", "url", "detailCategory", "previewColor"]) {
+      if (item[key] !== undefined && typeof item[key] !== "string") {
+        throw new Error(`Project ${item.id} ${key} must be a string`);
+      }
+    }
+    for (const key of ["detailTags", "highlights", "features"]) {
+      if (item[key] !== undefined && (!Array.isArray(item[key]) || item[key].some((entry: any) => typeof entry !== "string"))) {
+        throw new Error(`Project ${item.id} ${key} must be an array of strings`);
+      }
+    }
+    if (item.metrics !== undefined) {
+      if (!item.metrics || typeof item.metrics !== "object" || Array.isArray(item.metrics)
+        || typeof item.metrics.label !== "string" || typeof item.metrics.value !== "string") {
+        throw new Error(`Project ${item.id} metrics must contain string label and value fields`);
+      }
+    }
+  }
+
+  if (currentValue?.items && Array.isArray(currentValue.items)) {
+    const existingIds = new Set(currentValue.items.map((item: any) => item?.id).filter(Boolean));
+    for (const existingId of existingIds) {
+      if (!ids.has(existingId)) throw new Error(`Existing project id cannot be removed: ${existingId}`);
+    }
+  }
+}
+
 export default async function handler(req: any, res: any) {
   const session = getSession(req);
   if (!session?.token) {
@@ -58,10 +113,19 @@ export default async function handler(req: any, res: any) {
     if (req.method === "PUT") {
       const body = typeof req.body === "string" ? JSON.parse(req.body) : req.body || {};
       const content = String(body.content || "");
-      JSON.parse(content);
+      const parsedContent = JSON.parse(content);
       const current = await fetch(url, { headers: apiHeaders(session.token) });
       const currentData: any = await current.json();
       if (!current.ok) { res.status(current.status).json({ error: currentData.message || "Unable to read current file" }); return; }
+      let currentContent: any = null;
+      if (path === "content/projects.json") {
+        try {
+          currentContent = JSON.parse(Buffer.from(currentData.content.replace(/\n/g, ""), "base64").toString("utf8"));
+        } catch {
+          throw new Error("Unable to validate the existing projects.json");
+        }
+        validateProjectContent(parsedContent, currentContent);
+      }
       const response = await fetch(url, {
         method: "PUT",
         headers: { ...apiHeaders(session.token), "Content-Type": "application/json" },

@@ -45,3 +45,78 @@ test("CMS HTML escaping covers attribute-sensitive characters", () => {
   assert.match(app, /replace\(\/<\/g,\s*"&lt;"/);
   assert.match(app, /replace\(\/>\//);
 });
+
+test("projects.json preserves existing IDs and does not add GoHighLevel automatically", () => {
+  const projectsUrl = new URL("../content/projects.json", import.meta.url);
+  const projects = JSON.parse(readFileSync(projectsUrl, "utf8"));
+  const ids = projects.items.map((item) => item.id);
+
+  assert.deepEqual(ids, [
+    "integr8-human-ai",
+    "ascension-aminos",
+    "service-resource-sr-gc",
+    "matt-says",
+    "ime-transcriptions",
+    "revived-kansas",
+    "melanie-hoggan",
+    "project-1793702974768",
+  ]);
+  assert.ok(!ids.includes("gohighlevel-funnels"));
+  for (const item of projects.items) {
+    assert.equal(typeof item.id, "string");
+    assert.equal(typeof item.title, "string");
+    assert.equal(typeof item.description, "string");
+    assert.equal(typeof item.category, "string");
+    assert.equal(typeof item.platform, "string");
+    assert.equal(typeof item.image, "string");
+    assert.equal(typeof item.link, "string");
+    assert.ok(Array.isArray(item.tags));
+    assert.equal(typeof item.order, "number");
+    assert.equal(item.active, true);
+  }
+});
+
+test("detail project fields are preserved in the authoritative project source", () => {
+  const projects = JSON.parse(readFileSync(new URL("../content/projects.json", import.meta.url), "utf8"));
+  const byId = new Map(projects.items.map((item) => [item.id, item]));
+
+  for (const name of ["revived-kansas", "melanie-hoggan"]) {
+    const detail = JSON.parse(readFileSync(new URL(`../content/projects/${name}.json`, import.meta.url), "utf8"));
+    const item = byId.get(name);
+    assert.ok(item, `missing authoritative project ${name}`);
+    assert.equal(item.detailDescription, detail.desc);
+    assert.equal(item.url, detail.url);
+    assert.equal(item.detailCategory, detail.category);
+    assert.deepEqual(item.detailTags, detail.tags);
+    assert.deepEqual(item.highlights, detail.highlights);
+    assert.deepEqual(item.metrics, detail.metrics);
+    assert.equal(item.previewColor, detail.previewColor);
+    assert.deepEqual(item.features, detail.features);
+  }
+});
+
+test("active Projects CMS supports complete project fields and server preservation guards", () => {
+  const extension = readFileSync(publicFile("admin-projects-extend.js"), "utf8");
+  for (const field of [
+    "data-active",
+    "data-num",
+    "data-detail-tags",
+    "Detail description",
+    "Highlights (one per line)",
+    "Metric label",
+    "Preview color",
+    "Features (one per line)",
+  ]) {
+    assert.match(extension, new RegExp(field.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+  }
+
+  const loader = readFileSync(new URL("../src/data/content.js", import.meta.url), "utf8");
+  assert.match(loader, /detailDescription:\s*p\.detailDescription/);
+  assert.match(loader, /highlights:\s*Array\.isArray\(p\.highlights\)/);
+  assert.match(loader, /features:\s*Array\.isArray\(p\.features\)/);
+
+  const api = readFileSync(new URL("../api/admin/content.ts", import.meta.url), "utf8");
+  assert.match(api, /Duplicate project id/);
+  assert.match(api, /Existing project id cannot be removed/);
+  assert.match(api, /validateProjectContent/);
+});

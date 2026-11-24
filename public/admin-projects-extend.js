@@ -2,6 +2,17 @@
 (function () {
   if (typeof uiPrj !== "function") return;
 
+  var ORIGINAL_PROJECT_IDS = {
+    "integr8-human-ai": true,
+    "ascension-aminos": true,
+    "service-resource-sr-gc": true,
+    "matt-says": true,
+    "ime-transcriptions": true,
+    "revived-kansas": true,
+    "melanie-hoggan": true,
+    "project-1793702974768": true
+  };
+
   var _uiPrj = uiPrj;
   uiPrj = function () {
     if (!D.items) D.items = [];
@@ -75,6 +86,10 @@
         catSelect += "</select>";
 
         var tagsVal = Array.isArray(p.tags) ? p.tags.join(", ") : p.tags || "";
+        var detailTagsVal = Array.isArray(p.detailTags) ? p.detailTags.join(", ") : p.detailTags || "";
+        var highlightsVal = Array.isArray(p.highlights) ? p.highlights.join("\n") : "";
+        var featuresVal = Array.isArray(p.features) ? p.features.join("\n") : "";
+        var metric = p.metrics && typeof p.metrics === "object" ? p.metrics : { label: "", value: "" };
 
         return (
           '<div class="item-card' +
@@ -89,7 +104,8 @@
           esc(p.category || "") +
           '</span></div></div><div class="item-actions" onclick="event.stopPropagation()"><button type="button" class="btn danger sm" data-rm="items.' +
           i +
-          '">Del</button></div><svg class="chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div><div class="item-body">' +
+          (ORIGINAL_PROJECT_IDS[p.id] ? '" disabled title="Existing project IDs are protected">Protected</button></div>' : '">Del</button></div>') +
+          '<svg class="chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div><div class="item-body">' +
           '<div class="grid2">' +
           F("Title", '<input class="control" data-x="items.' + i + '.title" value="' + esc(p.title || "") + '">') +
           F("Category / Tab", catSelect) +
@@ -97,10 +113,29 @@
           F("Platform", '<input class="control" data-x="items.' + i + '.platform" value="' + esc(p.platform || "") + '">') +
           F("Link", '<input class="control" data-x="items.' + i + '.link" value="' + esc(p.link || "") + '">') +
           "</div>" +
+          '<div class="grid2">' +
+          F("Project ID", ORIGINAL_PROJECT_IDS[p.id]
+            ? '<input class="control" value="' + esc(p.id || "") + '" readonly>'
+            : '<input class="control" data-x="items.' + i + '.id" value="' + esc(p.id || "") + '">') +
+          F("Display URL", '<input class="control" data-x="items.' + i + '.url" value="' + esc(p.url || "") + '" placeholder="example.com">') +
+          "</div>" +
+          '<div class="grid2">' +
+          F("Active", '<input type="checkbox" data-active="items.' + i + '.active"' + (p.active !== false ? " checked" : "") + ' style="width:18px;height:18px">') +
+          F("Order", '<input class="control" data-num="items.' + i + '.order" value="' + esc(p.order != null ? p.order : i + 1) + '" type="number">') +
+          "</div>" +
           F("Description", '<textarea class="control textarea" data-x="items.' + i + '.description">' + esc(p.description || "") + "</textarea>") +
+          F("Detail description", '<textarea class="control textarea" data-x="items.' + i + '.detailDescription">' + esc(p.detailDescription || "") + "</textarea>") +
           F("Image URL", '<input class="control" data-x="items.' + i + '.image" value="' + esc(p.image || "") + '" placeholder="Paste from Media Library">') +
           F("Tags (comma separated)", '<input class="control" data-tags="items.' + i + '.tags" value="' + esc(tagsVal) + '">') +
-          F("Order", '<input class="control" data-x="items.' + i + '.order" value="' + esc(p.order != null ? p.order : i + 1) + '" type="number">') +
+          F("Detail tags (comma separated)", '<input class="control" data-detail-tags="items.' + i + '.detailTags" value="' + esc(detailTagsVal) + '">') +
+          F("Detail category", '<input class="control" data-x="items.' + i + '.detailCategory" value="' + esc(p.detailCategory || "") + '">') +
+          F("Highlights (one per line)", '<textarea class="control textarea" data-lines="items.' + i + '.highlights">' + esc(highlightsVal) + "</textarea>") +
+          '<div class="grid2">' +
+          F("Metric label", '<input class="control" data-x="items.' + i + '.metrics.label" value="' + esc(metric.label || "") + '">') +
+          F("Metric value", '<input class="control" data-x="items.' + i + '.metrics.value" value="' + esc(metric.value || "") + '">') +
+          "</div>" +
+          F("Preview color", '<input class="control" data-x="items.' + i + '.previewColor" value="' + esc(p.previewColor || "") + '" placeholder="from-blue-500/20 via-cyan-500/10 to-transparent">') +
+          F("Features (one per line)", '<textarea class="control textarea" data-lines="items.' + i + '.features">' + esc(featuresVal) + "</textarea>") +
           "</div></div>"
         );
       })
@@ -122,6 +157,19 @@
   var _bind = bind;
   bind = function () {
     _bind();
+    document.querySelectorAll("[data-active]").forEach(function (x) {
+      x.onchange = function () {
+        setPath(x.getAttribute("data-active"), x.checked);
+        dirty();
+      };
+    });
+    document.querySelectorAll("[data-num]").forEach(function (x) {
+      x.oninput = function () {
+        var value = Number(x.value);
+        setPath(x.getAttribute("data-num"), Number.isFinite(value) ? value : 0);
+        dirty();
+      };
+    });
     document.querySelectorAll("[data-tags]").forEach(function (x) {
       x.oninput = function () {
         var path = x.getAttribute("data-tags");
@@ -132,6 +180,26 @@
           })
           .filter(Boolean);
         setPath(path, arr);
+        dirty();
+      };
+    });
+    document.querySelectorAll("[data-detail-tags]").forEach(function (x) {
+      x.oninput = function () {
+        var arr = x.value
+          .split(",")
+          .map(function (t) { return t.trim(); })
+          .filter(Boolean);
+        setPath(x.getAttribute("data-detail-tags"), arr);
+        dirty();
+      };
+    });
+    document.querySelectorAll("[data-lines]").forEach(function (x) {
+      x.oninput = function () {
+        var arr = x.value
+          .split("\n")
+          .map(function (t) { return t.trim(); })
+          .filter(Boolean);
+        setPath(x.getAttribute("data-lines"), arr);
         dirty();
       };
     });
@@ -153,12 +221,21 @@
           id: "project-" + Date.now(),
           title: "New Project",
           description: "",
+          detailDescription: "",
+          url: "",
+          detailCategory: "",
           tags: [],
+          detailTags: [],
           category: defCat,
           platform: "",
           image: "",
           link: "#",
+          active: true,
           order: D.items.length + 1,
+          highlights: [],
+          metrics: { label: "", value: "" },
+          previewColor: "",
+          features: [],
         });
         O = D.items.length - 1;
         dirty();

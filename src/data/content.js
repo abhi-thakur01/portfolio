@@ -94,11 +94,21 @@ export const projects = (Array.isArray(projectsJson?.items) ? projectsJson.items
     id: p.id || String(Math.random()),
     title: p.title || "Untitled",
     description: p.description || "",
+    detailDescription: p.detailDescription || "",
+    url: p.url || "",
+    detailCategory: p.detailCategory || "",
     tags: Array.isArray(p.tags) ? p.tags : [],
+    detailTags: Array.isArray(p.detailTags) ? p.detailTags : [],
     category: p.category || "Other",
     platform: p.platform || p.category || "Web",
     image: p.image || "",
     link: p.link || "#",
+    active: p.active !== false,
+    order: p.order,
+    highlights: Array.isArray(p.highlights) ? p.highlights : [],
+    metrics: p.metrics && typeof p.metrics === "object" ? p.metrics : { label: "", value: "" },
+    previewColor: p.previewColor || "",
+    features: Array.isArray(p.features) ? p.features : [],
   }));
 
 export const skillCategories = Array.isArray(skillsJson?.categories)
