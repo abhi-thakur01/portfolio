@@ -83,7 +83,11 @@ function validateProjectContent(value: any, currentValue: any) {
   }
 
   if (currentValue?.items && Array.isArray(currentValue.items)) {
-    const existingIds = new Set(currentValue.items.map((item: any) => item?.id).filter(Boolean));
+    const existingIds = new Set<string>(
+      currentValue.items
+        .map((item: any) => item?.id)
+        .filter((id: any): id is string => typeof id === "string" && id.length > 0)
+    );
     for (const existingId of existingIds) {
       if (!ids.has(existingId)) throw new Error(`Existing project id cannot be removed: ${existingId}`);
     }

@@ -63,7 +63,10 @@
         F("Tags (comma)", '<input class="control" data-tags="items.' + i + '.tags" value="' + esc(tags) + '">') +
         F("Cover image URL", '<input class="control" data-x="items.' + i + '.coverImage" value="' + esc(it.coverImage || "") + '">') +
         F("Live URL", '<input class="control" data-x="items.' + i + '.liveUrl" value="' + esc(it.liveUrl || "") + '">') +
-        F("Order", '<input class="control" data-x="items.' + i + '.order" value="' + esc(it.order != null ? it.order : i + 1) + '">') +
+        '<div class="grid2">' +
+        F("Active", '<input type="checkbox" data-active="items.' + i + '.active"' + (it.active !== false ? " checked" : "") + ' style="width:18px;height:18px">') +
+        F("Order", '<input class="control" data-num="items.' + i + '.order" value="' + esc(it.order != null ? it.order : i + 1) + '" type="number">') +
+        "</div>" +
         '</div></div>'
       );
     }).join("");
@@ -112,7 +115,10 @@
         '</div>' +
         F("Tags (comma)", '<input class="control" data-tags="posts.' + i + '.tags" value="' + esc(tags) + '">') +
         F("Cover image URL", '<input class="control" data-x="posts.' + i + '.coverImage" value="' + esc(p.coverImage || "") + '">') +
-        F("Order", '<input class="control" data-x="posts.' + i + '.order" value="' + esc(p.order != null ? p.order : i + 1) + '">') +
+        '<div class="grid2">' +
+        F("Active", '<input type="checkbox" data-active="posts.' + i + '.active"' + (p.active !== false ? " checked" : "") + ' style="width:18px;height:18px">') +
+        F("Order", '<input class="control" data-num="posts.' + i + '.order" value="' + esc(p.order != null ? p.order : i + 1) + '" type="number">') +
+        "</div>" +
         '</div></div>'
       );
     }).join("");
@@ -147,6 +153,18 @@
   };
 
   function bindExtra() {
+    document.querySelectorAll("[data-active]").forEach(function (x) {
+      x.onchange = function () {
+        setPath(x.getAttribute("data-active"), x.checked);
+        dirty();
+      };
+    });
+    document.querySelectorAll("[data-num]").forEach(function (x) {
+      x.oninput = function () {
+        setPath(x.getAttribute("data-num"), Number(x.value) || 0);
+        dirty();
+      };
+    });
     document.querySelectorAll("[data-k]").forEach(function (x) {
       x.oninput = function () {
         D[x.getAttribute("data-k")] = x.value;

@@ -6,11 +6,31 @@ import { Skills } from "./components/Skills";
 import { Experience } from "./components/Experience";
 import { Process } from "./components/Process";
 import { FAQ } from "./components/FAQ";
+import { Services } from "./components/Services";
+import { CaseStudies } from "./components/CaseStudies";
+import { Blog } from "./components/Blog";
+import { Testimonials } from "./components/Testimonials";
 import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
 import { PageLoader, ScrollProgress } from "./components/PageLoader";
 import { CustomCursor } from "./components/CustomCursor";
-import { isSectionVisible } from "./data/content";
+import { isSectionVisible, site } from "./data/content";
+import { getVisibleSectionOrder } from "./utils/sectionOrder";
+
+const SECTION_COMPONENTS = {
+  hero: Hero,
+  about: About,
+  projects: Projects,
+  services: Services,
+  skills: Skills,
+  experience: Experience,
+  "case-studies": CaseStudies,
+  process: Process,
+  blog: Blog,
+  testimonials: Testimonials,
+  faqs: FAQ,
+  contact: Contact,
+};
 
 export default function App() {
   return (
@@ -20,14 +40,10 @@ export default function App() {
       <CustomCursor />
       <Navbar />
       <main>
-        {isSectionVisible("hero") && <Hero />}
-        {isSectionVisible("about") && <About />}
-        {isSectionVisible("projects") && <Projects />}
-        {isSectionVisible("skills") && <Skills />}
-        {isSectionVisible("experience") && <Experience />}
-        {isSectionVisible("process") && <Process />}
-        {isSectionVisible("faqs") && <FAQ />}
-        {isSectionVisible("contact") && <Contact />}
+        {getVisibleSectionOrder(site.sectionOrder, site.sectionVisibility).map((key) => {
+          const Component = SECTION_COMPONENTS[key];
+          return <Component key={key} />;
+        })}
       </main>
       {isSectionVisible("footer") && <Footer />}
     </div>

@@ -9,6 +9,13 @@
     "content/experience.json": "experience",
     "content/process.json": "process",
     "content/faqs.json": "faqs",
+    "content/case-studies.json": "case-studies",
+    "content/blog.json": "blog",
+    "content/testimonials.json": "testimonials",
+    "content/services/wordpress.json": "services",
+    "content/services/cms.json": "services",
+    "content/services/responsive.json": "services",
+    "content/services/maintenance.json": "services",
   };
   var SITE = null;
 

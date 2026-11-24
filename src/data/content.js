@@ -9,6 +9,9 @@ import processJson from "../../content/process.json";
 import faqsJson from "../../content/faqs.json";
 import sectionsJson from "../../content/sections.json";
 import testimonialsJson from "../../content/testimonials.json";
+import caseStudiesJson from "../../content/case-studies.json";
+import blogJson from "../../content/blog.json";
+import seoJson from "../../content/seo.json";
 
 import serviceWordpress from "../../content/services/wordpress.json";
 import serviceCms from "../../content/services/cms.json";
@@ -173,9 +176,30 @@ export const testimonials = {
   sectionTitle: testimonialsJson?.sectionTitle || "What Clients Say",
   sectionSubtitle: testimonialsJson?.sectionSubtitle || "Testimonials",
   description: testimonialsJson?.description || "",
-  items: Array.isArray(testimonialsJson?.items) ? testimonialsJson.items : [],
+  items: (Array.isArray(testimonialsJson?.items) ? testimonialsJson.items : [])
+    .filter((item) => item.active !== false)
+    .sort((a, b) => (a.order || 0) - (b.order || 0)),
 };
 
+export const caseStudies = {
+  sectionTitle: caseStudiesJson?.sectionTitle || "Case Studies",
+  sectionSubtitle: caseStudiesJson?.sectionSubtitle || "Deep Dives",
+  description: caseStudiesJson?.description || "",
+  items: (Array.isArray(caseStudiesJson?.items) ? caseStudiesJson.items : [])
+    .filter((item) => item.active !== false)
+    .sort((a, b) => (a.order || 0) - (b.order || 0)),
+};
+
+export const blog = {
+  sectionTitle: blogJson?.sectionTitle || "Tips & Insights",
+  sectionSubtitle: blogJson?.sectionSubtitle || "Blog",
+  description: blogJson?.description || "",
+  posts: (Array.isArray(blogJson?.posts) ? blogJson.posts : [])
+    .filter((item) => item.active !== false)
+    .sort((a, b) => (a.order || 0) - (b.order || 0)),
+};
+
+export const seo = seoJson || {};
 export const sections = sectionsJson || {};
 
 const SECTION_BY_HREF = {
