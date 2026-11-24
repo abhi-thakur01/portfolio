@@ -33,8 +33,7 @@ export default defineConfig({
             pathname === "/admin-v2" ||
             pathname === "/cms2.js" ||
             pathname === "/admin-a.js" ||
-            pathname === "/admin-skills-image.js" ||
-            pathname === "/api/admin/files"
+            pathname === "/admin-skills-image.js"
           ) {
             res.statusCode = 308;
             res.setHeader("Location", "/admin/");
@@ -54,8 +53,7 @@ export default defineConfig({
             pathname === "/admin-v2" ||
             pathname === "/cms2.js" ||
             pathname === "/admin-a.js" ||
-            pathname === "/admin-skills-image.js" ||
-            pathname === "/api/admin/files"
+            pathname === "/admin-skills-image.js"
           ) {
             res.statusCode = 308;
             res.setHeader("Location", "/admin/");

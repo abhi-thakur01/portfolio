@@ -82,11 +82,6 @@
       "source": "/admin-skills-image.js",
       "destination": "/admin/",
       "permanent": true
-    },
-    {
-      "source": "/api/admin/files",
-      "destination": "/admin/",
-      "permanent": true
     }
   ]
 }

@@ -18,7 +18,6 @@ test("Vercel defines canonical /admin/ redirects without conflicting rewrites", 
   assert.ok(config.redirects.some((item) => item.source === "/cms2.js" && item.destination === "/admin/"));
   assert.ok(config.redirects.some((item) => item.source === "/admin-a.js" && item.destination === "/admin/"));
   assert.ok(config.redirects.some((item) => item.source === "/admin-skills-image.js" && item.destination === "/admin/"));
-  assert.ok(config.redirects.some((item) => item.source === "/api/admin/files" && item.destination === "/admin/"));
   assert.ok(!config.rewrites?.some((item) => ["/admin", "/admin/", "/admin.html"].includes(item.source)));
 });
 
@@ -59,15 +58,28 @@ test("OAuth callback and logout destinations remain canonical", () => {
   assert.match(logout, /res\.setHeader\("Location", "\/admin\/"\)/);
 });
 
-test("retired legacy CMS files and API are absent", () => {
+test("retired legacy CMS files are absent", () => {
   for (const path of [
     "public/admin-v2.html",
     "public/cms2.js",
     "public/admin-a.js",
     "public/admin-skills-image.js",
-    "api/admin/files.ts",
   ]) {
     assert.equal(existsSync(new URL(path, root)), false, `${path} should be retired`);
+  }
+});
+
+test("retired /api/admin/files is a 410 mutation-blocking stub", async () => {
+  const handler = loadModule("../api/admin/files.ts", {}).default;
+  for (const method of ["GET", "POST", "PUT", "DELETE"]) {
+    const res = {
+      statusCode: 200,
+      status(code) { this.statusCode = code; return this; },
+      json(value) { this.body = value; return this; },
+    };
+    await handler({ method }, res);
+    assert.equal(res.statusCode, 410);
+    assert.equal(res.body.code, "ENDPOINT_RETIRED");
   }
 });
 

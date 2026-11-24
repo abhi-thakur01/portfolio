@@ -110,6 +110,17 @@ npm run preview  # preview dist
 
 Set these in the appropriate Vercel environment. Never use a `VITE_` prefix for secrets, embed them in browser code, or commit real values. Missing settings return an unavailable response; messages are not silently logged or forwarded to another email service.
 
+CMS and GitHub publishing variables:
+
+| Variable | Purpose |
+| --- | --- |
+| `GITHUB_OAUTH_CLIENT_ID` | GitHub OAuth App client ID used by `/api/admin/login`. |
+| `GITHUB_OAUTH_CLIENT_SECRET` | GitHub OAuth App client secret used only by server callbacks. |
+| `CMS_SESSION_SECRET` | Long random server-only secret used to encrypt CMS session cookies. |
+| `CMS_GITHUB_USERNAME` | Exact GitHub username allowed to access `/admin/`. |
+| `GITHUB_REPO` | Optional repository in `owner/name` form; defaults to `abhi-thakur01/portfolio`. |
+| `GITHUB_BRANCH` | Required for consistent reads/writes; typically `main`. | Missing settings return an unavailable response; messages are not silently logged or forwarded to another email service.
+
 Setup references: [Resend send-email API](https://resend.com/docs/api-reference/emails/send-email), [Upstash Redis REST API](https://upstash.com/docs/redis/features/restapi).
 
 ---
