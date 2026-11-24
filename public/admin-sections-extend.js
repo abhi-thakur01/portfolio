@@ -88,7 +88,7 @@
     return (
       '<div class="item-toolbar"><div class="item-count"><strong>' +
       D.features.length +
-      "</strong> features</div><button type="button" class="btn primary" id="addSeoFeat">+ Add Feature</button></div><div class="item-list">" +
+      '</strong> features</div><button type="button" class="btn primary" id="addSeoFeat">+ Add Feature</button></div><div class="item-list">' +
       list +
       "</div>"
     );

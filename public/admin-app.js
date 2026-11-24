@@ -13,7 +13,7 @@ const S=[
 ];
 let A="",D=null,O=null,MEDIA_MODE=false,MEDIA_FILES=[];
 const R=document.getElementById("root");
-function esc(s){var d=document.createElement("div");d.appendChild(document.createTextNode(s==null?"":String(s)));return d.innerHTML;}
+function esc(s){return String(s==null?"":s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/'/g,"&#39;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
 async function api(u,o){const r=await fetch(u,o);const d=await r.json().catch(function(){return {};});if(!r.ok)throw Error(d.error||"Request failed");return d;}
 function st(t,c){var x=document.getElementById("status");if(x){x.textContent=t;x.className="status "+(c||"");}}
 function dirty(){st("Unsaved changes - click Publish");}
