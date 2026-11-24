@@ -57,13 +57,13 @@ test("active CMS tracks dirty state and blocks duplicate publishes", () => {
 });
 
 test("active media controls enforce the 3 MB supported-type limit", () => {
-  const app = readFileSync(publicFile("admin-app.js"), "utf8");
+  const app = readFileSync(publicFile("admin-app.js"), "utf8") + readFileSync(publicFile("admin-media.js"), "utf8");
   assert.match(app, /MEDIA_MAX_BYTES=3\*1024\*1024/);
   assert.match(app, /SVG uploads are disabled/);
-  assert.match(app, /accept="\.png,/);
+  assert.match(app, /\.png,\.jpg,\.jpeg,\.webp,\.gif/);
   assert.match(app, /confirmReplace/);
   assert.match(app, /data-delsha/);
-  assert.match(app, /body:JSON\.stringify\(\{path:path,sha:sha\}\)/);
+  assert.match(app, /body:\s*JSON\.stringify\(\{path:path,sha:sha\}\)/);
 });
 
 test("projects.json preserves existing IDs and does not add GoHighLevel automatically", () => {

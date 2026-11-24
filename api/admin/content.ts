@@ -64,7 +64,7 @@ function validateProjectContent(value: any, currentValue: any) {
     if (item.active !== undefined && typeof item.active !== "boolean") {
       throw new Error(`Project ${item.id} active must be true or false`);
     }
-    for (const key of ["detailDescription", "url", "detailCategory", "previewColor"]) {
+    for (const key of ["detailDescription", "url", "detailCategory", "previewColor", "imageAlt"]) {
       if (item[key] !== undefined && typeof item[key] !== "string") {
         throw new Error(`Project ${item.id} ${key} must be a string`);
       }

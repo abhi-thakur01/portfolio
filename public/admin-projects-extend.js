@@ -24,7 +24,7 @@
   var _loadProjects = load;
   load = async function (path) {
     await _loadProjects(path);
-    if (path === "content/projects.json" && D) {
+    if (path === "content/projects.json" && A === path && D) {
       rememberProjectIds(D.items);
       draw();
     }
@@ -162,7 +162,7 @@
           "</div>" +
           F("Description", '<textarea class="control textarea" data-x="items.' + i + '.description">' + esc(p.description || "") + "</textarea>") +
           F("Detail description", '<textarea class="control textarea" data-x="items.' + i + '.detailDescription">' + esc(p.detailDescription || "") + "</textarea>") +
-          F("Image URL", '<input class="control" data-x="items.' + i + '.image" value="' + esc(p.image || "") + '" placeholder="Paste from Media Library">') +
+          CMSMedia.projectSection(p, i) +
           F("Tags (comma separated)", '<input class="control" data-tags="items.' + i + '.tags" value="' + esc(tagsVal) + '">') +
           F("Detail tags (comma separated)", '<input class="control" data-detail-tags="items.' + i + '.detailTags" value="' + esc(detailTagsVal) + '">') +
           F("Detail category", '<input class="control" data-x="items.' + i + '.detailCategory" value="' + esc(p.detailCategory || "") + '">') +
@@ -194,6 +194,7 @@
   var _bind = bind;
   bind = function () {
     _bind();
+    if (A === "content/projects.json") CMSMedia.bindProjects();
     document.querySelectorAll("[data-active]").forEach(function (x) {
       x.onchange = function () {
         setPath(x.getAttribute("data-active"), x.checked);
@@ -266,6 +267,7 @@
           category: defCat,
           platform: "",
           image: "",
+          imageAlt: "",
           link: "#",
           active: true,
           order: D.items.length + 1,

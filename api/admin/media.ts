@@ -60,6 +60,25 @@ function safeMediaPath(path: string) {
     path.startsWith("public/media/");
 }
 
+function mediaMime(name: string) {
+  const extension = name.split(".").pop()?.toLowerCase();
+  return ({ png: "image/png", jpg: "image/jpeg", jpeg: "image/jpeg", webp: "image/webp", gif: "image/gif", pdf: "application/pdf" } as Record<string, string>)[extension || ""] || null;
+}
+
+function mediaMetadata(file: { name: string; path: string; sha?: string; size?: number }) {
+  const mime = mediaMime(file.name);
+  return {
+    name: file.name,
+    path: file.path,
+    url: `/${file.path.replace(/^public\//, "")}`,
+    previewUrl: `/api/admin/media?path=${encodeURIComponent(file.path)}${file.sha ? `&sha=${encodeURIComponent(file.sha)}` : ""}`,
+    sha: file.sha || "",
+    size: typeof file.size === "number" ? file.size : null,
+    mime: mime || "application/octet-stream",
+    isPdf: mime === "application/pdf",
+  };
+}
+
 async function listContentReferences(token: string): Promise<string[]> {
   const refs: string[] = [];
   async function walk(folder: string) {
@@ -68,8 +87,8 @@ async function listContentReferences(token: string): Promise<string[]> {
       { headers: headers(token) }
     );
     const data: any = await r.json();
-    if (!r.ok) return;
-    for (const item of Array.isArray(data) ? data : []) {
+    if (!r.ok || !Array.isArray(data)) throw new Error("Unable to verify content references. No media was deleted; refresh and try again.");
+    for (const item of data) {
       if (item.type === "dir") await walk(item.path);
       if (item.type === "file" && /\.json$/i.test(item.name)) {
         const file = await fetch(
@@ -77,13 +96,13 @@ async function listContentReferences(token: string): Promise<string[]> {
           { headers: headers(token) }
         );
         const meta: any = await file.json();
-        if (file.ok && typeof meta.content === "string") {
-          const text = Buffer.from(meta.content.replace(/\n/g, ""), "base64").toString("utf8");
-          refs.push(text);
-          try {
-            const parsed = JSON.parse(text);
-            refs.push(JSON.stringify(parsed));
-          } catch {}
+        if (!file.ok || typeof meta.content !== "string" || !meta.content) throw new Error("Unable to verify content references. No media was deleted; refresh and try again.");
+        const text = Buffer.from(meta.content.replace(/\n/g, ""), "base64").toString("utf8");
+        refs.push(text);
+        try {
+          refs.push(JSON.stringify(JSON.parse(text)));
+        } catch {
+          throw new Error("Unable to verify content references because a content file is invalid. No media was deleted.");
         }
       }
     }
@@ -97,23 +116,42 @@ export default async function handler(req: any, res: any) {
   res.setHeader("Pragma", "no-cache");
   const session = getSession(req);
   if (!session?.token) return res.status(401).json({ error: "Unauthorized" });
-  const base = `https://api.github.com/repos/${repo()}/contents/public/media?ref=${encodeURIComponent(branch())}`;
-
   try {
     if (req.method === "GET") {
-      const r = await fetch(base, { headers: headers(session.token) });
-      if (r.status === 404) return res.status(200).json({ files: [] });
-      const data: any = await r.json();
-      if (!r.ok) return res.status(r.status).json({ error: data.message || "Unable to load media" });
-      const files = (Array.isArray(data) ? data : [])
-        .filter((f: any) => f.type === "file")
-        .map((f: any) => ({
-          name: f.name,
-          path: f.path,
-          url: `/${f.path.replace(/^public\//, "")}`,
-          sha: f.sha,
-          isPdf: /\.pdf$/i.test(f.name),
-        }));
+      const path = typeof req.query?.path === "string" ? req.query.path : "";
+      if (path) {
+        const mime = mediaMime(path);
+        if (!safeMediaPath(path) || !mime) return res.status(400).json({ error: "Invalid media preview path." });
+        const file = await fetch(
+          `https://api.github.com/repos/${repo()}/contents/${path}?ref=${encodeURIComponent(branch())}`,
+          { headers: { ...headers(session.token), Accept: "application/vnd.github.raw+json" } }
+        );
+        if (!file.ok) return res.status(file.status).json({ error: "Unable to load media preview." });
+        const bytes = Buffer.from(await file.arrayBuffer());
+        if (!validMediaType(path, mime, bytes)) return res.status(400).json({ error: "Media content does not match an allowed file type." });
+        res.setHeader("Content-Type", mime);
+        res.setHeader("Content-Length", String(bytes.length));
+        res.setHeader("X-Content-Type-Options", "nosniff");
+        res.setHeader("Content-Security-Policy", "default-src 'none'; sandbox");
+        return res.status(200).send(bytes);
+      }
+
+      const files: ReturnType<typeof mediaMetadata>[] = [];
+      async function walkMedia(folder: string, root = false): Promise<void> {
+        const r = await fetch(
+          `https://api.github.com/repos/${repo()}/contents/${folder}?ref=${encodeURIComponent(branch())}`,
+          { headers: headers(session.token) }
+        );
+        if (root && r.status === 404) return;
+        const data: any = await r.json();
+        if (!r.ok || !Array.isArray(data)) throw Object.assign(new Error(data.message || "Unable to load media"), { status: r.ok ? 502 : r.status });
+        for (const item of data) {
+          if (!safeMediaPath(item.path)) continue;
+          if (item.type === "dir") await walkMedia(item.path);
+          if (item.type === "file") files.push(mediaMetadata(item));
+        }
+      }
+      await walkMedia("public/media", true);
       return res.status(200).json({ files });
     }
 
@@ -142,6 +180,7 @@ export default async function handler(req: any, res: any) {
       let sha: string | undefined;
       if (replacePath) {
         if (!safeMediaPath(replacePath)) return res.status(400).json({ error: "Invalid replacement media path." });
+        if (!validMediaType(replacePath, mime, bytes)) return res.status(400).json({ error: "Replacement file must match the existing file format and extension." });
         if (body.confirmReplace !== true) return res.status(409).json({ error: "Confirm replacement before overwriting an existing file.", code: "CONFIRM_REPLACE" });
         if (typeof body.sha !== "string" || !body.sha) return res.status(409).json({ error: "A media SHA is required to replace a file.", code: "STALE_MEDIA" });
         const current = await fetch(
@@ -177,11 +216,10 @@ export default async function handler(req: any, res: any) {
         }),
       });
       const result: any = await r.json();
-      if (!r.ok) return res.status(r.status).json({ error: result.message || "Media upload failed" });
+      if (!r.ok) return res.status(r.status).json({ error: result.message || "Media upload failed", ...(r.status === 409 ? { code: replacePath ? "STALE_MEDIA" : "MEDIA_CONFLICT" } : {}) });
       return res.status(200).json({
         success: true,
-        path,
-        url: `/${path.replace(/^public\//, "")}`,
+        ...mediaMetadata({ name: path.split("/").pop() || name, path, sha: result.content?.sha, size: bytes.length }),
         commit: result.commit?.sha || null,
       });
     }
@@ -205,7 +243,12 @@ export default async function handler(req: any, res: any) {
       if (submittedSha !== current.sha) {
         return res.status(409).json({ error: "Media changed on GitHub. Reload the media library before deleting it.", code: "STALE_MEDIA" });
       }
-      const refs = await listContentReferences(session.token);
+      let refs: string[];
+      try {
+        refs = await listContentReferences(session.token);
+      } catch (error: any) {
+        return res.status(503).json({ error: error?.message || "Unable to verify content references. No media was deleted.", code: "REFERENCE_CHECK_FAILED" });
+      }
       const mediaUrl = `/${path.replace(/^public\//, "")}`;
       if (refs.some((text) => text.includes(path) || text.includes(mediaUrl))) {
         return res.status(409).json({ error: "This media file is referenced by portfolio content and cannot be deleted.", code: "MEDIA_REFERENCED" });
@@ -226,6 +269,6 @@ export default async function handler(req: any, res: any) {
 
     return res.status(405).json({ error: "Method not allowed" });
   } catch (error: any) {
-    return res.status(400).json({ error: error?.message || "Media request failed" });
+    return res.status(error?.status || 400).json({ error: error?.message || "Media request failed" });
   }
 }

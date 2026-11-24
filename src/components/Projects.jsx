@@ -2,6 +2,7 @@ import { useMemo, useState, useEffect, useRef } from "react";
 import { ExternalLink, FolderGit2, Globe, Layout, Code2, ShoppingBag, ChevronDown, X } from "lucide-react";
 import { projects, projectCategories, sections } from "../data/content";
 import { TextReveal, TiltCard, Stagger, ClipReveal, MouseGlow } from "./motion";
+import { resolveProjectImage } from "../utils/projectImage";
 
 const PAGE_SIZE = 6;
 
@@ -34,6 +35,39 @@ const CATEGORY_META = {
 
 function getMeta(category) {
   return CATEGORY_META[category] || CATEGORY_META.Other;
+}
+
+function ProjectImage({ project }) {
+  const source = resolveProjectImage(project.image);
+  const [failedSource, setFailedSource] = useState("");
+  const meta = getMeta(project.category);
+  const Icon = meta.icon;
+
+  if (source && failedSource !== source) {
+    return (
+      <img
+        src={source}
+        alt={project.imageAlt || `Project preview for ${project.title}`}
+        className="w-full h-full object-cover object-center"
+        loading="lazy"
+        decoding="async"
+        width={800}
+        height={450}
+        onError={() => setFailedSource(source)}
+      />
+    );
+  }
+
+  return (
+    <div className="flex flex-col items-center gap-2 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-2">
+      <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center">
+        <Icon className={`w-7 h-7 ${meta.accent} opacity-80`} />
+      </div>
+      <span className="text-[10px] font-mono text-gray-500 tracking-wide uppercase">
+        {project.platform || project.category}
+      </span>
+    </div>
+  );
 }
 
 function ProjectDetails({ project, onClose }) {
@@ -94,8 +128,10 @@ function ProjectDetails({ project, onClose }) {
           </button>
         </div>
         <div className="p-5 sm:p-7">
-          {project.image && (
-            <img src={project.image} alt={`Project preview for ${project.title}`} className="w-full max-h-72 object-cover rounded-xl mb-6" loading="lazy" decoding="async" width={800} height={450} />
+          {resolveProjectImage(project.image) && (
+            <div className={"w-full h-48 sm:h-72 flex items-center justify-center overflow-hidden rounded-xl mb-6 bg-gradient-to-br " + (project.previewColor || getMeta(project.category).gradient)}>
+              <ProjectImage project={project} />
+            </div>
           )}
           <p className="text-sm text-gray-300 leading-relaxed mb-6">{project.detailDescription || project.description}</p>
           {metrics.map((metric) => (
@@ -246,7 +282,6 @@ export function Projects() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
           {shown.map((project, i) => {
             const meta = getMeta(project.category);
-            const Icon = meta.icon;
             const isExternal = project.link?.startsWith("http");
 
             return (
@@ -261,26 +296,7 @@ export function Projects() {
                       (project.previewColor || meta.gradient)
                     }
                   >
-                    {project.image ? (
-                      <img
-                        src={project.image}
-                        alt={`Project preview for ${project.title}`}
-                        className="w-full h-full object-cover"
-                        loading="lazy"
-                        decoding="async"
-                        width={800}
-                        height={450}
-                      />
-                    ) : (
-                      <div className="flex flex-col items-center gap-2 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-2">
-                        <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center">
-                          <Icon className={`w-7 h-7 ${meta.accent} opacity-80`} />
-                        </div>
-                        <span className="text-[10px] font-mono text-gray-500 tracking-wide uppercase">
-                          {project.platform || project.category}
-                        </span>
-                      </div>
-                    )}
+                    <ProjectImage project={project} />
                     <span
                       className={
                         "absolute top-3 left-3 px-2.5 py-0.5 rounded-md text-[10px] font-semibold border backdrop-blur-sm " +

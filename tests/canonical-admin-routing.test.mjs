@@ -27,6 +27,7 @@ test("canonical CMS shell owns the active script chain and excludes indexing", (
   const scripts = [...shell.matchAll(/<script src="([^"]+)"/g)].map((match) => match[1]);
   assert.deepEqual(scripts, [
     "/admin-app.js",
+    "/admin-media.js",
     "/admin-process-extend.js",
     "/admin-sections-extend.js",
     "/admin-projects-extend.js",

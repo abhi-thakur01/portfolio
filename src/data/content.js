@@ -123,6 +123,7 @@ export const projects = (Array.isArray(projectsJson?.items) ? projectsJson.items
     category: p.category || "Other",
     platform: p.platform || p.category || "Web",
     image: p.image || "",
+    imageAlt: typeof p.imageAlt === "string" ? p.imageAlt : "",
     link: p.link ?? "",
     active: p.active !== false,
     order: p.order,

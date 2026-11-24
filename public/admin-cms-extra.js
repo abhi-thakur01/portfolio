@@ -137,8 +137,9 @@
 
   var _draw = draw;
   draw = function () {
+    if (MEDIA_MODE) return _draw();
     var el = document.getElementById("editor");
-    if (!el || !D) return;
+    if (!el || !D) return _draw();
     var k = key();
     if (k === "cs") {
       el.innerHTML = uiCS();

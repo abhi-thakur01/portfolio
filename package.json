@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "test:cms": "node --test tests/cms-smoke.test.mjs tests/cms-save-safety.test.mjs tests/media-api-safety.test.mjs tests/remaining-cms-editors.test.mjs tests/canonical-admin-routing.test.mjs",
     "test:integration": "node --test tests/cms-integration.test.mjs tests/seo-readiness.test.mjs tests/responsive-accessibility.test.mjs tests/performance-baseline.test.mjs",
-    "test:all": "node --test tests/*.test.mjs"
+    "test:all": "node --test tests/*.test.mjs",
+    "test:images": "playwright test --config tests/browser/playwright.config.mjs"
   },
   "dependencies": {
     "clsx": "2.1.1",
@@ -19,6 +20,7 @@
     "tailwind-merge": "3.4.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.65.1",
     "@tailwindcss/vite": "^4.1.17",
     "@types/node": "22.19.17",
     "@types/react": "19.2.7",
