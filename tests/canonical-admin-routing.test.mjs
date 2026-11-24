@@ -83,6 +83,26 @@ test("retired /api/admin/files is a 410 mutation-blocking stub", async () => {
   }
 });
 
+test("deployment environment template lists CMS and contact variables", () => {
+  const env = read(".env.example");
+  for (const name of [
+    "GITHUB_OAUTH_CLIENT_ID",
+    "GITHUB_OAUTH_CLIENT_SECRET",
+    "CMS_SESSION_SECRET",
+    "CMS_GITHUB_USERNAME",
+    "GITHUB_REPO",
+    "GITHUB_BRANCH",
+    "RESEND_API_KEY",
+    "CONTACT_TO_EMAIL",
+    "CONTACT_FROM_EMAIL",
+    "CONTACT_ALLOWED_ORIGIN",
+    "UPSTASH_REDIS_REST_URL",
+    "UPSTASH_REDIS_REST_TOKEN",
+  ]) {
+    assert.match(env, new RegExp(`^${name}=`, "m"));
+  }
+});
+
 test("logout GET returns the canonical admin route in a mocked handler", async () => {
   const secretCalls = [];
   const handler = loadModule("../api/admin/logout.ts", {
