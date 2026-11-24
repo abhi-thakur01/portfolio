@@ -145,6 +145,8 @@ function validateSimpleArrayCollection(value: any, key: "roles" | "addresses", p
 }
 
 export default async function handler(req: any, res: any) {
+  res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
+  res.setHeader("Pragma", "no-cache");
   const session = getSession(req);
   if (!session?.token) {
     res.status(401).json({ error: "Unauthorized" });

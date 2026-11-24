@@ -110,6 +110,22 @@ npm run preview  # preview dist
 
 Set these in the appropriate Vercel environment. Never use a `VITE_` prefix for secrets, embed them in browser code, or commit real values. Missing settings return an unavailable response; messages are not silently logged or forwarded to another email service.
 
+### GitHub OAuth setup
+
+1. Create a GitHub OAuth App.
+2. Set the Homepage URL to `https://abhi-thakur-web.vercel.app/`.
+3. Set the Authorization callback URL to `https://abhi-thakur-web.vercel.app/api/admin/callback`.
+4. Configure `GITHUB_OAUTH_CLIENT_ID`, `GITHUB_OAUTH_CLIENT_SECRET`, `CMS_SESSION_SECRET`, `CMS_GITHUB_USERNAME`, `GITHUB_REPO`, and `GITHUB_BRANCH` in Vercel.
+5. For preview deployments, configure a separate OAuth App or exact preview callback URL if live OAuth testing is required there.
+
+### Resend and Redis setup
+
+1. Create a Resend API key and verify the sending domain.
+2. Set `CONTACT_FROM_EMAIL` to a sender on the verified domain.
+3. Set `CONTACT_TO_EMAIL` to the destination inbox.
+4. Set `CONTACT_ALLOWED_ORIGIN` to the exact public origin without a trailing slash.
+5. Create an Upstash Redis database and configure its HTTPS REST URL and read/write token.
+
 CMS and GitHub publishing variables:
 
 | Variable | Purpose |

@@ -74,6 +74,7 @@ test("retired /api/admin/files is a 410 mutation-blocking stub", async () => {
   for (const method of ["GET", "POST", "PUT", "DELETE"]) {
     const res = {
       statusCode: 200,
+      setHeader(key, value) { this.headers = this.headers || {}; this.headers[key] = value; return this; },
       status(code) { this.statusCode = code; return this; },
       json(value) { this.body = value; return this; },
     };
@@ -100,6 +101,20 @@ test("deployment environment template lists CMS and contact variables", () => {
     "UPSTASH_REDIS_REST_TOKEN",
   ]) {
     assert.match(env, new RegExp(`^${name}=`, "m"));
+  }
+});
+
+test("admin API handlers set authenticated response cache protections", () => {
+  for (const path of [
+    "api/admin/content.ts",
+    "api/admin/media.ts",
+    "api/admin/login.ts",
+    "api/admin/callback.ts",
+    "api/admin/logout.ts",
+    "api/admin/files.ts",
+  ]) {
+    const source = read(path);
+    assert.match(source, /no-store/);
   }
 });
 

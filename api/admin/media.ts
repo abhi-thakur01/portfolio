@@ -93,6 +93,8 @@ async function listContentReferences(token: string): Promise<string[]> {
 }
 
 export default async function handler(req: any, res: any) {
+  res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
+  res.setHeader("Pragma", "no-cache");
   const session = getSession(req);
   if (!session?.token) return res.status(401).json({ error: "Unauthorized" });
   const base = `https://api.github.com/repos/${repo()}/contents/public/media?ref=${encodeURIComponent(branch())}`;

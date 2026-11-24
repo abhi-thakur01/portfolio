@@ -44,6 +44,8 @@ test("data-driven image elements include intrinsic dimensions", () => {
 test("optimized WebP social asset exists and original PNG remains", () => {
   const webp = statSync(new URL("public/og-image.webp", root));
   const png = statSync(new URL("public/og-image.png", root));
+  const site = JSON.parse(read("content/site.json"));
+  assert.equal(site.ogImage, "https://abhi-thakur-web.vercel.app/og-image.png");
   assert.ok(webp.size > 0);
   assert.ok(png.size > webp.size);
   assert.ok(webp.size < 100 * 1024);

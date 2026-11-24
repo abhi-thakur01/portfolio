@@ -19,6 +19,7 @@ function response() {
   return {
     statusCode: 200,
     body: null,
+    setHeader(key, value) { this.headers = this.headers || {}; this.headers[key] = value; return this; },
     status(code) { this.statusCode = code; return this; },
     json(value) { this.body = value; return this; },
   };

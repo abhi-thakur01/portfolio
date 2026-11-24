@@ -1,6 +1,8 @@
 import { randomBytes } from "node:crypto";
 
 export default function handler(req: any, res: any) {
+  res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
+  res.setHeader("Pragma", "no-cache");
   if (req.method !== "GET") {
     res.status(405).json({ error: "Method not allowed" });
     return;

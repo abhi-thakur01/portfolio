@@ -92,7 +92,7 @@ export default defineConfig({
           /^(https?):\/\//i.test(ogImageCandidate) &&
           !/localhost|127\.0\.0\.1/i.test(ogImageCandidate)
           ? ogImageCandidate
-          : "https://abhi-thakur-web.vercel.app/og-image.webp";
+          : "https://abhi-thakur-web.vercel.app/og-image.png";
         const author = personal.displayName || personal.fullName || personal.name || "";
 
         html = html.replace(/<title>[\s\S]*?<\/title>/i, `<title>${title}</title>`);
