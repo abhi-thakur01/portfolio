@@ -128,6 +128,12 @@
       "color": "#96BF48",
       "category": "AI Tools",
       "image": ""
+    },
+    {
+      "name": "Arena",
+      "color": "#4353FF",
+      "category": "AI Tools",
+      "image": ""
     }
   ],
   "otherTools": []
