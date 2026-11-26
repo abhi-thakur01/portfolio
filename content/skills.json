@@ -116,6 +116,12 @@
       "name": "Claude",
       "color": "#3b82f6",
       "category": "AI Tools"
+    },
+    {
+      "name": "ChatGPT",
+      "color": "#3b82f6",
+      "category": "AI Tools",
+      "image": ""
     }
   ],
   "otherTools": []
